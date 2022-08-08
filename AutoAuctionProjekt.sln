@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoAuctionProjekt", "AutoAuctionProjekt\AutoAuctionProjekt.csproj", "{7B96187C-DEBB-44F7-B775-3C1F98F965C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAutoAuctionProject", "TestAutoAuctionProject\TestAutoAuctionProject.csproj", "{AA46E5DA-1DFB-4549-998E-252F371F5588}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7B96187C-DEBB-44F7-B775-3C1F98F965C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B96187C-DEBB-44F7-B775-3C1F98F965C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B96187C-DEBB-44F7-B775-3C1F98F965C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B96187C-DEBB-44F7-B775-3C1F98F965C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA46E5DA-1DFB-4549-998E-252F371F5588}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA46E5DA-1DFB-4549-998E-252F371F5588}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA46E5DA-1DFB-4549-998E-252F371F5588}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA46E5DA-1DFB-4549-998E-252F371F5588}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {29FD6567-00CE-41F0-B47D-6E03B231EB35}
+	EndGlobalSection
+EndGlobal
