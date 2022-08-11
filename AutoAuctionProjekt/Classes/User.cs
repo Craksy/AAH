@@ -15,7 +15,7 @@ køber og sælger som interfaces
 privat og company som klasser
  */
 
-    public abstract class User //TODO: U4 - Implement interfaces
+    public abstract class User : ISeller, IBuyer //TODO: U4 - Implement interfaces
     {
         protected User(string userName, string password, uint zipCode)
         {
@@ -27,6 +27,15 @@ privat og company som klasser
 
             throw new NotImplementedException();
         }
+
+        public string UserName { get; set; }
+        public Decimal Balance { get; set; }
+        public uint Zipcode { get; set; }
+        public string ReceiveBidNodification(string message)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// ID proberty
         /// </summary>
@@ -35,6 +44,8 @@ privat og company som klasser
         /// PasswordHash proberty
         /// </summary>
         private byte[] PasswordHash { get; set; }
+        
+        
         /// <summary>
         /// A method that ...
         /// </summary>

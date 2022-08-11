@@ -40,6 +40,26 @@ namespace AutoAuctionProjekt.Classes
             public double Length { get; }
             public override string ToString() => $"(Height: {Height}, Weight: {Weight}, Depth: {Length})";
         }
+        
+        private double _engineSize;
+        
+        /// <summary>
+        /// Engine size proberty
+        /// must be between 4.2 and 15.0 L or cast an out of range exection.
+        /// </summary>
+        public override double EngineSize
+        {
+            get => _engineSize;
+            set
+            {
+                //V7 - TODO value must be between 4.2 and 15.0 L or cast an out of range exection.
+                if (value is >= 4.2 and <= 15.0)
+                    _engineSize = value;
+                throw new ArgumentOutOfRangeException(nameof(EngineSize), "EngineSize must be between 4.2 and 15.0 L");
+            }
+        }
+        
+        
         /// <summary>
         /// Returns the HeavyVehicle in a string with relivant information.
         /// </summary>
