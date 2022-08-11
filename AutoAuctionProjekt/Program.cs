@@ -15,9 +15,9 @@ namespace AutoAuctionProjekt
             PersonalCar.TrunkDimentionsStruct td = new PersonalCar.TrunkDimentionsStruct(14.0, 10.0, 16.0);
             HeavyVehicle.VehicleDimensionsStruct vd = new HeavyVehicle.VehicleDimensionsStruct(214.0, 2.59, 12.9);
 
-            PrivatePersonalCar privateCar1 = new PrivatePersonalCar("Some car brand", 300.0, "DF12745", 2009, 10000M, false, 10.0, 20.0, Vehicle.FuelTypeEnum.Diesel, 3, td, true);
-            PrivatePersonalCar privateCar2 = new PrivatePersonalCar("Another car brand", 300.0, "DF12345", 2020, 12000M, true, 10.0, 20.0, Vehicle.FuelTypeEnum.Benzin, 5, td, false);
-            ProfessionalPersonalCar professionalCar = new ProfessionalPersonalCar("Suzuki Swift", 500.0, "XY12345", 2012, 10000M, 10.0, 20.0, Vehicle.FuelTypeEnum.Benzin, 2, td, true, 400.0);
+            PrivatePersonalCar privateCar1 = new ( "Some car brand", 300.0, "DF12745", 2009, 10000M, false, 10.0, 20.0, Vehicle.FuelTypeEnum.Diesel, 3, td, true);
+            PrivatePersonalCar privateCar2 = new ("Another car brand", 300.0, "DF12345", 2020, 12000M, true, 10.0, 20.0, Vehicle.FuelTypeEnum.Benzin, 5, td, false);
+            ProfessionalPersonalCar professionalCar = new ("Suzuki Swift", 500.0, "XY12345", 2012, 10000M, 10.0, 20.0, Vehicle.FuelTypeEnum.Benzin, 2, td, true, 400.0);
             Bus bus = new Bus("City bus", 800.0, "HE24745", 2012, 30000M, true, 10.0, 15.0, Vehicle.FuelTypeEnum.Diesel, vd, 24, 10, true);
             #endregion
 
@@ -34,9 +34,9 @@ namespace AutoAuctionProjekt
                 new NodificationDelegate(msg => "delegate message from user - " + msg));
             AuctionHouse.SetForSale(bus, user1, 20000M);
 
-            AuctionHouse.RecieveBid(user2, 0, 30000M);
-            AuctionHouse.RecieveBid(user1, 1, 30000M);
-            AuctionHouse.RecieveBid(user2, 2, 50500M);
+            AuctionHouse.RecieveBid(user2, 0, 30_000M);
+            AuctionHouse.RecieveBid(user1, 1, 30_000M);
+            AuctionHouse.RecieveBid(user2, 2, 50_500M);
 
             AuctionHouse.AcceptBid(user1, 1);
 
