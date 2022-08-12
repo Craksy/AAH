@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AutoAuctionProjekt.Classes
+namespace AutoAuctionProjekt.Classes.Vehicles
 {
     public abstract class PersonalCar : Vehicle
     {

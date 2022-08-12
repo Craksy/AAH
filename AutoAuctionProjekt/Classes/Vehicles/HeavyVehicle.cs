@@ -2,8 +2,25 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AutoAuctionProjekt.Classes
+namespace AutoAuctionProjekt.Classes.Vehicles
 {
+    /// <summary>
+    /// The dimensions of the vehicle i meters.
+    /// </summary>
+    public struct VehicleDimensionsStruct
+    {
+        public VehicleDimensionsStruct(double height, double weight, double length)
+        {
+            Height = height;
+            Weight = weight;
+            Length = length;
+        }
+        public double Height { get; }
+        public double Weight { get; }
+        public double Length { get; }
+        public override string ToString() => $"(Height: {Height}, Weight: {Weight}, Depth: {Length})";
+    }
+        
     public abstract class HeavyVehicle : Vehicle
     {
         public HeavyVehicle(
@@ -18,7 +35,7 @@ namespace AutoAuctionProjekt.Classes
          FuelTypeEnum fuelType,
          VehicleDimensionsStruct vehicleDimentions) : base(name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType)
         {
-            this.VehicleDimensions = vehicleDimentions;
+            VehicleDimensions = vehicleDimentions;
         }
         /// <summary>
         /// Physical properties of the vehicle
