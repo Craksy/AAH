@@ -2,7 +2,7 @@
 
 namespace AutoAuctionProjekt.Classes.Vehicles
 {
-    class Bus : HeavyVehicle
+    public class Bus : HeavyVehicle
     {
         public Bus (
             string name,

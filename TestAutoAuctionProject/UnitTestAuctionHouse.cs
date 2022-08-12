@@ -1,6 +1,8 @@
 using System;
 using Xunit;
 using AutoAuctionProjekt.Classes;
+using AutoAuctionProjekt.Classes.Vehicles;
+
 
 namespace TestAutoAuctionProject
 {
@@ -19,7 +21,7 @@ namespace TestAutoAuctionProject
             false, 
             10.0, 
             20.0, 
-            Vehicle.FuelTypeEnum.Diesel, 
+            FuelTypeEnum.Diesel, 
             2,
             new PersonalCar.TrunkDimentionsStruct(14.0, 10.0, 16.0), 
             true);
@@ -32,7 +34,7 @@ namespace TestAutoAuctionProject
             10000M, 
             10.0, 
             20.0, 
-            Vehicle.FuelTypeEnum.Benzin, 
+            FuelTypeEnum.Benzin, 
             2,
             new PersonalCar.TrunkDimentionsStruct(14.0, 10.0, 16.0), 
             true, 
