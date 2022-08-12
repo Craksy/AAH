@@ -42,7 +42,7 @@ namespace AutoAuctionProjekt.Classes
         // }
         //
         /// <summary>
-        /// Load Capacity field and proberty
+        /// Load Capacity field and property
         /// </summary>
         public double LoadCapacity { get; set; }
         /// <summary>

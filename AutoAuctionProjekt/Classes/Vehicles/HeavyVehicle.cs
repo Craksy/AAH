@@ -21,7 +21,7 @@ namespace AutoAuctionProjekt.Classes
             this.VehicleDimensions = vehicleDimentions;
         }
         /// <summary>
-        /// Vehicle dimentions proberty and struct
+        /// Physical properties of the vehicle
         /// </summary>
         public VehicleDimensionsStruct VehicleDimensions { get; set; }
         /// <summary>
@@ -44,7 +44,7 @@ namespace AutoAuctionProjekt.Classes
         private double _engineSize;
         
         /// <summary>
-        /// Engine size proberty
+        /// Engine size property
         /// must be between 4.2 and 15.0 L or cast an out of range exection.
         /// </summary>
         public override double EngineSize

@@ -26,7 +26,7 @@ namespace AutoAuctionProjekt.Classes
             throw new NotImplementedException();
         }
         /// <summary>
-        /// Isofix Fittings proberty
+        /// Isofix Fittings property
         /// </summary>
         public bool HasIsofixFittings { get; set; }
         /// <summary>

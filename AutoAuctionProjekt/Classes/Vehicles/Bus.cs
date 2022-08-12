@@ -49,18 +49,20 @@ namespace AutoAuctionProjekt.Classes
         // }
         //
         /// <summary>
-        /// NumberOfSeats proberty
+        /// Number of seats
         /// </summary>
         public ushort NumberOfSeats { get; set; }
         /// <summary>
-        /// NumberOfSeats proberty
+        /// Number of sleeping spaces
         /// </summary>
         public ushort NumberOfSleepingSpaces { get; set; }
-        /// Towbar proberty
+        
+        /// <summary>
+        /// Does the bus have a toilet?
         /// </summary>
         public bool HasToilet { get; set; }
         /// <summary>
-        /// Returns the Bus in a string with relivant information.
+        /// Returns the Bus in a string with relevant information.
         /// </summary>
         public override string ToString()
         {
