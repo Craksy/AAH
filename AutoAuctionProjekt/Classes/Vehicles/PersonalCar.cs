@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AutoAuctionProjekt.Classes
+namespace AutoAuctionProjekt.Classes.Vehicles
 {
     public abstract class PersonalCar : Vehicle
     {
@@ -24,11 +24,11 @@ namespace AutoAuctionProjekt.Classes
             this.TrunkDimentions = trunkDimentions;
         }
         /// <summary>
-        /// Number of seat proberty
+        /// Number of seat property
         /// </summary>
         public ushort NumberOfSeat { get; set; }
         /// <summary>
-        /// Trunk dimentions proberty and struct
+        /// Trunk dimentions property and struct
         /// </summary>
         public TrunkDimentionsStruct TrunkDimentions { get; set; }
         public readonly struct TrunkDimentionsStruct
@@ -47,7 +47,7 @@ namespace AutoAuctionProjekt.Classes
         
         private double _engineSize;
         /// <summary>
-        /// Engine size proberty
+        /// Engine size property
         /// must be between 0.7 and 10.0 L or cast an out of range exection.
         /// </summary>
         public override double EngineSize

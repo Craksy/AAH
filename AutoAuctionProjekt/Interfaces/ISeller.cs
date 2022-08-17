@@ -8,15 +8,15 @@ namespace AutoAuctionProjekt
     public interface ISeller
     {
         /// <summary>
-        /// UserName proberty
+        /// UserName property
         /// </summary>
         public string UserName { get; set; }
         /// <summary>
-        /// Balance proberty
+        /// Balance property
         /// </summary>
         decimal Balance { get; set; }
         /// <summary>
-        /// Zipcode proberty
+        /// Zipcode property
         /// </summary>
         uint Zipcode { get; set; }
         /// <summary>
