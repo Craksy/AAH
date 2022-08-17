@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace AutoAuctionProjekt.Classes.Vehicles; 
@@ -242,7 +243,7 @@ public enum FuelTypeEnum
 {
     Diesel,
     Benzin,
-    Electricity,
+    Electric,
     Hydrogen,
 }
     
