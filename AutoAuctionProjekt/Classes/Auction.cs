@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Text;
+using AutoAuctionProjekt.Classes.Vehicles;
 
 namespace AutoAuctionProjekt.Classes
 {

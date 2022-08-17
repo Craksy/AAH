@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AutoAuctionProjekt.Classes
+namespace AutoAuctionProjekt.Classes.Vehicles
 {
     class Truck : HeavyVehicle
     {
@@ -24,25 +24,8 @@ namespace AutoAuctionProjekt.Classes
             throw new NotImplementedException();
         }
 
-        // private double _engineSize;
-        // /// <summary>
-        // /// Engine size proberty
-        // /// must be between 4.2 and 15.0 L or cast an out of range exection.
-        // /// </summary>
-        // /// <returns>The size the the engine as a double</returns>
-        // public override double EngineSize
-        // {
-        //     get => _engineSize;
-        //     set
-        //     {
-        //         //TODO: V10 - EngineSize must be between 4.2 and 15.0 L or cast an out of range exection.
-        //         if(value is >= 4.2)
-        //         EngineSize = value;
-        //     }
-        // }
-        //
         /// <summary>
-        /// Load Capacity field and proberty
+        /// Load Capacity field and property
         /// </summary>
         public double LoadCapacity { get; set; }
         /// <summary>

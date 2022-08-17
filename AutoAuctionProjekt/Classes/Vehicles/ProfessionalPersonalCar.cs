@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AutoAuctionProjekt.Classes
+namespace AutoAuctionProjekt.Classes.Vehicles
 {
     public class ProfessionalPersonalCar : PersonalCar
     {
@@ -26,11 +26,11 @@ namespace AutoAuctionProjekt.Classes
             throw new NotImplementedException();
         }
         /// <summary>
-        /// Safety Bar proberty
+        /// Safety Bar property
         /// </summary>
         public bool HasSafetyBar { get; set; }
         /// <summary>
-        /// Load Capacity proberty
+        /// Load Capacity property
         /// </summary>
         public double LoadCapacity { get; set; }
         /// <summary>

@@ -37,11 +37,11 @@ privat og company som klasser
         }
 
         /// <summary>
-        /// ID proberty
+        /// ID property
         /// </summary>
         public uint ID { get; private set; }
         /// <summary>
-        /// PasswordHash proberty
+        /// PasswordHash property
         /// </summary>
         private byte[] PasswordHash { get; set; }
         
