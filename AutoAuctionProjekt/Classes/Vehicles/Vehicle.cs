@@ -25,6 +25,8 @@ namespace AutoAuctionProjekt.Classes
             this.EngineSize = engineSize;
             this.KmPerLiter = kmPerLiter;
             this.FuelType = fuelType;
+            this.EnergyClass = GetEnergyClass();
+
             //TODO: V1 - Constructor for Vehicle
             //TODO: V2 - Add to database and set ID
         }
@@ -85,12 +87,19 @@ namespace AutoAuctionProjekt.Classes
         public enum FuelTypeEnum
         {
             Diesel,
-            Benzin
+            Benzin,
+            Electric,
+            Hydrogen
         }
+
         /// <summary>
         /// Engery class Enum, field and proberty
         /// </summary>
-        public EnergyClassEnum EnergyClass { get { return EnergyClass; } set => GetEnergyClass(); }
+        public EnergyClassEnum EnergyClass
+        {
+            get { return GetEnergyClass(); }
+            set {  }
+        }
         public enum EnergyClassEnum
         {
             A,
@@ -107,7 +116,78 @@ namespace AutoAuctionProjekt.Classes
         private EnergyClassEnum GetEnergyClass()
         {
             //TODO: V4 - Implement GetEnergyClass
-            throw new NotImplementedException();
+            if(Year < 2010)
+            {
+                if (FuelType == FuelTypeEnum.Electric || FuelType == FuelTypeEnum.Hydrogen)
+                {
+                    EnergyClass = EnergyClassEnum.A;
+                } else if (FuelType == FuelTypeEnum.Diesel)
+                {
+                    if (KmPerLiter >= 23)
+                    {
+                        EnergyClass = EnergyClassEnum.A;
+                    } else if (KmPerLiter >= 18 && KmPerLiter < 23)
+                    {
+                        EnergyClass = EnergyClassEnum.B;
+                    } else if (KmPerLiter >= 13 && KmPerLiter < 18)
+                    {
+                        EnergyClass = EnergyClassEnum.C;
+                    } else if (KmPerLiter < 13)
+                    {
+                        EnergyClass = EnergyClassEnum.D;
+                    }
+                } else if (FuelType == FuelTypeEnum.Benzin)
+                {
+                    if (KmPerLiter >= 18)
+                    {
+                        EnergyClass = EnergyClassEnum.A;
+                    } else if (KmPerLiter >= 14 && KmPerLiter < 18)
+                    {
+                        EnergyClass = EnergyClassEnum.B;
+                    } else if (KmPerLiter >= 10 && KmPerLiter < 14)
+                    {
+                         EnergyClass = EnergyClassEnum.C;
+                    } else if (KmPerLiter < 10)
+                    {
+                        EnergyClass = EnergyClassEnum.D;
+                    }
+                }
+            }
+            else
+            { 
+                if (FuelType == FuelTypeEnum.Diesel) {
+                    if (KmPerLiter >= 25)
+                    {
+                        EnergyClass = EnergyClassEnum.A;
+                    } else if (KmPerLiter >= 20 && KmPerLiter < 25)
+                    {
+                        EnergyClass = EnergyClassEnum.B;
+                    } else if (KmPerLiter >= 15 && KmPerLiter < 20)
+                    {
+                        EnergyClass = EnergyClassEnum.C;
+                    } else if (KmPerLiter < 15)
+                    {
+                        EnergyClass = EnergyClassEnum.D;
+                    }
+                } else if (FuelType == FuelTypeEnum.Benzin)
+                {
+                    if (KmPerLiter >= 20)
+                    {
+                        EnergyClass = EnergyClassEnum.A;
+                    } else if (KmPerLiter >= 16 && KmPerLiter < 20)
+                    {
+                        EnergyClass = EnergyClassEnum.B;
+                    } else if (KmPerLiter >= 12 && KmPerLiter < 16)
+                    {
+                        EnergyClass = EnergyClassEnum.C;
+                    } else if (KmPerLiter < 12)
+                    {
+                        EnergyClass = EnergyClassEnum.D;
+                    }
+                }
+            }
+
+            return EnergyClassEnum.B;
         }
         /// <summary>
         /// Returns the vehicle in a string with relivant information.
