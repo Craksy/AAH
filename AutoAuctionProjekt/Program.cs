@@ -14,9 +14,9 @@ namespace AutoAuctionProjekt
             PersonalCar.TrunkDimentionsStruct td = new PersonalCar.TrunkDimentionsStruct(14.0, 10.0, 16.0);
             VehicleDimensionsStruct vd = new(214.0, 2.59, 12.9);
 
-            PrivatePersonalCar privateCar1 = new ( "Some car brand", 300.0, "DF12745", 2009, 10000M, false, 10.0, 20.0, FuelTypeEnum.Diesel, 3, td, true);
-            PrivatePersonalCar privateCar2 = new ("Another car brand", 300.0, "DF12345", 2020, 12000M, true, 10.0, 20.0, FuelTypeEnum.Benzin, 5, td, false);
-            ProfessionalPersonalCar professionalCar = new ("Suzuki Swift", 500.0, "XY12345", 2012, 10000M, 10.0, 20.0, FuelTypeEnum.Benzin, 2, td, true, 400.0);
+            PrivatePersonalCar privateCar1 = new ( "Some car brand", 300.0, "DF12745", 2009, 10000M, false, 10.0, 20.0, FuelTypeEnum.Diesel, 3, td, true, true);
+            PrivatePersonalCar privateCar2 = new ("Another car brand", 300.0, "DF12345", 2020, 12000M, true, 10.0, 20.0, FuelTypeEnum.Benzin, 5, td, false, false);
+            ProfessionalPersonalCar professionalCar = new ("Suzuki Swift", 500.0, "XY12345", 2012, 10000M, 10.0, 20.0, FuelTypeEnum.Benzin, 2, td, true, 400.0, true);
             Bus bus = new Bus("City bus", 800.0, "HE24745", 2012, 30000M, true, 10.0, 15.0, FuelTypeEnum.Diesel, vd, 24, 10, true);
             #endregion
 

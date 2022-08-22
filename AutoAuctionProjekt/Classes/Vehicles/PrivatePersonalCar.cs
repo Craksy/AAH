@@ -18,8 +18,9 @@ namespace AutoAuctionProjekt.Classes.Vehicles
             FuelTypeEnum fuelType,
             ushort numberOfSeat,
             TrunkDimentionsStruct trunkDimentions,
-            bool hasIsofixFittings)
-            : base(name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType, numberOfSeat, trunkDimentions)
+            bool hasIsofixFittings,
+            bool licenseBE)
+            : base(name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType, numberOfSeat, trunkDimentions, licenseBE)
         {
             //TODO: V19 - PrivatePersonalCar constructor. DriversLicense should be 'B'
             //TODO: V20 - Add to database and set ID

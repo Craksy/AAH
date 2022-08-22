@@ -18,8 +18,9 @@ namespace AutoAuctionProjekt.Classes.Vehicles
             ushort numberOfSeat,
             TrunkDimentionsStruct trunkDimentions,
             bool hasSafetyBar,
-            double loadCapacity)
-            : base(name, km, registrationNumber, year, newPrice, true, engineSize, kmPerLiter, fuelType, numberOfSeat, trunkDimentions)
+            double loadCapacity,
+            bool licenseBE)
+            : base(name, km, registrationNumber, year, newPrice, true, engineSize, kmPerLiter, fuelType, numberOfSeat, trunkDimentions, licenseBE)
         {
             //TODO: V16 - ProfessionalPersonalCar constructor. DriversLicense should be 'B' if load capasity is below 750 otherwise it should be 'BE'
             //TODO: V17 - Add to database and set ID

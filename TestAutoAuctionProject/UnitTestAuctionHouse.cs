@@ -24,6 +24,7 @@ namespace TestAutoAuctionProject
             FuelTypeEnum.Diesel, 
             2,
             new PersonalCar.TrunkDimentionsStruct(14.0, 10.0, 16.0), 
+            true,
             true);
 
         ProfessionalPersonalCar professionalCar = new ProfessionalPersonalCar(
@@ -38,7 +39,8 @@ namespace TestAutoAuctionProject
             2,
             new PersonalCar.TrunkDimentionsStruct(14.0, 10.0, 16.0), 
             true, 
-            400.0);
+            400.0,
+            true);
         #endregion
         #region Init User objects
         User user1 = new PrivateUser("lkri", "password1", 9000, 0000000000);
