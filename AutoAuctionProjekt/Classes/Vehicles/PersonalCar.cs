@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AutoAuctionProjekt.Classes.Vehicles
 {
     public abstract class PersonalCar : Vehicle
     {
+        private ushort _numberOfSeat;
+        private TrunkDimentionsStruct _trunkDimentions;
+        
         protected PersonalCar(
             string name,
             double km,
@@ -17,20 +18,41 @@ namespace AutoAuctionProjekt.Classes.Vehicles
             double kmPerLiter,
             FuelTypeEnum fuelType,
             ushort numberOfSeat,
-            TrunkDimentionsStruct trunkDimentions)
+            TrunkDimentionsStruct trunkDimentions,
+            bool licenceBE)
             : base(name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType)
         {
-            this.NumberOfSeat = numberOfSeat;
-            this.TrunkDimentions = trunkDimentions;
+            NumberOfSeat = numberOfSeat;
+            TrunkDimentions = trunkDimentions;
+            DriversLisence = licenceBE ? DriversLisenceEnum.BE : DriversLisenceEnum.B;
         }
+
         /// <summary>
         /// Number of seat property
         /// </summary>
-        public ushort NumberOfSeat { get; set; }
+        public ushort NumberOfSeat
+        {
+            get => _numberOfSeat;
+            set
+            {
+                if (value >= 2 && value <= 7)
+                {
+                    _numberOfSeat = value;
+                }
+                else {
+                    throw new ArgumentOutOfRangeException(nameof(NumberOfSeat), "Number of seats must be equal to or between 2 and 7");
+                }
+            }
+        }
+
         /// <summary>
         /// Trunk dimentions property and struct
         /// </summary>
-        public TrunkDimentionsStruct TrunkDimentions { get; set; }
+        public TrunkDimentionsStruct TrunkDimentions
+        {
+            get => _trunkDimentions;
+            set { _trunkDimentions = value; }
+        }
         public readonly struct TrunkDimentionsStruct
         {
             public TrunkDimentionsStruct(double height, double width, double depth)
@@ -42,7 +64,6 @@ namespace AutoAuctionProjekt.Classes.Vehicles
             public double Height { get; }
             public double Width { get; }
             public double Depth { get; }
-            public override string ToString() => $"(Height: {Height}, Width: {Width}, Depth: {Depth})";
         }
         
         private double _engineSize;
