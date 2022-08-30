@@ -30,13 +30,5 @@ namespace AutoAuctionProjekt.Classes.Vehicles
         /// Load Capacity field and property
         /// </summary>
         public double LoadCapacity { get; set; }
-        /// <summary>
-        /// Returns the Truck in a string with relivant information.
-        /// </summary>
-        public override string ToString()
-        {
-            //TODO: V12 - ToString for Truck 
-            throw new NotImplementedException();
-        }
     }
 }
