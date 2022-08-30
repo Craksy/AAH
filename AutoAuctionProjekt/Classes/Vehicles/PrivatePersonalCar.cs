@@ -23,9 +23,7 @@ namespace AutoAuctionProjekt.Classes.Vehicles
             : base(name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType,
                 numberOfSeat, trunkDimentions, licenseBE)
         {
-            //TODO: V19 - PrivatePersonalCar constructor. DriversLicense should be 'B'
-            //TODO: V20 - Add to database and set ID
-            throw new NotImplementedException();
+            HasIsofixFittings = hasIsofixFittings;
         }
 
         /// <summary>
