@@ -19,12 +19,12 @@ namespace AutoAuctionProjekt.Classes.Vehicles
             FuelTypeEnum fuelType,
             ushort numberOfSeat,
             TrunkDimentionsStruct trunkDimentions,
-            bool licenceBE)
+            bool licenseBE)
             : base(name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType)
         {
             NumberOfSeat = numberOfSeat;
             TrunkDimentions = trunkDimentions;
-            DriversLisence = licenceBE ? DriversLisenceEnum.BE : DriversLisenceEnum.B;
+            DriversLicense = licenseBE ? DriversLisenceEnum.BE : DriversLisenceEnum.B;
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace AutoAuctionProjekt.Classes.Vehicles
         public override string ToString()
         {
             //TODO: V15 - ToString for PersonalCar
-            throw new NotImplementedException();
+            return "Name: " + Name;
         }
     }
 }
