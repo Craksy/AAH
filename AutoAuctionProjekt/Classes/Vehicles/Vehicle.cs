@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace AutoAuctionProjekt.Classes.Vehicles; 
@@ -215,22 +216,12 @@ public abstract class Vehicle {
     /// Returns the vehicle in a string with relivant information.
     /// </summary>
     /// <returns>The Veihcle as a string</returns>
-    public new virtual string ToString()
+    public override string ToString()
     {
-        var s = new StringBuilder();
-        s.AppendLine("|------------|------------|");
-        s.AppendLine($"| {"Property",-10} | {"Value",-10} |");
-        s.AppendLine("|------------|------------|");
-        s.AppendLine($"| {$"Name({ID})",-10} | {Name,-10} |");
-        s.AppendLine($"| {"Reg",-10} | {RegistrationNumber,-10} |");
-        s.AppendLine($"| {"Year",-10} | {Year,-10} |");
-        s.AppendLine($"| {"Mileage",-10} | {Km,-10} |");
-        s.AppendLine($"| {"New price",-10} | {NewPrice,-10} |");
-        s.AppendLine($"| {"Engine Size",-10} | {EngineSize,-10} |");
-        s.AppendLine($"| {"km/L",-10} | {KmPerLiter,-10} |");
-        s.AppendLine($"| {"Fuel type",-10} | {FuelType,-10} |");
-        s.AppendLine("|------------|------------|");
-        return s.ToString();
+        // `this` gets evaluated at runtime meaning that it will correctly serialize
+        // the derived type rather than `Vehicle`.
+        dynamic me = this;
+        return JsonSerializer.Serialize(me, new JsonSerializerOptions { WriteIndented = true });
     }
     
 }
