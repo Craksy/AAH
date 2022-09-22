@@ -31,7 +31,7 @@ public class Vehicle {
         var bus = CreateNewBus();
         
         // Act
-        var noTowbar = bus.DriversLisence;
+        var noTowbar = bus.DriversLicense;
         bus = new Bus(
             "car brand", 
             500.0, 
@@ -46,7 +46,7 @@ public class Vehicle {
             2,
             1,
             true);
-        var withTowbar = bus.DriversLisence;
+        var withTowbar = bus.DriversLicense;
         
         // Assert
         Assert.Equal(DriversLisenceEnum.D, noTowbar);

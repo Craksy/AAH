@@ -20,7 +20,7 @@ namespace AutoAuctionProjekt.Classes.Vehicles
             double loadCapacity) : base(name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType, vehicleDimentions)
         {
             LoadCapacity = loadCapacity;
-            DriversLisence = hasTowbar ? DriversLisenceEnum.CE : DriversLisenceEnum.C;
+            DriversLicense = hasTowbar ? DriversLisenceEnum.CE : DriversLisenceEnum.C;
             
             //TODO: V11 - Add to database and set ID
             throw new NotImplementedException();

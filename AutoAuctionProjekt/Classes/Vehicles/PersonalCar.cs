@@ -19,12 +19,12 @@ namespace AutoAuctionProjekt.Classes.Vehicles
             FuelTypeEnum fuelType,
             ushort numberOfSeat,
             TrunkDimentionsStruct trunkDimentions,
-            bool licenceBE)
+            bool licenseBE)
             : base(name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType)
         {
             NumberOfSeat = numberOfSeat;
             TrunkDimentions = trunkDimentions;
-            DriversLisence = licenceBE ? DriversLisenceEnum.BE : DriversLisenceEnum.B;
+            DriversLicense = licenseBE ? DriversLisenceEnum.BE : DriversLisenceEnum.B;
         }
 
         /// <summary>
@@ -81,7 +81,6 @@ namespace AutoAuctionProjekt.Classes.Vehicles
             get => _engineSize;
             set
             {
-                //TODO: V13 - EngineSize: must be between 0.7 and 10.0 L or cast an out of range exection.
                 if (value is >= 0.7 and <= 10.0)
                     _engineSize = value;
                 else

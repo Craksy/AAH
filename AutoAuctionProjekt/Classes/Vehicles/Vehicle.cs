@@ -116,7 +116,7 @@ public abstract class Vehicle {
     /// <summary>
     /// Drivers lisence required for this type of vehicle
     /// </summary>
-    public DriversLisenceEnum DriversLisence { get; set; }
+    public DriversLisenceEnum DriversLicense { get; set; }
 
     /// <summary>
     /// Fuel type
