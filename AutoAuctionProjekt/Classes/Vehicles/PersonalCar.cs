@@ -76,7 +76,6 @@ namespace AutoAuctionProjekt.Classes.Vehicles
             get => _engineSize;
             set
             {
-                //TODO: V13 - EngineSize: must be between 0.7 and 10.0 L or cast an out of range exection.
                 if (value is >= 0.7 and <= 10.0)
                     _engineSize = value;
                 else
