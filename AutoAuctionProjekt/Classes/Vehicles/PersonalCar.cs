@@ -6,7 +6,7 @@ namespace AutoAuctionProjekt.Classes.Vehicles
     {
         private ushort _numberOfSeat;
         private TrunkDimentionsStruct _trunkDimentions;
-        
+
         protected PersonalCar(
             string name,
             double km,
@@ -39,8 +39,10 @@ namespace AutoAuctionProjekt.Classes.Vehicles
                 {
                     _numberOfSeat = value;
                 }
-                else {
-                    throw new ArgumentOutOfRangeException(nameof(NumberOfSeat), "Number of seats must be equal to or between 2 and 7");
+                else
+                {
+                    throw new ArgumentOutOfRangeException(nameof(NumberOfSeat),
+                        "Number of seats must be equal to or between 2 and 7");
                 }
             }
         }
@@ -53,6 +55,7 @@ namespace AutoAuctionProjekt.Classes.Vehicles
             get => _trunkDimentions;
             set { _trunkDimentions = value; }
         }
+
         public readonly struct TrunkDimentionsStruct
         {
             public TrunkDimentionsStruct(double height, double width, double depth)
@@ -61,12 +64,14 @@ namespace AutoAuctionProjekt.Classes.Vehicles
                 Width = width;
                 Depth = depth;
             }
+
             public double Height { get; }
             public double Width { get; }
             public double Depth { get; }
         }
-        
+
         private double _engineSize;
+
         /// <summary>
         /// Engine size property
         /// must be between 0.7 and 10.0 L or cast an out of range exection.
@@ -80,16 +85,9 @@ namespace AutoAuctionProjekt.Classes.Vehicles
                 if (value is >= 0.7 and <= 10.0)
                     _engineSize = value;
                 else
-                    throw new ArgumentOutOfRangeException(nameof(EngineSize), "Engine size must be between 7.0 and 10.0 L");
+                    throw new ArgumentOutOfRangeException(nameof(EngineSize),
+                        "Engine size must be between 7.0 and 10.0 L");
             }
-        }
-        /// <summary>
-        /// Returns the PersonalCar in a string with relivant information.
-        /// </summary>
-        public override string ToString()
-        {
-            //TODO: V15 - ToString for PersonalCar
-            throw new NotImplementedException();
         }
     }
 }

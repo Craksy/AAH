@@ -57,15 +57,5 @@ namespace AutoAuctionProjekt.Classes.Vehicles
                 _engineSize = value;
             }
         }
-        
-        
-        /// <summary>
-        /// Returns the HeavyVehicle in a string with relivant information.
-        /// </summary>
-        public override string ToString()
-        {
-            //TODO: V6 - ToString for HeavyVehicle
-            throw new NotImplementedException();
-        }
     }
 }

@@ -20,23 +20,15 @@ namespace AutoAuctionProjekt.Classes.Vehicles
             TrunkDimentionsStruct trunkDimentions,
             bool hasIsofixFittings,
             bool licenseBE)
-            : base(name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType, numberOfSeat, trunkDimentions, licenseBE)
+            : base(name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType,
+                numberOfSeat, trunkDimentions, licenseBE)
         {
-            //TODO: V19 - PrivatePersonalCar constructor. DriversLicense should be 'B'
-            //TODO: V20 - Add to database and set ID
-            throw new NotImplementedException();
+            HasIsofixFittings = hasIsofixFittings;
         }
+
         /// <summary>
         /// Isofix Fittings property
         /// </summary>
         public bool HasIsofixFittings { get; set; }
-        /// <summary>
-        /// Returns the PrivatePersonalCar in a string with relivant information.
-        /// </summary>
-        public override string ToString()
-        {
-            //TODO: V21 - ToString for PrivatePersonalCar
-            throw new NotImplementedException();
-        }
     }
 }
