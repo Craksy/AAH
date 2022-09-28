@@ -127,7 +127,12 @@ public abstract class Vehicle {
     /// <summary>
     /// Energy class of the vehicle
     /// </summary>
-    public EnergyClassEnum EnergyClass { get { return EnergyClass; } set => GetEnergyClass(); }
+    public EnergyClassEnum EnergyClass
+    {
+        get;
+        set;
+        // get { return EnergyClass; } set => GetEnergyClass();
+    }
         
     /// <summary>
     /// Engery class is calculated based on year of the car and the efficiancy in km/L.
