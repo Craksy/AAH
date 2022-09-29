@@ -43,7 +43,7 @@ namespace AutoAuctionProjekt.Classes.Vehicles
             set
             {
                 _loadCapacity = value;
-                DriversLisence = value >= 750 ? DriversLisenceEnum.BE : DriversLisenceEnum.B;
+                DriversLicense = value >= 750 ? DriversLisenceEnum.BE : DriversLisenceEnum.B;
             }
         }
     }
