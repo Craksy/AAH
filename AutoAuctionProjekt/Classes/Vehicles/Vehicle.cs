@@ -208,8 +208,9 @@ public abstract class Vehicle {
                     return EnergyClassEnum.D;
             }
         }
-        throw new NotImplementedException("Insufficient information for calculation of the vehicles energy class," +
-                                          "or the calculation itself is miswritten. Refer with the assignment for more information.");
+        throw new Exception("Insufficient information for calculation of the vehicles energy class," +
+                                          "or the calculation itself is miswritten. Refer with the assignment" +
+                                          "for more information.");
     }
     
     /// <summary>
