@@ -9,4 +9,7 @@
     <PackageReference Include="ConsoleTables" Version="2.4.2" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SQLQueries" />
+  </ItemGroup>
 </Project>
