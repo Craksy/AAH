@@ -47,6 +47,7 @@ public abstract class Vehicle {
         EngineSize = engineSize;
         KmPerLiter = kmPerLiter;
         FuelType = fuelType;
+        //TODO: V2 - Add to database and set ID
     }
 
     protected Vehicle(VehicleProps props) 
