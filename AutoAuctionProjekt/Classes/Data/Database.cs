@@ -32,7 +32,7 @@ public class Database
     }
     
     // Vehicles
-    public IEnumerable<Vehicle> GetAllVehicles()
+    public IEnumerable<PrivatePersonalCar> GetAllPrivatePersonalCars()
     {
         SqlCommand cmd = new(@"SELECT Vehicles.Name,
 	                                        Vehicles.Kilometers,
@@ -55,7 +55,7 @@ public class Database
             , conn);
         SqlDataReader reader = cmd.ExecuteReader();
 
-        List<Vehicle> vehicles = new();
+        List<PrivatePersonalCar> vehicles = new();
         if (reader.HasRows)
         {
             while (reader.Read())
