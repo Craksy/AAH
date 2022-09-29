@@ -12,6 +12,7 @@ public abstract class Vehicle {
     private double _km;
     private string _name;
     private uint _id;
+    private EnergyClassEnum _energyClassEnum;
     private string _registrationNumber;
     private decimal _newPrice;
 
@@ -34,6 +35,7 @@ public abstract class Vehicle {
         EngineSize = engineSize;
         KmPerLiter = kmPerLiter;
         FuelType = fuelType;
+        EnergyClass = _energyClassEnum;
         //TODO: V2 - Add to database and set ID
     }
 
@@ -129,9 +131,8 @@ public abstract class Vehicle {
     /// </summary>
     public EnergyClassEnum EnergyClass
     {
-        get;
-        set;
-        // get { return EnergyClass; } set => GetEnergyClass();
+        get => _energyClassEnum;
+        private set => _energyClassEnum = GetEnergyClass();
     }
         
     /// <summary>
@@ -142,79 +143,73 @@ public abstract class Vehicle {
     /// </returns>
     private EnergyClassEnum GetEnergyClass()
     {
-        //TODO: V4 - Implement GetEnergyClass
-        if(Year < 2010)
+        if (FuelType == FuelTypeEnum.Electric || FuelType == FuelTypeEnum.Hydrogen)
+            return EnergyClassEnum.A;
+        
+        if (Year < 2010)
+        {
+            if (FuelType == FuelTypeEnum.Diesel)
             {
-                if (FuelType == FuelTypeEnum.Electric || FuelType == FuelTypeEnum.Hydrogen)
-                {
-                    EnergyClass = EnergyClassEnum.A;
-                } else if (FuelType == FuelTypeEnum.Diesel)
-                {
-                    if (KmPerLiter >= 23)
-                    {
-                        EnergyClass = EnergyClassEnum.A;
-                    } else if (KmPerLiter >= 18 && KmPerLiter < 23)
-                    {
-                        EnergyClass = EnergyClassEnum.B;
-                    } else if (KmPerLiter >= 13 && KmPerLiter < 18)
-                    {
-                        EnergyClass = EnergyClassEnum.C;
-                    } else if (KmPerLiter < 13)
-                    {
-                        EnergyClass = EnergyClassEnum.D;
-                    }
-                } else if (FuelType == FuelTypeEnum.Benzin)
-                {
-                    if (KmPerLiter >= 18)
-                    {
-                        EnergyClass = EnergyClassEnum.A;
-                    } else if (KmPerLiter >= 14 && KmPerLiter < 18)
-                    {
-                        EnergyClass = EnergyClassEnum.B;
-                    } else if (KmPerLiter >= 10 && KmPerLiter < 14)
-                    {
-                         EnergyClass = EnergyClassEnum.C;
-                    } else if (KmPerLiter < 10)
-                    {
-                        EnergyClass = EnergyClassEnum.D;
-                    }
-                }
-            }
-            else
-            { 
-                if (FuelType == FuelTypeEnum.Diesel) {
-                    if (KmPerLiter >= 25)
-                    {
-                        EnergyClass = EnergyClassEnum.A;
-                    } else if (KmPerLiter >= 20 && KmPerLiter < 25)
-                    {
-                        EnergyClass = EnergyClassEnum.B;
-                    } else if (KmPerLiter >= 15 && KmPerLiter < 20)
-                    {
-                        EnergyClass = EnergyClassEnum.C;
-                    } else if (KmPerLiter < 15)
-                    {
-                        EnergyClass = EnergyClassEnum.D;
-                    }
-                } else if (FuelType == FuelTypeEnum.Benzin)
-                {
-                    if (KmPerLiter >= 20)
-                    {
-                        EnergyClass = EnergyClassEnum.A;
-                    } else if (KmPerLiter >= 16 && KmPerLiter < 20)
-                    {
-                        EnergyClass = EnergyClassEnum.B;
-                    } else if (KmPerLiter >= 12 && KmPerLiter < 16)
-                    {
-                        EnergyClass = EnergyClassEnum.C;
-                    } else if (KmPerLiter < 12)
-                    {
-                        EnergyClass = EnergyClassEnum.D;
-                    }
-                }
-            }
+                if (KmPerLiter >= 23)
+                    return EnergyClassEnum.A;
 
-            return EnergyClassEnum.B;
+                if (KmPerLiter <= 18 && KmPerLiter < 23)
+                    return EnergyClassEnum.B;
+
+                if (KmPerLiter >= 13 && KmPerLiter < 18)
+                    return EnergyClassEnum.C;
+
+                if (KmPerLiter < 13)
+                    return EnergyClassEnum.D;
+            }
+            else if (FuelType == FuelTypeEnum.Benzin)
+            {
+                if (KmPerLiter >= 18)
+                    return EnergyClassEnum.A;
+
+                if (KmPerLiter >= 14 && KmPerLiter < 18)
+                    return EnergyClassEnum.B;
+
+                if (KmPerLiter >= 10 && KmPerLiter < 14)
+                    return EnergyClassEnum.C;
+
+                if (KmPerLiter < 10)
+                    return EnergyClassEnum.D;
+            }
+        }
+        else if (Year > 2010)
+        {
+            if (FuelType == FuelTypeEnum.Diesel)
+            {
+                if (KmPerLiter >= 25)
+                    return EnergyClassEnum.A;
+
+                if (KmPerLiter >= 20 && KmPerLiter < 25)
+                    return EnergyClassEnum.B;
+
+                if (KmPerLiter >= 15 && KmPerLiter < 20)
+                    return EnergyClassEnum.C;
+
+                if (KmPerLiter < 15)
+                    return EnergyClassEnum.D;
+            } 
+            else if (FuelType == FuelTypeEnum.Benzin)
+            {
+                if (KmPerLiter >= 20)
+                    return EnergyClassEnum.A;
+            
+                if (KmPerLiter >= 16 && KmPerLiter < 20)
+                    return EnergyClassEnum.B;
+            
+                if (KmPerLiter >= 12 && KmPerLiter < 16)
+                    return EnergyClassEnum.C;
+            
+                if (KmPerLiter < 12)
+                    return EnergyClassEnum.D;
+            }
+        }
+        throw new NotImplementedException("Insufficient information for calculation of the vehicles energy class," +
+                                          "or the calculation itself is miswritten. Refer with the assignment for more information.");
     }
     
     /// <summary>
