@@ -12,7 +12,7 @@ namespace AutoAuctionProjekt
         {
             Database db = Database.Instance;
             
-            db.GetAllVehicles();
+            db.GetAllBusses();
         }
     }
 }
