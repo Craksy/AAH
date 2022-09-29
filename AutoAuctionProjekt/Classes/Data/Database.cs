@@ -105,12 +105,12 @@ public class Database
 												HeavyVehicles.Height,
 												HeavyVehicles.Weight,
 												HeavyVehicles.Length,
-												Bus.Seats,
-												Bus.SleepingSpaces,
-												Bus.HasToilet
+												Busses.Seats,
+												Busses.SleepingSpaces,
+												Busses.HasToilet
 												FROM Vehicles
 												INNER JOIN HeavyVehicles ON Vehicles.ID = HeavyVehicles.VehicleID
-												INNER JOIN Bus ON HeavyVehicles.ID = Bus.HeavyVehicleID"
+												INNER JOIN Busses ON HeavyVehicles.ID = Busses.HeavyVehicleID"
             , conn);
         SqlDataReader reader = cmd.ExecuteReader();
         
