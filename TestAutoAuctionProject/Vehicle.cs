@@ -6,8 +6,10 @@ namespace TestAutoAuctionProject;
 
 public class Vehicle {
     private Bus _bus;
-
-    private Bus CreateNewBus() {
+    Bus.VehicleDimensionsStruct _vd = new (10.0, 20.0, 30.0);
+    
+    private Bus CreateNewBus()
+    {
         return new Bus(
             "car brand", 
             500.0, 
@@ -18,7 +20,7 @@ public class Vehicle {
             10.0, 
             20.0, 
             FuelTypeEnum.Diesel, 
-            new VehicleDimensionsStruct(10.0, 20.0, 30.0),
+            _vd,
             2,
             1,
             true);
@@ -42,7 +44,7 @@ public class Vehicle {
             10.0, 
             20.0, 
             FuelTypeEnum.Diesel, 
-            new VehicleDimensionsStruct(10.0, 20.0, 30.0),
+            _vd,
             2,
             1,
             true);

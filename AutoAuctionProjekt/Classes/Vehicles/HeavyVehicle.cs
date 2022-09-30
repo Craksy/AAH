@@ -2,25 +2,13 @@
 
 namespace AutoAuctionProjekt.Classes.Vehicles
 {
-    /// <summary>
-    /// The dimensions of the vehicle i meters.
-    /// </summary>
-    public struct VehicleDimensionsStruct
-    {
-        public VehicleDimensionsStruct(double height, double weight, double length)
-        {
-            Height = height;
-            Weight = weight;
-            Length = length;
-        }
-        public double Height { get; }
-        public double Weight { get; }
-        public double Length { get; }
-        public override string ToString() => $"(Height: {Height}, Weight: {Weight}, Depth: {Length})";
-    }
-        
     public abstract class HeavyVehicle : Vehicle
     {
+        private VehicleDimensionsStruct _vehicleDimensions;
+        /// <summary>
+        /// Physical properties of the vehicle
+        /// </summary>
+
         public HeavyVehicle(
          string name,
          double km,
@@ -35,12 +23,30 @@ namespace AutoAuctionProjekt.Classes.Vehicles
         {
             VehicleDimensions = vehicleDimentions;
         }
-        
+
         /// <summary>
-        /// Physical properties of the vehicle
+        /// The dimensions of the vehicle i meters.
         /// </summary>
-        public VehicleDimensionsStruct VehicleDimensions { get; set; }
+        public VehicleDimensionsStruct VehicleDimensions
+        {
+            get => _vehicleDimensions;
+            set { _vehicleDimensions = value; }
+        }
         
+        public struct VehicleDimensionsStruct
+        {
+            public VehicleDimensionsStruct(double height, double weight, double length)
+            {
+                Height = height;
+                Weight = weight;
+                Length = length;
+            }
+            public double Height { get; }
+            public double Weight { get; }
+            public double Length { get; }
+            public override string ToString() => $"(Height: {Height}, Weight: {Weight}, Depth: {Length})";
+        }
+
         private double _engineSize;
         
         /// <summary>
