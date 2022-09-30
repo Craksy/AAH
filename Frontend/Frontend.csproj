@@ -33,4 +33,7 @@
         <DependentUpon>Sidebar.axaml</DependentUpon>
       </Compile>
     </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\AutoAuctionProjekt\AutoAuctionProjekt.csproj" />
+    </ItemGroup>
 </Project>

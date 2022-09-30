@@ -6,7 +6,6 @@
              x:Class="Frontend.Views.AuctionPage">
     <StackPanel>
         <ListBox>
-
         </ListBox>
     </StackPanel>
 </UserControl>
