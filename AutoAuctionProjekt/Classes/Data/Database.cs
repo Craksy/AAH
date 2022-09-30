@@ -32,7 +32,7 @@ public class Database
     }
     
     // Vehicles
-    public IEnumerable<Vehicle> GetAllVehicles()
+    public IEnumerable<PrivatePersonalCar> GetAllPrivatePersonalCars()
     {
         SqlCommand cmd = new(@"SELECT Vehicles.Name,
 	                                        Vehicles.Kilometers,
@@ -55,7 +55,7 @@ public class Database
             , conn);
         SqlDataReader reader = cmd.ExecuteReader();
 
-        List<Vehicle> vehicles = new();
+        List<PrivatePersonalCar> vehicles = new();
         if (reader.HasRows)
         {
             while (reader.Read())
@@ -97,27 +97,56 @@ public class Database
 												Vehicles.Kilometers,
 												Vehicles.RegistrationNumber,
 												Vehicles.Year,
+												Vehicles.NewPrice,
 												Vehicles.HasTowbar,
 												Vehicles.EngineSize,
 												Vehicles.KmPerLiter,
 												Vehicles.FuelType,
-												Vehicles.EnergyClass,
 												HeavyVehicles.Height,
 												HeavyVehicles.Weight,
 												HeavyVehicles.Length,
-												Bus.Seats,
-												Bus.SleepingSpaces,
-												Bus.HasToilet,
-												Bus.DriversLicense
+												Busses.Seats,
+												Busses.SleepingSpaces,
+												Busses.HasToilet
 												FROM Vehicles
 												INNER JOIN HeavyVehicles ON Vehicles.ID = HeavyVehicles.VehicleID
-												INNER JOIN Bus ON HeavyVehicles.ID = Bus.HeavyVehicleID"
+												INNER JOIN Busses ON HeavyVehicles.ID = Busses.HeavyVehicleID"
             , conn);
         SqlDataReader reader = cmd.ExecuteReader();
         
         List<Bus> busses = new();
+        if (reader.HasRows)
+        {
+	        while (reader.Read())
+	        {
+		        HeavyVehicle.VehicleDimensionsStruct vd = new HeavyVehicle.VehicleDimensionsStruct(
+			        Double.Parse(reader.GetValue(9).ToString()!),
+			        Double.Parse(reader.GetValue(10).ToString()!),
+			        Double.Parse(reader.GetValue(11).ToString()!)
+		        );
 
-
+		        busses.Add(new Bus(
+			        reader.GetValue(0).ToString(),
+			        Double.Parse(reader.GetValue(1).ToString()!),
+			        reader.GetValue(2).ToString(),
+			        ushort.Parse(reader.GetValue(3).ToString()!),
+			        Int32.Parse(reader.GetValue(4).ToString()!),
+			        Boolean.Parse(reader.GetValue(5).ToString()!),
+			        Double.Parse(reader.GetValue(6).ToString()!),
+			        Double.Parse(reader.GetValue(7).ToString()!),
+			        (FuelTypeEnum)Enum.Parse(typeof(FuelTypeEnum), reader.GetValue(8).ToString()!),
+			        vd,
+			        ushort.Parse(reader.GetValue(12).ToString()!),
+			        ushort.Parse(reader.GetValue(13).ToString()!),
+			        Boolean.Parse(reader.GetValue(14).ToString()!)
+		        ));
+	        }
+        }
+        else
+        {
+	        Console.WriteLine("Couldn't find any vehicles.");
+        }
+        reader.Close();
         return busses;
     }
 }
