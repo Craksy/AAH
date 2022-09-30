@@ -1,0 +1,10 @@
+DROP TABLE Trucks
+CREATE TABLE Trucks(
+	ID INT IDENTITY(1,1) NOT NULL,
+	LoadCapacity FLOAT,
+	HeavyVehicleID INT,
+	PRIMARY KEY (ID)
+);
+
+/*INSERT INTO Trucks
+VALUES (3500, 2)*/
