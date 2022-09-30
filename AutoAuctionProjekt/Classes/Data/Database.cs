@@ -149,4 +149,59 @@ public class Database
         reader.Close();
         return busses;
     }
+    
+    public IEnumerable<Truck> GetAllTrucks()
+    {
+        SqlCommand cmd = new(@"SELECT Vehicles.Name,
+											    Vehicles.Kilometers,
+											    Vehicles.RegistrationNumber,
+											    Vehicles.Year,
+											    Vehicles.NewPrice,
+											    Vehicles.HasTowbar,
+											    Vehicles.EngineSize,
+											    Vehicles.KmPerLiter,
+											    Vehicles.FuelType,
+												HeavyVehicles.Height,
+												HeavyVehicles.Weight,
+												HeavyVehicles.Length,
+												Truck.LoadCapacity
+											    FROM Vehicles
+											    INNER JOIN HeavyVehicles ON Vehicles.ID = HeavyVehicles.VehicleID
+											    INNER JOIN Truck ON HeavyVehicles.ID = Truck.HeavyVehicleID"
+            , conn);
+        SqlDataReader reader = cmd.ExecuteReader();
+        
+        List<Truck> trucks = new();
+        if (reader.HasRows)
+        {
+	        while (reader.Read())
+	        {
+		        HeavyVehicle.VehicleDimensionsStruct vd = new HeavyVehicle.VehicleDimensionsStruct(
+			        Double.Parse(reader.GetValue(9).ToString()!),
+			        Double.Parse(reader.GetValue(10).ToString()!),
+			        Double.Parse(reader.GetValue(11).ToString()!)
+		        );
+
+		        trucks.Add(new Truck(
+			        reader.GetValue(0).ToString(),
+			        Double.Parse(reader.GetValue(1).ToString()!),
+			        reader.GetValue(2).ToString(),
+			        ushort.Parse(reader.GetValue(3).ToString()!),
+			        Int32.Parse(reader.GetValue(4).ToString()!),
+			        Boolean.Parse(reader.GetValue(5).ToString()!),
+			        Double.Parse(reader.GetValue(6).ToString()!),
+			        Double.Parse(reader.GetValue(7).ToString()!),
+			        (FuelTypeEnum)Enum.Parse(typeof(FuelTypeEnum), reader.GetValue(8).ToString()!),
+			        vd,
+			        Double.Parse(reader.GetValue(12).ToString()!)
+		        ));
+	        }
+        }
+        else
+        {
+	        Console.WriteLine("Couldn't find any vehicles.");
+        }
+        reader.Close();
+        return trucks;
+    }
 }

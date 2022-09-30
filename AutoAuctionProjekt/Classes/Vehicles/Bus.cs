@@ -24,8 +24,6 @@ namespace AutoAuctionProjekt.Classes.Vehicles
             NumberOfSleepingSpaces = numberOfSleepingSpaces;
             HasToilet = hasToilet;
             DriversLicense = hasTowbar ? DriversLisenceEnum.DE : DriversLisenceEnum.D;
-            
-            //TODO: V8 - Add to database and set ID
         }
 
 

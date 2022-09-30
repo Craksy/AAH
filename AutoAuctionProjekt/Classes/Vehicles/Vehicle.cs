@@ -36,7 +36,6 @@ public abstract class Vehicle {
         KmPerLiter = kmPerLiter;
         FuelType = fuelType;
         EnergyClass = _energyClassEnum;
-        //TODO: V2 - Add to database and set ID
     }
 
     /// <summary>
