@@ -1,0 +1,105 @@
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:viewModels="clr-namespace:Frontend.ViewModels"
+    xmlns:packIcon="clr-namespace:MaterialDesign.Avalonia.PackIcon;assembly=MaterialDesign.Avalonia.PackIcon"
+    xmlns:views="clr-namespace:Frontend.Views">
+    <Design.PreviewWith>
+        <Border Classes="Panel">
+            <StackPanel Margin="20">
+                <TextBlock Text="Foo"></TextBlock>
+                <Button>Ohai</Button>
+                <Border Classes="Sidebar">
+                    <TextBlock Text="Foo"></TextBlock>
+                </Border>
+                <views:Sidebar />
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <Styles.Resources>
+        <LinearGradientBrush x:Key="BlueGradient" StartPoint="50.0%,0%" EndPoint="50%,100%">
+            <GradientStops>
+                <!-- <GradientStop Color="#960421A9" Offset="0" /> -->
+                <!-- <GradientStop Color="#970494EE" Offset="1" /> -->
+                <GradientStop Color="#1B1734" Offset="0" />
+                <GradientStop Color="#2F2241" Offset="1" />
+            </GradientStops>
+        </LinearGradientBrush>
+    </Styles.Resources>
+
+    <Style Selector="Border.Panel">
+        <Setter Property="Background" Value="{DynamicResource BlueGradient}"></Setter>
+    </Style>
+
+    <Style Selector="Border.ContentArea">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Margin" Value="30"></Setter>
+        <Setter Property="CornerRadius" Value="10"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+    </Style>
+
+    <Style Selector="TabStrip">
+        <Setter Property="Background" Value="#111111"></Setter>
+    </Style>
+
+    <Style Selector="TabStripItem">
+        <Setter Property="Background" Value="#0000" />
+        <Setter Property="Template">
+            <ControlTemplate TargetType="TabStripItem">
+                <Border HorizontalAlignment="Stretch" Background="{TemplateBinding Background}">
+                    <Border.Transitions>
+                        <Transitions>
+                            <BrushTransition Property="Background" Duration="0:0:0.2" />
+                        </Transitions>
+                    </Border.Transitions>
+                    <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Center">
+                    </ContentPresenter>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector=".Sidebar ContentPresenter">
+        <Setter Property="ContentTemplate">
+            <DataTemplate DataType="viewModels:TabItemViewModel">
+                <Grid Margin="10,0" ColumnDefinitions="* 50">
+                    <!-- <TextBlock -->
+                    <!--     Name="Title" -->
+                    <!--     HorizontalAlignment="Center" -->
+                    <!--     VerticalAlignment="Center" -->
+                    <!--     FontSize="20" -->
+                    <!--     Text="{Binding Title}" /> -->
+                    <packIcon:PackIcon Name="Icon" Grid.Column="1"
+                                       Margin="10,0" Height="25" Width="25"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center" Kind="{Binding Icon}" />
+                </Grid>
+            </DataTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector="TabStripItem:selected">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.2" />
+                <BrushTransition Property="Foreground" Duration="0:0:0.2" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="TabStripItem:selected">
+        <Setter Property="Background" Value="#1B1734" />
+        <Setter Property="Foreground" Value="#FB5E89" />
+    </Style>
+
+    <Style Selector="TabStripItem:selected  TextBlock">
+        <Setter Property="Foreground" Value="#FB5E89" />
+    </Style>
+
+    <Style Selector="TabStripItem:pointerover">
+        <Setter Property="Background" Value="#2000" />
+        <Setter Property="Foreground" Value="#FAF0C0" />
+    </Style>
+</Styles>

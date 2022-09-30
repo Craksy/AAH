@@ -1,0 +1,95 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:packIcon="clr-namespace:MaterialDesign.Avalonia.PackIcon;assembly=MaterialDesign.Avalonia.PackIcon"
+             xmlns:viewModels="clr-namespace:Frontend.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="350"
+             x:Class="Frontend.Views.Sidebar">
+    <Grid
+        Background="Transparent"
+        RowDefinitions="*, Auto">
+        <TabStrip x:Name="SideDrawer"
+                  Classes="Sidebar"
+                  Margin="0,20" SelectedItem="{Binding}"
+                  Items="{Binding Tabs}"
+                  Grid.Column="0" Grid.Row="0">
+            <TabStrip.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel />
+                </ItemsPanelTemplate>
+            </TabStrip.ItemsPanel>
+        </TabStrip>
+        <Button
+            HorizontalAlignment="Right"
+            Classes="ExpandToggle"
+            Name="ExpandButton"
+            Click="ExpanderClick" Grid.Row="1" Margin="10">
+            <packIcon:PackIcon />
+        </Button>
+    </Grid>
+
+    <UserControl.Styles>
+        <Style Selector="TabStripItem">
+            <Setter Property="Background" Value="#0000" />
+            <Setter Property="Template">
+                <ControlTemplate TargetType="TabStripItem">
+                    <Border HorizontalAlignment="Stretch" Background="{TemplateBinding Background}">
+                        <Border.Transitions>
+                            <Transitions>
+                                <BrushTransition Property="Background" Duration="0:0:0.2" />
+                            </Transitions>
+                        </Border.Transitions>
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Stretch"
+                                          VerticalAlignment="Center">
+                        </ContentPresenter>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+
+        <Style Selector=".Sidebar ContentPresenter">
+            <Setter Property="ContentTemplate">
+                <DataTemplate DataType="viewModels:TabItemViewModel">
+                    <Grid Margin="10,0" ColumnDefinitions="* 50">
+                        <TextBlock
+                            Name="Title"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Text="{Binding Title}" />
+                        <packIcon:PackIcon Name="Icon" Grid.Column="1"
+                                           Margin="10,0" Height="25" Width="25"
+                                           HorizontalAlignment="Right"
+                                           VerticalAlignment="Center" Kind="{Binding Icon}" />
+                    </Grid>
+                </DataTemplate>
+            </Setter>
+        </Style>
+
+        <Style Selector="TabStripItem:selected">
+            <Setter Property="Background" Value="#4000" />
+        </Style>
+
+        <Style Selector="TabStripItem:selected  TextBlock">
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+
+        <Style Selector="TabStripItem:pointerover">
+            <Setter Property="Background" Value="#2000" />
+            <Setter Property="Foreground" Value="Skyblue" />
+        </Style>
+
+        <Style Selector=".ExpandToggle > packIcon|PackIcon">
+            <Setter Property="Kind" Value="ChevronDoubleRight" />
+        </Style>
+        <Style Selector=":expanded .ExpandToggle packIcon|PackIcon">
+            <Setter Property="Kind" Value="ChevronDoubleLeft" />
+        </Style>
+        <Style Selector=":not(:expanded) Grid">
+            <Setter Property="MaxWidth" Value="50" />
+        </Style>
+        <Style Selector=":expanded Grid">
+            <Setter Property="MaxWidth" Value="Infinity" />
+        </Style>
+    </UserControl.Styles>
+</UserControl>
