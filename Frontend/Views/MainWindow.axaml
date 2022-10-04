@@ -56,7 +56,7 @@
             </Grid>
 
             <!-- Content Area -->
-            <Border Classes="ContentArea" Grid.Column="1" Grid.Row="1">
+            <Border Classes="ContentArea" Name="ContentArea" Grid.Column="1" Grid.Row="1">
                 <rxui:ViewModelViewHost ViewModel="{Binding SelectedTab.Page}">
                     <rxui:ViewModelViewHost.PageTransition>
                         <CrossFade Duration="0:0:0.2" />

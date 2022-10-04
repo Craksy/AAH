@@ -53,13 +53,7 @@ public class MainWindowViewModel : ReactiveObject, IScreen
 {
     private static LogInViewModel n = new LogInViewModel();
     public RoutingState Router { get; } = new();
-    private bool _isLoggedIn;// { get; set; } = n._loggedInTest;
-
-    public bool IsLoggedIn
-    {
-        get => _isLoggedIn;
-        set => this.RaiseAndSetIfChanged(ref _isLoggedIn, value);
-    }
+    public bool IsLoggedIn { get; set; }
 
     private bool _isDrawerOpen;
     public bool IsDrawerOpen {
@@ -87,6 +81,7 @@ public class MainWindowViewModel : ReactiveObject, IScreen
             DrawerIcon = IsDrawerOpen ? PackIconKind.ChevronDoubleLeft : PackIconKind.ChevronDoubleRight;
             Debug.WriteLine("Drawer toggled" + IsDrawerOpen);
         });
+        
 
         Tabs = new ObservableCollection<TabItemViewModel> {
             new("LogIn", new LogInViewModel(), PackIconKind.Exchange),
