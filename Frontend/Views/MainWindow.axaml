@@ -39,7 +39,7 @@
             </Border>
 
             <!-- Sidebar -->
-            <Grid Background="#111111" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
+            <Grid Background="#111111" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" IsVisible="{Binding _isLoggedIn}"
                   RowDefinitions="*, Auto" Name="MainSidebar">
                 <TabStrip x:Name="SideDrawer"
                           Classes="Sidebar"

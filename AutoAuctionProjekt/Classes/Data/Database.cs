@@ -36,6 +36,7 @@ public class Database
 	    } catch (Exception e) {
 		    return $"Failed to connect to database: {e.Message}";
 	    }
+	    
 		return "Connected with " + userName;
     }
 

@@ -49,12 +49,13 @@ public class TabItemViewModel : ReactiveObject {
 
 }
 
-public class MainWindowViewModel : ReactiveObject, IScreen {
-    
+public class MainWindowViewModel : ReactiveObject, IScreen
+{
+    private static LogInViewModel n = new LogInViewModel();
     public RoutingState Router { get; } = new();
+    private bool _isLoggedIn { get; set; } = n.CurrentUser != null;
 
     private bool _isDrawerOpen;
-    // private bool _loggedIn { get; set; } = true;
     public bool IsDrawerOpen {
         get => _isDrawerOpen;
         set {
@@ -82,11 +83,11 @@ public class MainWindowViewModel : ReactiveObject, IScreen {
         });
 
         Tabs = new ObservableCollection<TabItemViewModel> {
+            new("LogIn", new LogInViewModel(), PackIconKind.Exchange),
             new("Dashboard", new DashboardViewModel(), PackIconKind.ViewDashboard),
             new("History", new HistoryViewModel(), PackIconKind.History),
             new("Profile", new ProfileViewModel(), PackIconKind.Settings),
             new("Auctions", new AuctionPageViewModel(), PackIconKind.Exchange),
-            new("LogIn", new LogInViewModel(), PackIconKind.Exchange),
         };
     }
 }

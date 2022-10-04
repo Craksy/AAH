@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using AutoAuctionProjekt.Classes;
 using Avalonia.Collections;
 using Frontend.Views;
 using MaterialDesign.Avalonia.PackIcon;
@@ -10,17 +11,11 @@ public class LogInViewModel : ViewModelBase, IRoutableViewModel
 {
     public IScreen HostScreen { get; } = null!;
     public string? UrlPathSegment { get; } = "LogIn";
-    public static LogIn _LogIn = new LogIn();
-    private string _test;
+    public User? CurrentUser { get; set; } = null;
     public string userName { get; set; } = "";
     public string passWord { get; set; } = "";
     public string LoginResult { get; set; }
-    
-    public string Test
-    {
-        get => _test;
-        set => _test = "Test1";
-    }
+
     public AvaloniaList<TabItemViewModel> TabItems { get; set; } = new();
 
     public LogInViewModel()

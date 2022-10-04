@@ -27,20 +27,13 @@ public partial class LogIn : ReactiveUserControl<LogInViewModel>
         AvaloniaXamlLoader.Load(this);
     }
 
-
-    
-    private void Test_OnClick(object? sender, RoutedEventArgs e)
-    {
-
-        // _logInViewModel.Test;
-    }
-
     private void LoginButton_OnClick(object? sender, RoutedEventArgs e)
     {
         LogInViewModel? model = (LogInViewModel?)DataContext;
-        var result = _db.DBLogIn(model.userName, model.passWord);
+        var result = _db.DBLogIn(model!.userName, model.passWord);
         
         // update viewmodel LoginResult
+        model.CurrentUser!.UserName = model.userName;
         model.LoginResult = result;
         model.RaisePropertyChanged(nameof(model.LoginResult));
     }
