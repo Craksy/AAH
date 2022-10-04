@@ -28,6 +28,13 @@ namespace AutoAuctionProjekt.Classes.Vehicles
             LoadCapacity = loadCapacity;
             HasSafetyBar = hasSafetyBar;
         }
+        
+        public ProfessionalPersonalCar(VehicleProps vehicleProps, ushort numberOfSeats, TrunkDimentionsStruct trunkDimentions, bool licenceBE, double loadCapacity, bool hasSafetyBar)
+            : base(vehicleProps, numberOfSeats, trunkDimentions, licenceBE)
+        {
+            LoadCapacity = loadCapacity;
+            HasSafetyBar = hasSafetyBar;
+        }
 
         /// <summary>
         /// Safety Bar property

@@ -93,29 +93,43 @@ public class Database
 
     public IEnumerable<Bus> GetAllBusses()
     {
-        SqlCommand cmd = new(@"SELECT Vehicles.Name,
-												Vehicles.Kilometers,
-												Vehicles.RegistrationNumber,
-												Vehicles.Year,
-												Vehicles.HasTowbar,
-												Vehicles.EngineSize,
-												Vehicles.KmPerLiter,
-												Vehicles.FuelType,
-												Vehicles.EnergyClass,
-												HeavyVehicles.Height,
-												HeavyVehicles.Weight,
-												HeavyVehicles.Length,
-												Bus.Seats,
-												Bus.SleepingSpaces,
-												Bus.HasToilet,
-												Bus.DriversLicense
-												FROM Vehicles
-												INNER JOIN HeavyVehicles ON Vehicles.ID = HeavyVehicles.VehicleID
-												INNER JOIN Bus ON HeavyVehicles.ID = Bus.HeavyVehicleID"
+        SqlCommand cmd = new(
+	        @"SELECT           
+			Vehicles.ID,
+			Vehicles.Name,
+			Vehicles.Kilometers,
+			Vehicles.RegistrationNumber,
+			Vehicles.Year,
+			Vehicles.HasTowbar,
+			Vehicles.EngineSize,
+			Vehicles.KmPerLiter,
+			Vehicles.FuelType,
+			Vehicles.EnergyClass,
+			HeavyVehicles.Height,
+			HeavyVehicles.Weight,
+			HeavyVehicles.Length,
+			Busses.Seats,
+			Busses.SleepingSpaces,
+			Busses.HasToilet,
+			Busses.DriversLicense
+			FROM Vehicles
+			INNER JOIN HeavyVehicles ON Vehicles.ID = HeavyVehicles.VehicleID
+			INNER JOIN Busses ON HeavyVehicles.ID = Busses.HeavyVehicleID"
             , conn);
         SqlDataReader reader = cmd.ExecuteReader();
         
         List<Bus> busses = new();
+        if (reader.HasRows)
+		{
+			while (reader.Read())
+			{
+			}
+		}
+        
+		else
+		{
+			Console.WriteLine("Couldn't find any busses.");
+		}
 
 
         return busses;

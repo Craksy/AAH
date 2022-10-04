@@ -3,19 +3,32 @@ using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
-namespace AutoAuctionProjekt.Classes.Vehicles; 
+namespace AutoAuctionProjekt.Classes.Vehicles;
+
+public struct VehicleProps {
+    public string Name;
+    public double Km;
+    public string RegistrationNumber;
+    public int Year;
+    public decimal NewPrice;
+    public bool HasTowbar;
+    public double EngineSize;
+    public double KmPerLiter;
+    public FuelTypeEnum FuelType;
+}
 
 public abstract class Vehicle {
     // regex to match (in order): [start of input] [2x any letter] [5x any digit] [end of input]
     private static readonly Regex RegistrationNumberValidationPattern = new(@"^[a-zA-Z]{2}\d{5}$");
-        
+    
     private double _km;
     private string _name;
     private uint _id;
     private string _registrationNumber;
     private decimal _newPrice;
 
-    protected Vehicle(string name,
+    protected Vehicle(
+        string name,
         double km,
         string registrationNumber,
         int year,
@@ -34,16 +47,16 @@ public abstract class Vehicle {
         EngineSize = engineSize;
         KmPerLiter = kmPerLiter;
         FuelType = fuelType;
-        //TODO: V2 - Add to database and set ID
     }
 
+    protected Vehicle(VehicleProps props) 
+        : this(props.Name, props.Km, props.RegistrationNumber, props.Year, props.NewPrice, props.HasTowbar, props.EngineSize, props.KmPerLiter, props.FuelType) { }
+    
     /// <summary>
     /// Primary key used to identify this vehicle in the database
     /// </summary>
-    public uint ID {
-        get => _id;
-        private set => _id = value;
-    }
+    //REVIEW: Changed to init-only property.
+    public uint ID { get; init; }
 
     /// <summary>
     /// Name of the vehicle

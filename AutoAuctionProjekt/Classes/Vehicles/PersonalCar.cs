@@ -26,6 +26,14 @@ namespace AutoAuctionProjekt.Classes.Vehicles
             TrunkDimentions = trunkDimentions;
             DriversLicense = licenseBE ? DriversLisenceEnum.BE : DriversLisenceEnum.B;
         }
+        
+        protected PersonalCar(VehicleProps vehicleProps, ushort numberOfSeat, TrunkDimentionsStruct trunkDimentions, bool licenseBE)
+            : base(vehicleProps)
+        {
+            NumberOfSeat = numberOfSeat;
+            TrunkDimentions = trunkDimentions;
+            DriversLicense = licenseBE ? DriversLisenceEnum.BE : DriversLisenceEnum.B;
+        }
 
         /// <summary>
         /// Number of seat property
@@ -65,9 +73,9 @@ namespace AutoAuctionProjekt.Classes.Vehicles
                 Depth = depth;
             }
 
-            public double Height { get; }
-            public double Width { get; }
-            public double Depth { get; }
+            public double Height { get; init; }
+            public double Width { get; init; }
+            public double Depth { get; init; }
         }
 
         private double _engineSize;

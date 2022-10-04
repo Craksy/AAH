@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AutoAuctionProjekt.Classes.Vehicles
 {
-    class Truck : HeavyVehicle
+    public class Truck : HeavyVehicle
     {
         public Truck(
             string name,
@@ -24,6 +24,12 @@ namespace AutoAuctionProjekt.Classes.Vehicles
             
             //TODO: V11 - Add to database and set ID
             throw new NotImplementedException();
+        }
+
+        public Truck(VehicleProps vehicleProps, VehicleDimensionsStruct vehicleDimensions, double loadCapacity)
+            : base(vehicleProps, vehicleDimensions) {
+            LoadCapacity = loadCapacity;
+            DriversLicense = vehicleProps.HasTowbar ? DriversLisenceEnum.CE : DriversLisenceEnum.C;
         }
 
         /// <summary>
