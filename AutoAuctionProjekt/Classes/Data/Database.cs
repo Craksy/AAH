@@ -40,6 +40,17 @@ public class Database
 		return "Connected with " + userName;
     }
 
+    public string GetLoggedInUser(string userName)
+    {
+	    SqlCommand cmd = new(@"SELECT * FROM sys.server_principals
+	    						WHERE name = " + userName + ";"
+		    , conn);
+	    SqlDataReader reader = cmd.ExecuteReader();
+
+	    return reader["name"].ToString();
+
+    }
+
     public static Database Instance
     {
         get

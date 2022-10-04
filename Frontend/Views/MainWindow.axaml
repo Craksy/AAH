@@ -39,9 +39,10 @@
             </Border>
 
             <!-- Sidebar -->
-            <Grid Background="#111111" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" IsVisible="{Binding _isLoggedIn}"
+            <Grid Background="#111111" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" 
                   RowDefinitions="*, Auto" Name="MainSidebar">
                 <TabStrip x:Name="SideDrawer"
+                          IsVisible="{Binding IsLoggedIn}"
                           Classes="Sidebar"
                           Margin="0,100" SelectedItem="{Binding SelectedTab}"
                           Items="{Binding Tabs}"

@@ -27,7 +27,7 @@ privat og company som klasser
 
             throw new NotImplementedException();
         }
-
+        
         public string UserName { get; set; }
         public Decimal Balance { get; set; }
         public uint Zipcode { get; set; }

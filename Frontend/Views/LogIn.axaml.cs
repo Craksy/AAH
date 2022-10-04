@@ -30,11 +30,13 @@ public partial class LogIn : ReactiveUserControl<LogInViewModel>
     private void LoginButton_OnClick(object? sender, RoutedEventArgs e)
     {
         LogInViewModel? model = (LogInViewModel?)DataContext;
-        var result = _db.DBLogIn(model!.userName, model.passWord);
+        var result = _db.DBLogIn(model.userName, model.passWord);
+        //var getUsername = _db.GetLoggedInUser(model.userName);
         
         // update viewmodel LoginResult
-        model.CurrentUser!.UserName = model.userName;
-        model.LoginResult = result;
+        // model.CurrentUser!.UserName = model.userName;
+        model._loggedInTest = result.Contains("Connected");
+        model.LoginResult = result + " " + model._loggedInTest;
         model.RaisePropertyChanged(nameof(model.LoginResult));
     }
 }

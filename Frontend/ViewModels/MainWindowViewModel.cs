@@ -53,7 +53,13 @@ public class MainWindowViewModel : ReactiveObject, IScreen
 {
     private static LogInViewModel n = new LogInViewModel();
     public RoutingState Router { get; } = new();
-    private bool _isLoggedIn { get; set; } = n.CurrentUser != null;
+    private bool _isLoggedIn;// { get; set; } = n._loggedInTest;
+
+    public bool IsLoggedIn
+    {
+        get => _isLoggedIn;
+        set => this.RaiseAndSetIfChanged(ref _isLoggedIn, value);
+    }
 
     private bool _isDrawerOpen;
     public bool IsDrawerOpen {
