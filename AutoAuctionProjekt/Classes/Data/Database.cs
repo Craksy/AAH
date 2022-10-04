@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using AutoAuctionProjekt.Classes.Vehicles;
 
@@ -10,15 +11,26 @@ public class Database
     private static Database? _instance;
     private SqlConnection conn;
 
-    private Database()
+    // private Database()
+    // {
+    //     string connectionString = @"
+    //         Server=docker.data.techcollege.dk,20003;
+    //         Database=Auction_House;
+    //         User Id=sa;
+    //         Password=H2PD081122_Gruppe3;";
+    //     conn = new SqlConnection(connectionString);
+    //     conn.Open();
+    // }
+
+    public void DBLogIn(string userName, string passWord)
     {
-        string connectionString = @"
+	    string connectionString = @"
             Server=docker.data.techcollege.dk,20003;
             Database=Auction_House;
-            User Id=sa;
-            Password=H2PD081122_Gruppe3;";
-        conn = new SqlConnection(connectionString);
-        conn.Open();
+            User Id=" + userName + "; " +
+	        "Password= " + passWord + ";";
+	    conn = new SqlConnection(connectionString);
+	    conn.Open();
     }
 
     public static Database Instance
@@ -81,6 +93,7 @@ public class Database
                         Boolean.Parse(reader.GetValue(14).ToString()!),
                         Boolean.Parse(reader.GetValue(14).ToString()!)
                     ));
+                Console.WriteLine(vehicles[0].Name);
             }
         }
         else
@@ -89,6 +102,48 @@ public class Database
         }
         reader.Close();
         return vehicles;
+    }
+
+    public string GetCar()
+    {
+	    SqlCommand cmd = new(@"SELECT Vehicles.Name,
+	                                        Vehicles.Kilometers,
+	                                        Vehicles.RegistrationNumber,
+	                                        Vehicles.Year,
+	                                        Vehicles.NewPrice,
+	                                        Vehicles.HasTowbar,
+	                                        PersonalCar.EngineSize,
+	                                        Vehicles.KmPerLiter,
+	                                        Vehicles.FuelType,
+	                                        PersonalCar.Seats,
+	                                        PersonalCar.TrunkHeight,
+	                                        PersonalCar.TrunkWidth,
+	                                        PersonalCar.TrunkDepth,
+	                                        PersonalCar.DriversLicense,
+	                                        PrivatePersonalCar.HasIsofix
+	                                        FROM Vehicles
+	                                        INNER JOIN PersonalCar ON Vehicles.ID = PersonalCar.VehicleID
+	                                        INNER JOIN PrivatePersonalCar ON PersonalCar.ID = PrivatePersonalCar.PersonalCarID"
+            , conn);
+        SqlDataReader reader = cmd.ExecuteReader();
+
+        
+        if (reader.HasRows)
+        {
+	        while (reader.Read())
+            {
+	            // foreach (IDataRecord rd in reader)
+	            // {
+		            return reader["Name"].ToString();
+	            // }
+            }
+        }
+        else
+        {
+            Console.WriteLine("Couldn't find any vehicles.");
+        }
+        reader.Close();
+        return "Not found";
     }
 
     public IEnumerable<Bus> GetAllBusses()

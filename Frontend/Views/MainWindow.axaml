@@ -40,7 +40,7 @@
 
             <!-- Sidebar -->
             <Grid Background="#111111" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
-                  RowDefinitions="*, Auto">
+                  RowDefinitions="*, Auto" Name="MainSidebar">
                 <TabStrip x:Name="SideDrawer"
                           Classes="Sidebar"
                           Margin="0,100" SelectedItem="{Binding SelectedTab}"

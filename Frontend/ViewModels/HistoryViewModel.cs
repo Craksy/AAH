@@ -14,8 +14,5 @@ public class HistoryViewModel : ReactiveObject, IRoutableViewModel {
     public HistoryViewModel() {
         TabItems.Add(new TabItemViewModel("Dashboard", new DashboardViewModel(), PackIconKind.ViewDashboard));
         TabItems.Add(new TabItemViewModel("Profile", new ProfileViewModel(), PackIconKind.Settings));
-        
     }
-
-
 }

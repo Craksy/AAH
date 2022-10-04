@@ -54,7 +54,7 @@ public class MainWindowViewModel : ReactiveObject, IScreen {
     public RoutingState Router { get; } = new();
 
     private bool _isDrawerOpen;
-
+    // private bool _loggedIn { get; set; } = true;
     public bool IsDrawerOpen {
         get => _isDrawerOpen;
         set {
@@ -86,6 +86,7 @@ public class MainWindowViewModel : ReactiveObject, IScreen {
             new("History", new HistoryViewModel(), PackIconKind.History),
             new("Profile", new ProfileViewModel(), PackIconKind.Settings),
             new("Auctions", new AuctionPageViewModel(), PackIconKind.Exchange),
+            new("LogIn", new LogInViewModel(), PackIconKind.Exchange),
         };
     }
 }

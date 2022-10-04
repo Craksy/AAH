@@ -61,17 +61,19 @@
         </Border>
         <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Classes="Card">
             <StackPanel>
-                <TextBlock Classes="Header" Text="Some other shit"></TextBlock>
-                <TextBlock Classes="Body" TextWrapping="Wrap" TextAlignment="Left">
-                    <TextBlock.Text>
-                        Et autem sit dignissimos maxime explicabo non eaque. Consequatur nam expedita repellendus tempora et voluptates. Dolor et doloribus amet. Velit fuga exercitationem doloremque iure perspiciatis magnam dolorum. Laboriosam fugiat inventore autem ipsa. Consequatur alias in odit voluptatum unde.
-                    </TextBlock.Text>
-                </TextBlock>
-                <TextBlock Classes="Body" TextWrapping="Wrap" TextAlignment="Left">
-                    <TextBlock.Text>
-                        Magni est doloremque aspernatur eum. Amet perferendis aperiam cupiditate similique. Ratione ut rerum molestias. Eos impedit enim rem ea. Numquam distinctio odit est repellendus recusandae.
-                    </TextBlock.Text>
-                </TextBlock>
+                <TextBlock Classes="Header" Text="Current Auctions"></TextBlock>
+                
+                <TextBlock Classes="Body" TextWrapping="Wrap" TextAlignment="Left" />
+                <TextBlock Text="{Binding Test}" />
+                    <!-- <TextBlock.Text> -->
+                    <!--     Et autem sit dignissimos maxime explicabo non eaque. Consequatur nam expedita repellendus tempora et voluptates. Dolor et doloribus amet. Velit fuga exercitationem doloremque iure perspiciatis magnam dolorum. Laboriosam fugiat inventore autem ipsa. Consequatur alias in odit voluptatum unde. -->
+                    <!-- </TextBlock.Text> -->
+                
+                <!-- <TextBlock Classes="Body" TextWrapping="Wrap" TextAlignment="Left"> -->
+                <!--     <TextBlock.Text> -->
+                <!--         Magni est doloremque aspernatur eum. Amet perferendis aperiam cupiditate similique. Ratione ut rerum molestias. Eos impedit enim rem ea. Numquam distinctio odit est repellendus recusandae. -->
+                <!--     </TextBlock.Text> -->
+                <!-- </TextBlock> -->
             </StackPanel>
         </Border>
         <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Classes="Card">

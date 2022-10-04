@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using System.Reactive;
 using Avalonia;
@@ -19,7 +20,7 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel> {
             defaultBindingMode: BindingMode.TwoWay);
 
     private bool _isDrawerOpen;
-
+    
     public static readonly DirectProperty<MainWindow, bool> IsDrawerOpenProperty =
         AvaloniaProperty.RegisterDirect<MainWindow, bool>(
             "IsDrawerOpen", o => o.IsDrawerOpen, (o, v) => o.IsDrawerOpen = v);
@@ -33,7 +34,7 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel> {
         get => (TabItemViewModel) GetValue(SelectedTabProperty)!;
         set => SetValue(SelectedTabProperty, value);
     }
-    
+
     public MainWindow() {
         InitializeComponent();
 #if DEBUG
