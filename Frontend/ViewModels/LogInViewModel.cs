@@ -6,7 +6,7 @@ using ReactiveUI;
 
 namespace Frontend.ViewModels;
 
-public class LogInViewModel : ReactiveObject, IRoutableViewModel
+public class LogInViewModel : ViewModelBase, IRoutableViewModel
 {
     public IScreen HostScreen { get; } = null!;
     public string? UrlPathSegment { get; } = "LogIn";

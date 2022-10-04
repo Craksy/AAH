@@ -11,7 +11,7 @@ public class Database
 {
     private static Database? _instance;
     private SqlConnection conn;
-
+    
     // private Database()
     // {
     //     string connectionString = @"
@@ -26,7 +26,7 @@ public class Database
     public string DBLogIn(string userName, string passWord)
     {
 	    try {
-	    var connectionString = @"
+			var connectionString = @"
             Server=docker.data.techcollege.dk,20003;
             Database=Auction_House;
             User Id=" + userName + "; " +
@@ -36,7 +36,7 @@ public class Database
 	    } catch (Exception e) {
 		    return $"Failed to connect to database: {e.Message}";
 	    }
-		return "Connected";
+		return "Connected with " + userName;
     }
 
     public static Database Instance

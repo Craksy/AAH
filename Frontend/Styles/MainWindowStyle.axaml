@@ -80,6 +80,10 @@
             </DataTemplate>
         </Setter>
     </Style>
+    
+    <Style Selector="TextBlock.LoginResultText">
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
 
     <Style Selector="TabStripItem:selected">
         <Setter Property="Transitions">

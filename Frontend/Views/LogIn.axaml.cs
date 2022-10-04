@@ -18,6 +18,7 @@ public partial class LogIn : ReactiveUserControl<LogInViewModel>
     public LogIn()
     {
         InitializeComponent();
+        DataContext = new LogInViewModel();
     }
 
     private void InitializeComponent()
@@ -34,13 +35,13 @@ public partial class LogIn : ReactiveUserControl<LogInViewModel>
         // _logInViewModel.Test;
     }
 
-    private void LoginButton_OnClick(object? sender, RoutedEventArgs e) {
-
-        string userName = ViewModel.userName;
-        string passWord = ViewModel.passWord;
-        var result = _db.DBLogIn(userName, passWord);
+    private void LoginButton_OnClick(object? sender, RoutedEventArgs e)
+    {
+        LogInViewModel? model = (LogInViewModel?)DataContext;
+        var result = _db.DBLogIn(model.userName, model.passWord);
+        
         // update viewmodel LoginResult
-        ViewModel.LoginResult = result;
-        ViewModel.RaisePropertyChanged(nameof(ViewModel.LoginResult));
+        model.LoginResult = result;
+        model.RaisePropertyChanged(nameof(model.LoginResult));
     }
 }
