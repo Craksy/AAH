@@ -8,7 +8,8 @@ namespace AutoAuctionProjekt.Classes
         {
             //TODO: U7 - Set constructor
             //TODO: U8 - Add to database and set ID
-            throw new NotImplementedException();
+            CVRNumber = cvrNummer;
+            Credit = credit;
         }
         public uint CVRNumber { get; set; }
         public decimal Credit { get; set; }
