@@ -9,7 +9,75 @@
     <Design.DataContext>
         <viewModels:HistoryViewModel />
     </Design.DataContext>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <RadialGradientBrush x:Key="CardGrad" Center="50%,50%" GradientOrigin="100%,0%" Radius="1.05">
+                <RadialGradientBrush.GradientStops>
+                    <GradientStop Offset="0" Color="#1f0b61"></GradientStop>
+                    <GradientStop Offset="1" Color="#180714"></GradientStop>
+                </RadialGradientBrush.GradientStops>
+            </RadialGradientBrush>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.Styles>
+        <Style Selector="Border.Card">
+            <Setter Property="Background" Value="{DynamicResource CardGrad}"></Setter>
+            <Setter Property="CornerRadius" Value="10"></Setter>
+            <Setter Property="Padding" Value="5"></Setter>
+            <Setter Property="Margin" Value="5"></Setter>
+        </Style>
+        <Style Selector=".Card TextBlock.Header">
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="15"></Setter>
+            <Setter Property="Foreground" Value="#FB5E89"></Setter>
+        </Style>
+        <Style Selector=".Card TextBlock.Body">
+            <Setter Property="TextAlignment" Value="Left" />
+            <Setter Property="FontSize" Value="11"></Setter>
+            <Setter Property="Foreground" Value="#FAF0C0"></Setter>
+            <Setter Property="Margin" Value="25,15"></Setter>
+        </Style>
+    </UserControl.Styles>
     <StackPanel>
-        <TextBlock Text="Ohai"></TextBlock>
+        <Grid RowDefinitions="*, *, *, *" ColumnDefinitions="* * * *">
+        <Border Grid.Row="0" Grid.Column="0" Classes="Card">
+            <StackPanel>
+                <TextBlock Classes="Header" Text="Name"></TextBlock>
+            </StackPanel>
+        </Border>
+        <Border Grid.Row="0" Grid.Column="1" Classes="Card">
+            <StackPanel>
+                <TextBlock Classes="Header" Text="Year"></TextBlock>
+            </StackPanel>
+        </Border>
+        <Border Grid.Row="0" Grid.Column="2" Classes="Card">
+            <StackPanel>
+                <TextBlock Classes="Header" Text="You bid"></TextBlock>
+            </StackPanel>
+        </Border>
+        <Border Grid.Row="0" Grid.Column="3" Classes="Card">
+            <StackPanel>
+                <TextBlock Classes="Header" Text="Final bid"></TextBlock>
+            </StackPanel>
+        </Border>
+            
+        <Border Grid.Row="1" Grid.Column="0">
+            <StackPanel>
+                <TextBlock Classes="Body" Text="Test"></TextBlock>
+            </StackPanel>
+        </Border>
+        
+            <Border Grid.Row="2" Grid.Column="0">
+                <StackPanel>
+                    <TextBlock Classes="Body" Text="Test"></TextBlock>
+                </StackPanel>
+            </Border>
+            
+            <Border Grid.Row="3" Grid.Column="0">
+                <StackPanel>
+                    <TextBlock Classes="Body" Text="Test"></TextBlock>
+                </StackPanel>
+            </Border>
+        </Grid>
     </StackPanel>
 </UserControl>
