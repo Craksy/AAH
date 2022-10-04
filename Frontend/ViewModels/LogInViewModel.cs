@@ -14,6 +14,7 @@ public class LogInViewModel : ReactiveObject, IRoutableViewModel
     private string _test;
     public string userName { get; set; } = "";
     public string passWord { get; set; } = "";
+    public string LoginResult { get; set; }
     
     public string Test
     {

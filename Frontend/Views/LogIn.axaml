@@ -29,5 +29,8 @@
             <Button Name="LoginButton" Margin="0 0 10 0" Click="LoginButton_OnClick">Login</Button>
             <!-- <Button Name="CreateButton" Command="{Binding _test2}">Create user</Button> -->
         </StackPanel>
+        <TextBlock Text="Result:"/>
+        <TextBlock Text="{Binding LoginResult}"/>
+        
     </StackPanel>
 </UserControl>

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using AutoAuctionProjekt.Classes.Vehicles;
 
 namespace AutoAuctionProjekt.Classes.Data;
@@ -22,15 +23,20 @@ public class Database
     //     conn.Open();
     // }
 
-    public void DBLogIn(string userName, string passWord)
+    public string DBLogIn(string userName, string passWord)
     {
-	    string connectionString = @"
+	    try {
+	    var connectionString = @"
             Server=docker.data.techcollege.dk,20003;
             Database=Auction_House;
             User Id=" + userName + "; " +
-	        "Password= " + passWord + ";";
+	                           "Password= " + passWord + ";";
 	    conn = new SqlConnection(connectionString);
 	    conn.Open();
+	    } catch (Exception e) {
+		    return $"Failed to connect to database: {e.Message}";
+	    }
+		return "Connected";
     }
 
     public static Database Instance
