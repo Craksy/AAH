@@ -17,7 +17,6 @@ privat og company som klasser
 
     public abstract class User : ISeller, IBuyer //TODO: U4 - Implement interfaces
     {
-        
         protected User(string userName, string password, uint zipCode)
         {
             //TODO: U1 - Set constructor and field
@@ -26,35 +25,21 @@ privat og company som klasser
             byte[] result = sha.ComputeHash(Encoding.ASCII.GetBytes(password));
             PasswordHash = result;
 
-            UserName = userName;
-            Zipcode = zipCode;
+            throw new NotImplementedException();
         }
-
+        
+        public string UserName { get; set; }
+        public Decimal Balance { get; set; }
+        public uint Zipcode { get; set; }
         public string ReceiveBidNodification(string message)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// Users name
-        /// </summary>
-        public string UserName { get; set; }
-        
-        /// <summary>
-        /// Users account balance
-        /// </summary>
-        public Decimal Balance { get; set; }
-        
-        /// <summary>
-        /// Zip code of the users address
-        /// </summary>
-        public uint Zipcode { get; set; }
-        
-        /// <summary>
         /// ID property
         /// </summary>
         public uint ID { get; private set; }
-        
         /// <summary>
         /// PasswordHash property
         /// </summary>
