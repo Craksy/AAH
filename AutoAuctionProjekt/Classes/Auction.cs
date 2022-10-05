@@ -13,8 +13,6 @@ namespace AutoAuctionProjekt.Classes
         /// <param name="minimumPrice"></param>
         public Auction(Vehicle vehicle, ISeller seller, decimal minimumPrice)
         {
-            //TODO: A1 - Set constructor
-            //TODO: A2 - Add to database and set ID
             Vehicle = vehicle;
             Seller = seller;
             MinimumPrice = minimumPrice;
@@ -43,17 +41,22 @@ namespace AutoAuctionProjekt.Classes
         /// <summary>
         /// The vehicle of the auction
         /// </summary>
-        internal Vehicle Vehicle { get; set; }
+        public Vehicle Vehicle { get; set; }
         
         /// <summary>
         /// The seller of the auction
         /// </summary>
-        internal ISeller Seller { get; set; }
+        public ISeller Seller { get; set; }
         
         /// <summary>
         /// The buyer or potential buyer of the auction
         /// </summary>
-        internal IBuyer Buyer { get; set; }
+        public IBuyer Buyer { get; set; }
+        
+        /// <summary>
+        /// The date the auction was created
+        /// </summary>
+        public DateTime StartDate { get; set; }
 
         /// <inheritdoc />
         public override string ToString() => $"Auction for {Vehicle} by {Seller}, starting at {MinimumPrice}";
