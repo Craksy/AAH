@@ -48,6 +48,3 @@ VALUES (0, 2);
 Isofix
 PersonalCarID
 */
-
-INSERT INTO Bus
-VALUES (13, 2, 1, 'DE', 10, 1)

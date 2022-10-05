@@ -1,0 +1,75 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Frontend.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:rxui="clr-namespace:Avalonia.ReactiveUI;assembly=Avalonia.ReactiveUI"
+        xmlns:app="clr-namespace:Frontend"
+        xmlns:packIcon="clr-namespace:MaterialDesign.Avalonia.PackIcon;assembly=MaterialDesign.Avalonia.PackIcon"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Frontend.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Frontend"
+        Width="1280"
+        Height="720"
+        CanResize="True"
+        ExtendClientAreaTitleBarHeightHint="-1"
+        TransparencyLevelHint="AcrylicBlur"
+        ExtendClientAreaToDecorationsHint="True"
+        Background="Transparent">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+
+    <Border Classes="Panel">
+        <Grid ColumnDefinitions="Auto, *" RowDefinitions="80, *">
+            <!-- Titlebar -->
+            <Border Grid.Column="1" BorderThickness="0, 0, 0, 1" BorderBrush="#000" Background="#0000"
+                    PointerPressed="BeginDragWindow" IsHitTestVisible="True"
+                    HorizontalAlignment="Stretch">
+                <StackPanel
+                    Margin="50, 5, 0, 0"
+                    VerticalAlignment="Center" HorizontalAlignment="Stretch" Orientation="Horizontal">
+                    <TextBlock FontSize="22" Foreground="#FB5E89"
+                               Text="{Binding SelectedTab.Title}"
+                               HorizontalAlignment="Left">
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+
+            <!-- Sidebar -->
+            <Grid Background="#111111" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" 
+                  RowDefinitions="*, Auto" Name="MainSidebar">
+                <TabStrip x:Name="SideDrawer"
+                          IsVisible="{Binding IsLoggedIn}"
+                          Classes="Sidebar"
+                          Margin="0,100" SelectedItem="{Binding SelectedTab}"
+                          Items="{Binding Tabs}"
+                          Grid.Column="0" Grid.Row="0">
+                    <TabStrip.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel />
+                        </ItemsPanelTemplate>
+                    </TabStrip.ItemsPanel>
+                </TabStrip>
+            </Grid>
+
+            <!-- Content Area -->
+            <Border Classes="ContentArea" Name="ContentArea" Grid.Column="1" Grid.Row="1">
+                <rxui:ViewModelViewHost ViewModel="{Binding SelectedTab.Page}">
+                    <rxui:ViewModelViewHost.PageTransition>
+                        <CrossFade Duration="0:0:0.2" />
+                    </rxui:ViewModelViewHost.PageTransition>
+                    <rxui:ViewModelViewHost.ViewLocator>
+                        <app:AppViewLocator />
+                    </rxui:ViewModelViewHost.ViewLocator>
+                </rxui:ViewModelViewHost>
+            </Border>
+        </Grid>
+    </Border>
+
+    <Window.Styles>
+        <StyleInclude Source="/Styles/MainWindowStyle.axaml" />
+    </Window.Styles>
+</Window>
