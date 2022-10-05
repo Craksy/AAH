@@ -1,0 +1,56 @@
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="200" Width="100" Height="100">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+    <Styles.Resources>
+        <LinearGradientBrush x:Key="BlueGradient" StartPoint="50.0%,0%" EndPoint="50%,100%">
+            <GradientStops>
+                <GradientStop Color="#960421A9" Offset="0" />
+                <GradientStop Color="#970494EE" Offset="1" />
+            </GradientStops>
+        </LinearGradientBrush>
+    </Styles.Resources>
+
+    <Style Selector="Border.Panel">
+        <Setter Property="Background" Value="{DynamicResource BlueGradient}"></Setter>
+    </Style>
+
+    <Style Selector="Border.ContentArea">
+        <Setter Property="Background" Value="#4000" />
+        <Setter Property="Margin" Value="0,0,10,10"></Setter>
+        <Setter Property="CornerRadius" Value="10"></Setter>
+    </Style>
+
+    <Style Selector="Button.SideDrawer">
+        <Setter Property="Foreground" Value="#B4F5F0" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="Padding" Value="0,10"></Setter>
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+        <Setter Property="Template">
+            <ControlTemplate TargetType="Button">
+                <Border HorizontalAlignment="Stretch" Background="{TemplateBinding Background}">
+                    <TextBlock Padding="0,10" Foreground="#B4F5F0" HorizontalAlignment="Center"
+                               Text="{TemplateBinding Content}">
+                    </TextBlock>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    <Style Selector="Button.SideDrawer[IsPointerOver=True]">
+        <Setter Property="Background" Value="#2000" />
+    </Style>
+    <Style Selector="Button.SideDrawer.Selected">
+        <Setter Property="Foreground" Value="#2CEEF0" />
+        <Setter Property="Background" Value="#4000" />
+    </Style>
+    <Style Selector="Button.SideDrawer.Inactive">
+        <Setter Property="Foreground" Value="#88041F60" />
+    </Style>
+</Styles>

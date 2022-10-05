@@ -9,6 +9,8 @@ CREATE TABLE Busses(
 	HeavyVehicleID INT,
 	PRIMARY KEY (ID)
 );
+INSERT INTO Busses
+VALUES (13, 2, 1, 'DE', 10, 1)
 
 /*
 ID

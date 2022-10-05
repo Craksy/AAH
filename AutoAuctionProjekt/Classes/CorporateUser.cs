@@ -12,6 +12,7 @@ namespace AutoAuctionProjekt.Classes
         public CorporateUser(string userName,  uint zipCode, decimal balance, string cvrNummer, decimal credit) 
             : base(userName, zipCode, balance)
         {
+
             CVRNumber = cvrNummer;
             Credit = credit;
         }

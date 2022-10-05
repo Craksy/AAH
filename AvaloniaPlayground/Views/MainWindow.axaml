@@ -1,0 +1,54 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AvaloniaPlayground.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:rxui="clr-namespace:Avalonia.ReactiveUI;assembly=Avalonia.ReactiveUI"
+        xmlns:app="clr-namespace:AvaloniaPlayground"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="AvaloniaPlayground.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="AvaloniaPlayground"
+        Width="1280"
+        Height="720"
+        CanResize="True"
+        ExtendClientAreaTitleBarHeightHint="-1"
+        TransparencyLevelHint="AcrylicBlur"
+        ExtendClientAreaToDecorationsHint="True"
+        Background="Transparent">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+    <Window.Styles>
+        <StyleInclude Source="/Styles/MainWindowStyle.axaml" />
+    </Window.Styles>
+
+    <Border Classes="Panel">
+        <Grid ColumnDefinitions="200, *" RowDefinitions="50, *">
+            <Border PointerPressed="BeginDragWindow" IsHitTestVisible="True" Grid.ColumnSpan="2">
+                <TextBlock Foreground="#B4F5F0" Text="AutoAuction" HorizontalAlignment="Center"
+                           VerticalAlignment="Center">
+                </TextBlock>
+            </Border>
+            <Border Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" />
+            <StackPanel Grid.Column="0" Grid.Row="1">
+                <Button Classes="SideDrawer Selected" Content="Dashboard" Command="{Binding GoToDashboard}" />
+                <Button Classes="SideDrawer" Content="Profile" Command="{Binding GotoProfilePage}" />
+                <Button Classes="SideDrawer" Content="History" Command="{Binding GoToHistoryPage}" />
+                <Button Classes="SideDrawer Inactive" Content="Inventory" />
+            </StackPanel>
+            <Border Classes="ContentArea" Grid.Column="1" Grid.Row="1">
+                <rxui:RoutedViewHost Padding="10" Router="{Binding Router}">
+                    <rxui:RoutedViewHost.DefaultContent>
+                        <TextBlock Text="Default page" />
+                    </rxui:RoutedViewHost.DefaultContent>
+                    <rxui:RoutedViewHost.ViewLocator>
+                        <app:AppViewLocator />
+                    </rxui:RoutedViewHost.ViewLocator>
+                </rxui:RoutedViewHost>
+            </Border>
+        </Grid>
+    </Border>
+
+</Window>

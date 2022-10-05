@@ -21,9 +21,6 @@ namespace AutoAuctionProjekt.Classes.Vehicles
         {
             LoadCapacity = loadCapacity;
             DriversLicense = hasTowbar ? DriversLisenceEnum.CE : DriversLisenceEnum.C;
-            
-            //TODO: V11 - Add to database and set ID
-            throw new NotImplementedException();
         }
 
         public Truck(VehicleProps vehicleProps, VehicleDimensionsStruct vehicleDimensions, double loadCapacity)
