@@ -12,16 +12,16 @@ public class Database
     private static Database? _instance;
     private SqlConnection conn;
     
-    // private Database()
-    // {
-    //     string connectionString = @"
-    //         Server=docker.data.techcollege.dk,20003;
-    //         Database=Auction_House;
-    //         User Id=sa;
-    //         Password=H2PD081122_Gruppe3;";
-    //     conn = new SqlConnection(connectionString);
-    //     conn.Open();
-    // }
+    private Database()
+    {
+        string connectionString = @"
+            Server=docker.data.techcollege.dk,20003;
+            Database=Auction_House;
+            User Id=sa;
+            Password=H2PD081122_Gruppe3;";
+        conn = new SqlConnection(connectionString);
+        conn.Open();
+    }
 
     public string DBLogIn(string userName, string passWord)
     {
@@ -304,11 +304,43 @@ public class Database
         return trucks;
     }
     
+    //Users
+    public string GetAllUsers()
+    {
+	    SqlCommand cmd = new(@"SELECT Users.Id,
+										       Users.UserName,
+										       Users.ZipCode,
+										       Users.Balance,
+										       PrivateUsers.Id,
+										       PrivateUsers.CprNumber,
+										       CorporateUsers.Id,
+										       CorporateUsers.CvrNumber,
+										       CorporateUsers.CreditScore
+										       FROM Users
+											LEFT JOIN PrivateUsers ON Users.Id = PrivateUsers.Id
+										    LEFT JOIN CorporateUsers ON Users.Id = CorporateUsers.Id"
+		    , conn);
+	    SqlDataReader reader = cmd.ExecuteReader();
+	    
+	    List<User> users = new ();
+	    if (reader.HasRows)
+	    {
+		    while (reader.Read())
+		    {
+			    users.Add(new CorporateUser(
+				    users));
+			    return reader["VehicleID"].ToString();
+		    }
+	    }
+	    return "No users found.";
+    }
+    
     // Auctions
     public string GetCurrentAuctions()
     {
 	    SqlCommand cmd = new(@"SELECT Auctions.ID,
        											Auctions.VehicleID,
+       											Auctions.SellerID,
        											Vehicles.Name,
 												Vehicles.Year,
 												Auctions.StandingBid,
@@ -319,18 +351,28 @@ public class Database
 		    , conn);
 	    SqlDataReader reader = cmd.ExecuteReader();
 
+	    GetAllPrivatePersonalCars();
+	    
+
 	    List<Auction> auctions = new();
 	    List<Vehicle> vehicles = new();
 	    List<User> users = new ();
 	    if (reader.HasRows)
 	    {
+		    
 		    while (reader.Read())
 		    {
 			    auctions.Add(new Auction(
-				    vehicles[1], users[1], reader.GetDecimal(5)));
+				    vehicles[Int32.Parse(reader["VehicleID"].ToString())],
+				    users[Int32.Parse(reader["SellerID"].ToString())],
+				    decimal.Parse(reader["MinimumBid"].ToString())));
+			    return reader["VehicleID"].ToString();
 		    }
+			    // auctions.Add(new Auction(
+			    //          				    vehicles[rd.ToString().GetInt32(1)], users[reader.GetInt32(2)], reader.GetDecimal(5)));
 
-		    return auctions[1].ToString();
+		    //
+		    // return auctions.ToString();
 	    }
 
 	    return "No auctions found.";
