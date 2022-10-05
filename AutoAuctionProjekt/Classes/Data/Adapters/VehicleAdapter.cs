@@ -1,13 +1,22 @@
-﻿using System.Data.SqlClient;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
 using AutoAuctionProjekt.Classes.Vehicles;
 
-namespace AutoAuctionProjekt.Classes.Data; 
+namespace AutoAuctionProjekt.Classes.Data.Adapters; 
 
-public class VehicleAdapter {
+public class VehicleAdapter  {
+
+    public static IEnumerable<Bus> GetAllBuses(SqlConnection connection) => Database.GetAll(connection, GetBussesQuery, BusFromReader);
+    public static IEnumerable<Truck> GetAllTrucks(SqlConnection connection) => Database.GetAll(connection, GetTrucksQuery, TruckFromReader);
+    public static IEnumerable<PrivatePersonalCar> GetAllPrivatePersonalCars(SqlConnection connection) => Database.GetAll(connection, PrivatePersonalCarsQuery, GetPrivatePersonalCarFromReader);
+    public static IEnumerable<ProfessionalPersonalCar> GetAllProfessionalPersonalCars(SqlConnection connection) => Database.GetAll(connection, ProfessionalPersonalCarsQuery, GetProfessionalPersonalCarFromReader);
+
+    
     
     #region SQL Queries
 
-    private const string VehiclesCommon = @"
+    public const string VehiclesCommon = @"
 Vehicles.ID,
 Vehicles.Name,
 Vehicles.Kilometers,
@@ -20,13 +29,13 @@ Vehicles.FuelType,
 Vehicles.EnergyClass
 ";
 
-    private const string HeavyVehiclesCommon = @"
+    public const string HeavyVehiclesCommon = @"
 HeavyVehicles.Height,
 HeavyVehicles.Weight,
 HeavyVehicles.Length
 ";
 
-    private const string PersonalCarsCommon = @"
+    public const string PersonalCarsCommon = @"
 PersonalCar.EngineSize,
 PersonalCar.Seats,
 PersonalCar.TrunkHeight,
@@ -35,68 +44,32 @@ PersonalCar.TrunkDepth,
 PersonalCar.DriversLicense
 ";
     
-    private const string GetBussesQuery = $@"SELECT 
-{VehiclesCommon}, 
-{HeavyVehiclesCommon},
-Busses.Seats,
-Busses.SleepingSpaces,
-Busses.HasToilet,
-Busses.DriversLicense
+    public const string GetBussesQuery = $@"SELECT 
+{VehiclesCommon}, {HeavyVehiclesCommon}, Busses.Seats, Busses.SleepingSpaces, Busses.HasToilet, Busses.DriversLicense
 FROM Vehicles 
 INNER JOIN HeavyVehicles ON Vehicles.ID = HeavyVehicles.VehicleID
 INNER JOIN Busses ON HeavyVehicles.ID = Busses.HeavyVehicleID
 ";
     
-    private const string GetTrucksQuery = $@"
-SELECT 
-{VehiclesCommon},
-{HeavyVehiclesCommon},
-Trucks.LoadCapacity
+    public const string GetTrucksQuery = $@"
+SELECT {VehiclesCommon}, {HeavyVehiclesCommon}, Trucks.LoadCapacity
 FROM Vehicles 
 INNER JOIN HeavyVehicles ON Vehicles.ID = HeavyVehicles.VehicleID
 INNER JOIN Trucks ON HeavyVehicles.ID = Trucks.HeavyVehicleID
 ";
 
-    private const string PrivatePersonalCarsQuery = @"
-SELECT Vehicles.Name,
-Vehicles.Kilometers,
-Vehicles.RegistrationNumber,
-Vehicles.Year,
-Vehicles.NewPrice,
-Vehicles.HasTowbar,
-Vehicles.KmPerLiter,
-Vehicles.FuelType,
-PersonalCar.EngineSize,
-PersonalCar.Seats,
-PersonalCar.TrunkHeight,
-PersonalCar.TrunkWidth,
-PersonalCar.TrunkDepth,
-PersonalCar.DriversLicense,
-PrivatePersonalCar.HasIsofix
+    public const string PrivatePersonalCarsQuery = $@"
+SELECT {VehiclesCommon}, {PersonalCarsCommon}, PrivatePersonalCar.HasIsofix
 FROM Vehicles
 INNER JOIN PersonalCar ON Vehicles.ID = PersonalCar.VehicleID
 INNER JOIN PrivatePersonalCar ON PersonalCar.ID = PrivatePersonalCar.PersonalCarID
 ";
     
-    private const string ProfessionalPersonalCarsQuery = @"
-SELECT Vehicles.Name,
-Vehicles.Kilometers,
-Vehicles.RegistrationNumber,
-Vehicles.Year,
-Vehicles.NewPrice,
-Vehicles.HasTowbar,
-PersonalCar.EngineSize,
-Vehicles.KmPerLiter,
-Vehicles.FuelType,
-PersonalCar.Seats,
-PersonalCar.TrunkHeight,
-PersonalCar.TrunkWidth,
-PersonalCar.TrunkDepth,
-PersonalCar.DriversLicense,
-PrivatePersonalCar.HasIsofix
+    public const string ProfessionalPersonalCarsQuery = $@"SELECT 
+{VehiclesCommon}, {PersonalCarsCommon}, ProfessionalPersonCar.LoadCapacity, ProfessionalPersonCar.SafetyBar, ProfessionalPersonCar.PersonCarID
 FROM Vehicles
 INNER JOIN PersonalCar ON Vehicles.ID = PersonalCar.VehicleID
-INNER JOIN PrivatePersonalCar ON PersonalCar.ID = PrivatePersonalCar.PersonalCarID
+INNER JOIN ProfessionalPersonCar ON PersonalCar.ID = ProfessionalPersonCar.PersonCarID
 ";
     #endregion
 
