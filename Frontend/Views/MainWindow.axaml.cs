@@ -21,17 +21,6 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel> {
         = AvaloniaProperty.Register<MainWindow, TabItem>(nameof(SelectedTab),
             defaultBindingMode: BindingMode.TwoWay);
 
-    private bool _isDrawerOpen;
-    
-    public static readonly DirectProperty<MainWindow, bool> IsDrawerOpenProperty =
-        AvaloniaProperty.RegisterDirect<MainWindow, bool>(
-            "IsDrawerOpen", o => o.IsDrawerOpen, (o, v) => o.IsDrawerOpen = v);
-
-    public bool IsDrawerOpen {
-        get => _isDrawerOpen;
-        set => SetAndRaise(IsDrawerOpenProperty, ref _isDrawerOpen, value);
-    }
-
     public TabItem SelectedTab {
         get => (TabItem) GetValue(SelectedTabProperty)!;
         set => SetValue(SelectedTabProperty, value);
@@ -46,23 +35,8 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel> {
 
     private void InitializeComponent() {
         this.WhenActivated(d => {
-            // this.Bind(ViewModel, vm => vm.IsDrawerOpen, v => v.IsDrawerOpen)
-            //     .DisposeWith(d);
-            var contentArea = this.FindControl<Border>("ContentArea");
-            contentArea.AddHandler(Button.ClickEvent, OnContentAreaButtonClick);
         });
         AvaloniaXamlLoader.Load(this);
-    }
-
-    private void OnContentAreaButtonClick(object? sender, RoutedEventArgs e) {
-        if (e.Source is Button button && button.Name == "LoginButton") {
-            ViewModel.IsLoggedIn = true;
-            ViewModel.RaisePropertyChanged(nameof(ViewModel.IsLoggedIn));
-            e.Handled = true;
-        }
-        else {
-            e.Handled = false;
-        }
     }
 
     private void BeginDragWindow(object? sender, PointerPressedEventArgs e) {
