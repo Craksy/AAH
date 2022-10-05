@@ -11,8 +11,15 @@ namespace AutoAuctionProjekt.Classes
         /// <param name="vehicle"></param>
         /// <param name="seller"></param>
         /// <param name="minimumPrice"></param>
+        
+        private Vehicle _vehicle;
+        private ISeller _seller;
+        private decimal _minimumPrice;
         public Auction(Vehicle vehicle, ISeller seller, decimal minimumPrice)
         {
+            Vehicle = vehicle;
+            Seller = seller;
+            MinimumPrice = minimumPrice;
             //TODO: A1 - Set constructor
             //TODO: A2 - Add to database and set ID
             throw new NotImplementedException();

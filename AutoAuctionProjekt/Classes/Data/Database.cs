@@ -32,6 +32,32 @@ public class Database
     }
     
     // Vehicles
+    public string GetVehicleByID(int ID)
+    {
+	    SqlCommand cmd = new(@"SELECT Vehicles.ID,
+    										Vehicles.Name,
+	                                        Vehicles.Kilometers,
+	                                        Vehicles.RegistrationNumber,
+	                                        Vehicles.Year,
+	                                        Vehicles.NewPrice,
+	                                        Vehicles.HasTowbar,
+	                                        Vehicles.KmPerLiter,
+	                                        Vehicles.FuelType
+	                                        FROM Vehicles
+	                                        WHERE Vehicles.ID = @id"
+		    , conn);
+	    cmd.Parameters.AddWithValue("@id", ID);
+	    SqlDataReader reader = cmd.ExecuteReader();
+
+	    if (reader.HasRows)
+	    {
+		    while (reader.Read())
+		    {
+				return reader.GetString(1);
+		    }
+	    }
+	    return "No vehicles found.";
+    }
     public IEnumerable<PrivatePersonalCar> GetAllPrivatePersonalCars()
     {
         SqlCommand cmd = new(@"SELECT Vehicles.Name,
@@ -164,10 +190,10 @@ public class Database
 												HeavyVehicles.Height,
 												HeavyVehicles.Weight,
 												HeavyVehicles.Length,
-												Truck.LoadCapacity
+												Trucks.LoadCapacity
 											    FROM Vehicles
 											    INNER JOIN HeavyVehicles ON Vehicles.ID = HeavyVehicles.VehicleID
-											    INNER JOIN Truck ON HeavyVehicles.ID = Truck.HeavyVehicleID"
+											    INNER JOIN Trucks ON HeavyVehicles.ID = Trucks.HeavyVehicleID"
             , conn);
         SqlDataReader reader = cmd.ExecuteReader();
         
@@ -203,5 +229,32 @@ public class Database
         }
         reader.Close();
         return trucks;
+    }
+    
+    // Auctions
+    public string GetCurrentAuctions()
+    {
+	    SqlCommand cmd = new(@"SELECT Auctions.ID,
+       											Auctions.VehicleID,
+       											Vehicles.Name,
+												Vehicles.Year,
+												Auctions.StandingBid
+												FROM Auctions
+												INNER JOIN Vehicles
+												    ON Auctions.VehicleID = Vehicles.ID"
+		    , conn);
+	    SqlDataReader reader = cmd.ExecuteReader();
+
+	    List<Auction> auctions = new();
+	    List<Vehicle> vehicles = new();
+	    if (reader.HasRows)
+	    {
+		    while (reader.Read())
+		    {
+			    
+		    }
+	    }
+
+	    return "No auctions found.";
     }
 }
