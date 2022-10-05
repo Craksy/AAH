@@ -24,7 +24,6 @@ namespace AutoAuctionProjekt
                                            + "\nYear: " + privateCar2.Year);
             
             // db.GetAllBusses();
-            db.GetAllVehicles();
         }
     }
 }

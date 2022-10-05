@@ -44,7 +44,6 @@ namespace AutoAuctionProjekt.Classes.Vehicles
             VehicleDimensions = vehicleDimentions;
         }
         
-        
         /// <summary>
         /// Physical properties of the vehicle
         /// </summary>
