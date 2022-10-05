@@ -25,8 +25,22 @@ namespace AutoAuctionProjekt.Classes.Vehicles
             HasToilet = hasToilet;
             DriversLicense = hasTowbar ? DriversLisenceEnum.DE : DriversLisenceEnum.D;
         }
-
-
+        
+        public Bus(
+            VehicleProps vehicleProps,
+            VehicleDimensionsStruct vehicleDimentions,
+            ushort numberOfSeats,
+            ushort numberOfSleepingSpaces,
+            bool hasToilet) : base(vehicleProps, vehicleDimentions)
+        {
+            NumberOfSeats = numberOfSeats;
+            NumberOfSleepingSpaces = numberOfSleepingSpaces;
+            HasToilet = hasToilet;
+            DriversLicense = vehicleProps.HasTowbar ? DriversLisenceEnum.DE : DriversLisenceEnum.D;
+            
+            //TODO: V8 - Add to database and set ID
+        }
+        
         /// <summary>
         /// Number of seats
         /// </summary>

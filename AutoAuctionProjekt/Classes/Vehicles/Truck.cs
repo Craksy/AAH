@@ -23,6 +23,12 @@ namespace AutoAuctionProjekt.Classes.Vehicles
             DriversLicense = hasTowbar ? DriversLisenceEnum.CE : DriversLisenceEnum.C;
         }
 
+        public Truck(VehicleProps vehicleProps, VehicleDimensionsStruct vehicleDimensions, double loadCapacity)
+            : base(vehicleProps, vehicleDimensions) {
+            LoadCapacity = loadCapacity;
+            DriversLicense = vehicleProps.HasTowbar ? DriversLisenceEnum.CE : DriversLisenceEnum.C;
+        }
+
         /// <summary>
         /// Load Capacity field and property
         /// </summary>
