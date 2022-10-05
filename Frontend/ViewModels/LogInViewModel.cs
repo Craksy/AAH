@@ -20,5 +20,6 @@ public class LogInViewModel : ViewModelBase
     //     get => _loggedInTest;
     //     set => this.RaiseAndSetIfChanged(ref _loggedInTest, value);
     // }
-    public LogInViewModel() { }
+    public LogInViewModel() {
+    }
 }

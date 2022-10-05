@@ -15,31 +15,45 @@ køber og sælger som interfaces
 privat og company som klasser
  */
 
-    public abstract class User : ISeller, IBuyer //TODO: U4 - Implement interfaces
+    /// <summary>
+    /// The base User class. Implements the ISeller and IBuyer interfaces,
+    /// and holds properties common to both <see cref="PrivateUser"/> and <see cref="CorporateUser"/>.
+    /// </summary>
+    public class User : ISeller, IBuyer
     {
-        protected User(string userName, string password, uint zipCode)
+        public User(string userName, string zipCode, decimal balance = 0)
         {
-            //TODO: U1 - Set constructor and field
-
-            HashAlgorithm sha = SHA256.Create();
-            byte[] result = sha.ComputeHash(Encoding.ASCII.GetBytes(password));
-            PasswordHash = result;
-
-            throw new NotImplementedException();
+            UserName = userName;
+            Zipcode = zipCode;
+            Balance = balance;
         }
-        
-        public string UserName { get; set; }
-        public Decimal Balance { get; set; }
-        public uint Zipcode { get; set; }
+
         public string ReceiveBidNodification(string message)
         {
+            //TODO: This method could be used in the frontend for a notification area.
             throw new NotImplementedException();
         }
 
         /// <summary>
+        /// Users name
+        /// </summary>
+        public string UserName { get; set; }
+        
+        /// <summary>
+        /// Users account balance
+        /// </summary>
+        public Decimal Balance { get; set; }
+        
+        /// <summary>
+        /// Zip code of the users address
+        /// </summary>
+        public string Zipcode { get; set; }
+        
+        /// <summary>
         /// ID property
         /// </summary>
-        public uint ID { get; private set; }
+        public int ID { get; init; }
+        
         /// <summary>
         /// PasswordHash property
         /// </summary>
@@ -68,10 +82,6 @@ privat og company som klasser
         /// Returns the User in a string with relivant information.
         /// </summary>
         /// <returns>...</returns>
-        public override string ToString()
-        {
-            //TODO: U3 - ToString for User
-            throw new NotImplementedException();
-        }
+        public override string ToString() => $"User: {UserName} - Balance: {Balance} - Zipcode: {Zipcode}";
     }
 }

@@ -25,6 +25,12 @@ namespace AutoAuctionProjekt.Classes.Vehicles
         {
             HasIsofixFittings = hasIsofixFittings;
         }
+        
+        public PrivatePersonalCar(VehicleProps vehicleProps, ushort numberOfSeats, TrunkDimentionsStruct trunkDims, bool hasIsofixFittings, bool licenseBE)
+            : base(vehicleProps, numberOfSeats, trunkDims, licenseBE)
+        {
+            HasIsofixFittings = hasIsofixFittings;
+        }
 
         /// <summary>
         /// Isofix Fittings property

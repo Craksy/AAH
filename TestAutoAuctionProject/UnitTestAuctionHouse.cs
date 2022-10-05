@@ -43,8 +43,8 @@ namespace TestAutoAuctionProject
             true);
         #endregion
         #region Init User objects
-        User user1 = new PrivateUser("lkri", "password1", 9000, 0000000000);
-        User user2 = new CorporateUser("fros", "password2", 9400, 99999999, 0M);
+        User user1 = new PrivateUser("lkri", "9000", 420, "0000000000");
+        User user2 = new CorporateUser("fros", "9400", 69, "99999999", 0M);
         #endregion
         [Fact]
         public void TestSetForSale()

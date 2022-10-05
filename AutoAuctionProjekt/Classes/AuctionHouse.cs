@@ -11,7 +11,7 @@ namespace AutoAuctionProjekt.Classes
         public static List<Auction> Auctions = new List<Auction>();
         
         /// <summary>
-        /// A method that ...
+        /// Set a vehicle for auction and add it to the list of auctions
         /// </summary>
         /// <param name="vehicle"></param>
         /// <param name="seller"></param>
