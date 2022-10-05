@@ -6,7 +6,7 @@
              xmlns:views="clr-namespace:Frontend.Views"
              xmlns:viewModels="clr-namespace:Frontend.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Frontend.Views.LogIn">
+             x:Class="Frontend.Views.LogInView">
     
         <StackPanel Width="300">
         <TextBlock Text="Login"></TextBlock>

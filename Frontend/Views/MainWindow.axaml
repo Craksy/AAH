@@ -3,9 +3,6 @@
         xmlns:vm="using:Frontend.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:rxui="clr-namespace:Avalonia.ReactiveUI;assembly=Avalonia.ReactiveUI"
-        xmlns:app="clr-namespace:Frontend"
-        xmlns:packIcon="clr-namespace:MaterialDesign.Avalonia.PackIcon;assembly=MaterialDesign.Avalonia.PackIcon"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Frontend.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
@@ -57,14 +54,7 @@
 
             <!-- Content Area -->
             <Border Classes="ContentArea" Name="ContentArea" Grid.Column="1" Grid.Row="1">
-                <rxui:ViewModelViewHost ViewModel="{Binding SelectedTab.Page}">
-                    <rxui:ViewModelViewHost.PageTransition>
-                        <CrossFade Duration="0:0:0.2" />
-                    </rxui:ViewModelViewHost.PageTransition>
-                    <rxui:ViewModelViewHost.ViewLocator>
-                        <app:AppViewLocator />
-                    </rxui:ViewModelViewHost.ViewLocator>
-                </rxui:ViewModelViewHost>
+                <ContentControl Content="{Binding SelectedTab.Page}" />
             </Border>
         </Grid>
     </Border>
