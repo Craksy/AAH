@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using AutoAuctionProjekt.Classes.Vehicles;
 
 namespace AutoAuctionProjekt.Classes.Data;
@@ -9,27 +10,68 @@ public class Database
 {
     private static Database? _instance;
     private SqlConnection conn;
+    
+    /// <summary>
+    /// Instance of the Database singleton
+    /// </summary>
+    public static Database Instance => _instance ??= new Database();
 
     private Database()
     {
-        string connectionString = @"
+        const string connectionString = @"
             Server=docker.data.techcollege.dk,20003;
             Database=Auction_House;
             User Id=sa;
             Password=H2PD081122_Gruppe3;";
         conn = new SqlConnection(connectionString);
-        conn.Open();
+    }
+    
+    
+	public void DBLogIn(string userName, string passWord)
+    {
+	    try {
+			var connectionString = @"
+            Server=docker.data.techcollege.dk,20003;
+            Database=Auction_House;
+            User Id=" + userName + "; " +
+	                           "Password= " + passWord + ";";
+	    conn = new SqlConnection(connectionString);
+	    conn.Open();
+	    } catch (Exception e) {
+		     Debug.WriteLine($"Failed to connect to database: {e.Message}");
+	    }
+    }    
+	
+	public string GetLoggedInUser(string userName) {
+	    SqlCommand cmd = new(@"SELECT * FROM dbo.Users 
+	    						WHERE UserName = @userName"
+		    , conn);
+	    
+	    cmd.Parameters.AddWithValue("userName", userName);
+	    SqlDataReader reader = cmd.ExecuteReader();
+
+	    return reader["name"].ToString();
+    }
+	
+	    
+	
+    // Just a helper method to avoid code duplication. Doesn't really belong here though.
+    // Perhaps Adapter should be in interface instead of passing a function as a parameter?
+    public static IEnumerable<T> GetAll<T>(SqlConnection connection, string query, Func<SqlDataReader, T> readerMethod) {
+        var records = new List<T>();
+        using (connection) {
+            connection.Open();
+            using (var command = new SqlCommand(query, connection)) {
+                using (var reader = command.ExecuteReader()) {
+                    while (reader.Read()) {
+                        records.Add(readerMethod(reader));
+                    }
+                }
+            }
+        }
+        return records;
     }
 
-    public static Database Instance
-    {
-        get
-        {
-            if (_instance == null)
-                _instance = new Database();
-            return _instance;
-        }
-    }
     
     // Vehicles
     public IEnumerable<Vehicle> GetAllVehicles()
