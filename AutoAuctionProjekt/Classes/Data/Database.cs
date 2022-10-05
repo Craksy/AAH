@@ -311,7 +311,8 @@ public class Database
        											Auctions.VehicleID,
        											Vehicles.Name,
 												Vehicles.Year,
-												Auctions.StandingBid
+												Auctions.StandingBid,
+												Auctions.MinimumBid
 												FROM Auctions
 												INNER JOIN Vehicles
 												    ON Auctions.VehicleID = Vehicles.ID"
@@ -320,12 +321,16 @@ public class Database
 
 	    List<Auction> auctions = new();
 	    List<Vehicle> vehicles = new();
+	    List<User> users = new ();
 	    if (reader.HasRows)
 	    {
 		    while (reader.Read())
 		    {
-			    
+			    auctions.Add(new Auction(
+				    vehicles[1], users[1], reader.GetDecimal(5)));
 		    }
+
+		    return auctions[1].ToString();
 	    }
 
 	    return "No auctions found.";
