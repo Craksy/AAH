@@ -50,7 +50,7 @@
 
         <Style Selector=".Sidebar ContentPresenter">
             <Setter Property="ContentTemplate">
-                <DataTemplate DataType="viewModels:TabItemViewModel">
+                <DataTemplate DataType="viewModels:TabItem">
                     <Grid Margin="10,0" ColumnDefinitions="* 50">
                         <TextBlock
                             Name="Title"

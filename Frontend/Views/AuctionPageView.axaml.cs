@@ -1,20 +1,19 @@
-﻿using System.Diagnostics;
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using Frontend.ViewModels;
 using ReactiveUI;
 
-namespace Frontend.Views; 
+namespace Frontend.Views;
 
-public partial class Dashboard : ReactiveUserControl<DashboardViewModel> {
-    public Dashboard() {
+public partial class AuctionPageView : ReactiveUserControl<AuctionPageViewModel> {
+    public AuctionPageView() {
         InitializeComponent();
     }
 
     private void InitializeComponent() {
-        this.WhenActivated(disposables => { });
+        this.WhenActivated(disposables => { AvaloniaXamlLoader.Load(this); });
         AvaloniaXamlLoader.Load(this);
     }
 }

@@ -23,7 +23,11 @@ namespace AutoAuctionProjekt
             //                                + "\nEnergy class: " + privateCar2.EnergyClass 
             //                                + "\nYear: " + privateCar2.Year);
 
-            Console.WriteLine(db.GetCurrentAuctions());
+            var auctions = db.GetCurrentAuctions();
+            foreach (var auction in auctions)
+            {
+                Console.WriteLine(auction);
+            }
         }
     }
 }

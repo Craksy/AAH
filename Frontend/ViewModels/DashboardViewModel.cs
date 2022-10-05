@@ -10,12 +10,12 @@ using SkiaSharp;
 
 namespace Frontend.ViewModels; 
 
-public class DashboardViewModel : ReactiveObject, IRoutableViewModel{
+public class DashboardViewModel : ReactiveObject {
     public IScreen HostScreen { get; }
     public string? UrlPathSegment { get; } = "Dashboard";
     public ObservableCollection<CurrentAuction> CurrentAuctions { get; }
-    
     static Database _db = Database.Instance;
+    
     public DashboardViewModel()
     {
         CurrentAuctions = new ObservableCollection<CurrentAuction>(GenerateMockCurrentAuctionTable());
@@ -66,6 +66,4 @@ public class DashboardViewModel : ReactiveObject, IRoutableViewModel{
 
         return currentAuction;
     }
-    
-
 }

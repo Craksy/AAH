@@ -22,6 +22,7 @@ Vehicles.ID,
 Vehicles.Name,
 Vehicles.Kilometers,
 Vehicles.RegistrationNumber,
+Vehicles.NewPrice,
 Vehicles.Year,
 Vehicles.HasTowbar,
 Vehicles.EngineSize,
@@ -83,12 +84,12 @@ INNER JOIN ProfessionalPersonCar ON PersonalCar.ID = ProfessionalPersonCar.Perso
             Name = (string) reader["Name"],
             Km = (double) reader["Kilometers"],
             RegistrationNumber = (string)reader["RegistrationNumber"],
-            Year = (ushort) reader["Year"],
-            NewPrice = (decimal) reader["NewPrice"],
+            Year = (short) reader["Year"],
+            NewPrice = (int) reader["NewPrice"],
             HasTowbar = (bool) reader["HasTowbar"],
             EngineSize = (double) reader["EngineSize"],
             KmPerLiter = (double) reader["KmPerLiter"],
-            FuelType = (FuelTypeEnum) reader["FuelType"]
+            FuelType = Enum.Parse<FuelTypeEnum>((string)reader["FuelType"])
         };
 
     public static Vehicle VehicleFromReader(SqlDataReader reader)

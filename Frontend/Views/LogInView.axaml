@@ -2,11 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="using:Frontend.ViewModels"
-             xmlns:views="clr-namespace:Frontend.Views"
-             xmlns:viewModels="clr-namespace:Frontend.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Frontend.Views.LogIn">
+             x:Class="Frontend.Views.LogInView">
     
         <StackPanel Width="300">
         <TextBlock Text="Login"></TextBlock>
@@ -31,6 +28,7 @@
                             Name="CreateButton" 
                             Command="{Binding _test2}">Create new user</Button>
                 </Grid>
+                <Button Click="BypassLogin_Click">Fuck that shit just let me in </Button>
         </StackPanel>
         <TextBlock Classes="LoginResultText"
                    Text="Result:"/>

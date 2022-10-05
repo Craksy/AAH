@@ -29,7 +29,6 @@ public class Database
             Password=H2PD081122_Gruppe3;
 			MultipleActiveResultSets=True;";
 	    conn = new SqlConnection(connectionString);
-	    conn.Open();
     }
 
   //   public string DBLogIn(string userName, string passWord)
@@ -372,63 +371,8 @@ public class Database
     }
     
     // Auctions
-    public string GetCurrentAuctions()
-    {
-	    using SqlCommand cmd = new($@"SELECT Auctions.ID,
-       											Auctions.VehicleID,
-       											Auctions.SellerID,
-       											Auctions.HighestBidderID,
-												Auctions.StandingBid,
-												Auctions.MinimumBid
-
-												{VehicleAdapter.VehiclesCommon},
-    
-												FROM Auctions
-												INNER JOIN Vehicles
-												    ON Auctions.VehicleID = Vehicles.ID
-												    INNER JOIN Users u 
-												    ON Auctions.SellerID = u.Id
-												    INNER JOIN Users b
-												    ON Auctions.HighestBidderID = b.Id"
-			    , conn);
-	    
-		    using SqlDataReader reader = cmd.ExecuteReader();
-
-		    // GetAllPrivatePersonalCars();
-
-		    List<Auction> auctions = new();
-		    List<Vehicle> vehicles = new();
-		    List<User> users = new();
-
-		    // vehicles.Add(new PrivatePersonalCar("Test", 10, "AD1234", 1123, 1241
-		    // , true, 14, 14, FuelTypeEnum.Benzin, 4, ));
-		    // users.Add(new User("TestName", 1234, 3M));
-
-		    if (reader.HasRows)
-		    {
-			    while (reader.Read())
-			    {
-				    var vehicleId = (int)reader["vehicleId"];
-				    var sellerId = (int)reader["SellerId"];
-				    var buyerId = (int)reader["vehicleId"];
-				    Vehicle v = VehicleAdapter.VehicleFromReader(reader);
-				    
-				    var seller = UserAdapter.GetAllUsers(conn).First(u => u.ID == sellerId);
-				    var buyr = UserAdapter.GetAllUsers(conn).First(u => u.ID == sellerId);
-				    var price = (decimal)reader["MinimumPrice"];
-
-
-				    // auctions.Add(new Auction(vhcle, seller, price));
-				    return vehicleId.ToString();
-			    }
-			    // auctions.Add(new Auction(
-			    //          				    vehicles[rd.ToString().GetInt32(1)], users[reader.GetInt32(2)], reader.GetDecimal(5)));
-
-			    //
-			    // return auctions.ToString();
-		    }
-
-		    return "No auctions found.";
-	    }
+    public List<Auction> GetCurrentAuctions() {
+	    return AuctionAdapter.GetAuctions(conn).ToList();
+    }
     
 }
