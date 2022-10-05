@@ -1,14 +1,37 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Linq;
 
 namespace AutoAuctionProjekt.Classes.Data.Adapters; 
 
 public static class AuctionAdapter {
     
+    public static IEnumerable<Auction> GetAuctions(SqlConnection connection) {
+        var records = new List<Auction>();
+        using (connection) {
+            connection.Open();
+            using (var command = new SqlCommand(GetAuctionQuery, connection)) {
+                Debug.WriteLine($"Running Query:\n{command.CommandText}");
+                using (var reader = command.ExecuteReader()) {
+                    while (reader.Read()) {
+                        records.Add(AuctionFromReader(reader));
+                    }
+                }
+            }
+        }
+
+        return records;
+    }
+    
     #region SQL Queries
     // REVIEW: Do we want to just unconditionally fetch the related data? or should we multiple views/procs and do it on demand?
-    private const string GetAuctionQuery = @"
+    private static string GetAuctionQuery = $@"
 SELECT 
+    {UserAdapter.UsersCommon("SU")},
+    {UserAdapter.UsersCommon("BU")},
     Auctions.ID, 
     Auctions.AuctionStart, 
     Auctions.VehicleID, 
@@ -16,17 +39,7 @@ SELECT
     Auctions.HighestBidderID, 
     Auctions.StandingBid, 
     Auctions.MinimumBid,
-    Vehicles.ID, 
-    Vehicles.Name, 
-    Vehicles.Kilometers, 
-    Vehicles.RegistrationNumber, 
-    Vehicles.Year, 
-    Vehicles.NewPrice, 
-    Vehicles.HasTowbar, 
-    Vehicles.EngineSize, 
-    Vehicles.KmPerLiter, 
-    Vehicles.FuelType, 
-    Vehicles.EnergyClass
+    {VehicleAdapter.VehiclesCommon}
     FROM Auctions
     INNER JOIN Vehicles ON Vehicles.ID = Auctions.VehicleID
     INNER JOIN Users SU ON SU.ID = Auctions.SellerID
@@ -56,11 +69,13 @@ SELECT
     #endregion
     
     public static Auction AuctionFromReader(SqlDataReader reader) {
-        // REVIEW: How do we actually instantiate a plain Vehicle? I'm not sure if we actually want it to be abstract?
-        // One option could be to join the vehicle table on every type of vehicle.
-        // since the Id is shared, it should only return one row.
-        
-        // TODO: Implement this
-        throw new NotImplementedException();
+        var seller = new User((string) reader[1], (string)reader[2], (int) reader[3]){ID = (int)reader[0]};
+        var buyer = new User((string) reader[5], (string)reader[6], (int) reader[7]){ID = (int)reader[4]};
+        var vehicle = VehicleAdapter.VehicleFromReader(reader);
+        return new Auction(
+            vehicle,
+            seller,
+            (decimal)reader["MinimumBid"]
+        );
     }
 }

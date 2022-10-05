@@ -251,8 +251,8 @@ public enum FuelTypeEnum
     Electric,
     Hydrogen,
 }
-    
-    
+
+
 /// <summary>
 /// Drivers licence types
 /// </summary>

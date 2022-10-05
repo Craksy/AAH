@@ -82,10 +82,6 @@ privat og company som klasser
         /// Returns the User in a string with relivant information.
         /// </summary>
         /// <returns>...</returns>
-        public override string ToString()
-        {
-            //TODO: U3 - ToString for User
-            throw new NotImplementedException();
-        }
+        public override string ToString() => $"User: {UserName} - Balance: {Balance} - Zipcode: {Zipcode}";
     }
 }

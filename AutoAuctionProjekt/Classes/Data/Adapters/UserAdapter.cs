@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Net.NetworkInformation;
 
 namespace AutoAuctionProjekt.Classes.Data.Adapters; 
 
-public static class UserAdapter {
+public class UserAdapter {
 
     public static IEnumerable<User> GetAllUsers(SqlConnection connection) =>
         Database.GetAll(connection, AllUsers, UserFromReader);
@@ -15,28 +16,31 @@ public static class UserAdapter {
 
     #region SQL Queries
 
-    private const string UsersCommon = @"Users.ID, Users.UserName, Users.ZipCode, Users.Balance";
+    public static string UsersCommon (string prefix = "Users") => $@"{prefix}.ID, {prefix}.UserName, {prefix}.ZipCode, {prefix}.Balance";
 
-    private const string AllUsers = $@"SELECT {UsersCommon} FROM Users";
-    private const string userbyid = $@"SELECT {UsersCommon} FROM Users where ID = @UserId";
+    public static string AllUsers = $@"SELECT {UsersCommon()} FROM Users";
+    public static string userbyid = $@"SELECT {UsersCommon()} FROM Users where ID = @UserId";
     
     
     
-    private const string PrivateUsersQuery = $@" 
-SELECT {UsersCommon}, PrivateUsers.CprNumber 
+    private static string PrivateUsersQuery = $@" 
+SELECT {UsersCommon()}, PrivateUsers.CprNumber 
 FROM Users INNER JOIN PrivateUsers ON Users.ID = PrivateUsers.ID";
     
-    private const string CorporateUsersQuery = $@"
-SELECT {UsersCommon}, CorporateUsers.CvrNumber, CorporateUsers.CreditScore
+    private static string CorporateUsersQuery = $@"
+SELECT {UsersCommon()}, CorporateUsers.CvrNumber, CorporateUsers.CreditScore
 FROM Users INNER JOIN CorporateUsers ON Users.ID = CorporateUsers.ID";
     #endregion
 
-
     public static User UserFromReader(SqlDataReader reader) {
+        return UserFromReader(reader, "Users");
+    }
+
+    public static User UserFromReader(SqlDataReader reader, string prefix) {
         return new User(
-            (string) reader["UserName"],
-            (string) reader["ZipCode"],
-            (int) reader["Balance"]) { ID = (int) reader["ID"] };
+            (string) reader[$"{prefix}.UserName"],
+            (string) reader[$"{prefix}.ZipCode"],
+            (int) reader[$"{prefix}.Balance"]) { ID = (int) reader[$"{prefix}.ID"] };
     }
     
     public static PrivateUser PrivateUserFromReader(SqlDataReader reader) {
