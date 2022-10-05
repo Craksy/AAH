@@ -17,6 +17,7 @@
         <TextBox Padding="5"
                  Watermark="Password"
                  Name="PasswordBox"
+                 PasswordChar="•"
                  Text="{Binding passWord}"></TextBox>
         
             <StackPanel Margin="0 10" Orientation="Horizontal">

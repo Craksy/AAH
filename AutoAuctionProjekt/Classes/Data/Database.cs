@@ -418,7 +418,7 @@ public class Database
 				    var price = (decimal)reader["MinimumPrice"];
 
 
-				    auctions.Add(new Auction(vhcle, seller, price));
+				    // auctions.Add(new Auction(vhcle, seller, price));
 				    return vehicleId.ToString();
 			    }
 			    // auctions.Add(new Auction(

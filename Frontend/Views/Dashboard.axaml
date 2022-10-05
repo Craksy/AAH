@@ -34,7 +34,7 @@
             <Setter Property="Margin" Value="25,15"></Setter>
         </Style>
     </UserControl.Styles>
-    <Grid RowDefinitions="100, *, 150" ColumnDefinitions="* * * *">
+    <Grid RowDefinitions="100, *, 300" ColumnDefinitions="* * * *">
         <Border Grid.Column="0" Classes="Card">
             <StackPanel>
                 <TextBlock Classes="Header" Text="Earnings"></TextBlock>
@@ -59,9 +59,13 @@
                 <TextBlock Classes="Body" Text="Lorem Ipsum"></TextBlock>
             </StackPanel>
         </Border>
-        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Classes="Card">
+        
+        <!-- CURRENT AUCTIONS -->
+        <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Classes="Card">
             <StackPanel>
                 <TextBlock Classes="Header" Text="Current Auctions"></TextBlock>
+                <DataGrid Classes="Body" AutoGenerateColumns="True" Items="{Binding CurrentAuctions}">
+                </DataGrid>
                 
                 <TextBlock Classes="Body" TextWrapping="Wrap" TextAlignment="Left" />
                 <TextBlock Text="{Binding Test}" />
@@ -74,18 +78,6 @@
                 <!--         Magni est doloremque aspernatur eum. Amet perferendis aperiam cupiditate similique. Ratione ut rerum molestias. Eos impedit enim rem ea. Numquam distinctio odit est repellendus recusandae. -->
                 <!--     </TextBlock.Text> -->
                 <!-- </TextBlock> -->
-            </StackPanel>
-        </Border>
-        <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Classes="Card">
-            <StackPanel>
-                <TextBlock Classes="Header" Text="Some other shit"></TextBlock>
-                <TextBlock Classes="Body" Text="Lorem Ipsum"></TextBlock>
-            </StackPanel>
-        </Border>
-        <Border Grid.Row="2" Grid.Column="0" Classes="Card">
-            <StackPanel>
-                <TextBlock Classes="Header" Text="Some other shit"></TextBlock>
-                <TextBlock Classes="Body" Text="Lorem Ipsum"></TextBlock>
             </StackPanel>
         </Border>
         <Border Grid.Row="1" Grid.Column="3" Grid.RowSpan="2" Classes="Card">
