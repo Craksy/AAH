@@ -8,6 +8,7 @@ namespace AutoAuctionProjekt.Classes.Data.Adapters;
 public class VehicleAdapter  {
 
     public static IEnumerable<Bus> GetAllBuses(SqlConnection connection) => Database.GetAll(connection, GetBussesQuery, BusFromReader);
+    public static IEnumerable<Vehicle> GetAllVehicles(SqlConnection connection) => Database.GetAll(connection, GetBussesQuery, VehicleFromReader);
     public static IEnumerable<Truck> GetAllTrucks(SqlConnection connection) => Database.GetAll(connection, GetTrucksQuery, TruckFromReader);
     public static IEnumerable<PrivatePersonalCar> GetAllPrivatePersonalCars(SqlConnection connection) => Database.GetAll(connection, PrivatePersonalCarsQuery, GetPrivatePersonalCarFromReader);
     public static IEnumerable<ProfessionalPersonalCar> GetAllProfessionalPersonalCars(SqlConnection connection) => Database.GetAll(connection, ProfessionalPersonalCarsQuery, GetProfessionalPersonalCarFromReader);
@@ -89,6 +90,12 @@ INNER JOIN ProfessionalPersonCar ON PersonalCar.ID = ProfessionalPersonCar.Perso
             KmPerLiter = (double) reader["KmPerLiter"],
             FuelType = (FuelTypeEnum) reader["FuelType"]
         };
+
+    public static Vehicle VehicleFromReader(SqlDataReader reader)
+    {
+        return new(
+            VehiclePropsFromReader(reader));
+    }
 
     /// <summary>
     /// Construct a Bus from a reader object

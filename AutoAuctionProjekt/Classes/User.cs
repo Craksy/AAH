@@ -19,10 +19,9 @@ privat og company som klasser
     /// The base User class. Implements the ISeller and IBuyer interfaces,
     /// and holds properties common to both <see cref="PrivateUser"/> and <see cref="CorporateUser"/>.
     /// </summary>
-    public abstract class User : ISeller, IBuyer
+    public class User : ISeller, IBuyer
     {
-        
-        protected User(string userName, uint zipCode, decimal balance = 0)
+        public User(string userName, string zipCode, decimal balance = 0)
         {
             UserName = userName;
             Zipcode = zipCode;
@@ -48,12 +47,12 @@ privat og company som klasser
         /// <summary>
         /// Zip code of the users address
         /// </summary>
-        public uint Zipcode { get; set; }
+        public string Zipcode { get; set; }
         
         /// <summary>
         /// ID property
         /// </summary>
-        public uint ID { get; init; }
+        public int ID { get; init; }
         
         /// <summary>
         /// PasswordHash property

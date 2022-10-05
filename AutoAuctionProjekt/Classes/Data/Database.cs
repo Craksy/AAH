@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Linq;
+using AutoAuctionProjekt.Classes.Data.Adapters;
 using AutoAuctionProjekt.Classes.Vehicles;
 
 namespace AutoAuctionProjekt.Classes.Data;
@@ -18,41 +20,52 @@ public class Database
     /// </summary>
     public static Database Instance => _instance ??= new Database();
 
-
-    public string DBLogIn(string userName, string passWord)
+    private Database()
     {
-
-        const string connectionString = @"
+	    string connectionString = @"
             Server=docker.data.techcollege.dk,20003;
             Database=Auction_House;
             User Id=sa;
-            Password=H2PD081122_Gruppe3;";
-        conn = new SqlConnection(connectionString);
-
-	    try {
-			var connectionString = @"
-            Server=docker.data.techcollege.dk,20003;
-            Database=Auction_House;
-            User Id=" + userName + "; " +
-	                           "Password= " + passWord + ";";
+            Password=H2PD081122_Gruppe3;
+			MultipleActiveResultSets=True;";
 	    conn = new SqlConnection(connectionString);
 	    conn.Open();
-	    } catch (Exception e) {
-		    return $"Failed to connect to database: {e.Message}";
-	    }
-	    
-		return "Connected with " + userName;
     }
 
-    public string GetLoggedInUser(string userName)
-    {
-	    SqlCommand cmd = new(@"SELECT * FROM sys.server_principals
-	    						WHERE name = " + userName + ";"
-		    , conn);
-	    SqlDataReader reader = cmd.ExecuteReader();
+  //   public string DBLogIn(string userName, string passWord)
+  //   {
+  //
+  //       // const string connectionString = @"
+  //       //     Server=docker.data.techcollege.dk,20003;
+  //       //     Database=Auction_House;
+  //       //     User Id=sa;
+  //       //     Password=H2PD081122_Gruppe3;";
+  //       // conn = new SqlConnection(connectionString);
+  //
+	 //    try {
+		// 	var connectionString = @"
+  //           Server=docker.data.techcollege.dk,20003;
+  //           Database=Auction_House;
+  //           User Id=" + userName + "; " +
+	 //                           "Password= " + passWord + ";";
+	 //    conn = new SqlConnection(connectionString);
+	 //    conn.Open();
+	 //    } catch (Exception e) {
+		//     return $"Failed to connect to database: {e.Message}";
+	 //    }
+	 //    
+		// return "Connected with " + userName;
+  //   }
 
-	    return reader["name"].ToString();
-    }
+    // public string GetLoggedInUser(string userName)
+    // {
+	   //  SqlCommand cmd = new(@"SELECT * FROM sys.server_principals
+	   //  						WHERE name = " + userName + ";"
+		  //   , conn);
+	   //  SqlDataReader reader = cmd.ExecuteReader();
+    //
+	   //  return reader["name"].ToString();
+    // }
     
     
 	public void DBLogIn(string userName, string passWord)
@@ -67,6 +80,7 @@ public class Database
 	    conn.Open();
 	    } catch (Exception e) {
 		     Debug.WriteLine($"Failed to connect to database: {e.Message}");
+		     throw;
 	    }
     }    
 	
@@ -299,7 +313,7 @@ public class Database
         {
 	        while (reader.Read())
 	        {
-		        HeavyVehicle.VehicleDimensionsStruct vd = new HeavyVehicle.VehicleDimensionsStruct(
+		        VehicleDimensionsStruct vd = new VehicleDimensionsStruct(
 			        Double.Parse(reader.GetValue(9).ToString()!),
 			        Double.Parse(reader.GetValue(10).ToString()!),
 			        Double.Parse(reader.GetValue(11).ToString()!)
@@ -351,9 +365,7 @@ public class Database
 	    {
 		    while (reader.Read())
 		    {
-			    users.Add(new CorporateUser(
-				    users));
-			    return reader["VehicleID"].ToString();
+			    
 		    }
 	    }
 	    return "No users found.";
@@ -362,43 +374,61 @@ public class Database
     // Auctions
     public string GetCurrentAuctions()
     {
-	    SqlCommand cmd = new(@"SELECT Auctions.ID,
+	    using SqlCommand cmd = new($@"SELECT Auctions.ID,
        											Auctions.VehicleID,
        											Auctions.SellerID,
-       											Vehicles.Name,
-												Vehicles.Year,
+       											Auctions.HighestBidderID,
 												Auctions.StandingBid,
 												Auctions.MinimumBid
+
+												{VehicleAdapter.VehiclesCommon},
+    
 												FROM Auctions
 												INNER JOIN Vehicles
-												    ON Auctions.VehicleID = Vehicles.ID"
-		    , conn);
-	    SqlDataReader reader = cmd.ExecuteReader();
-
-	    GetAllPrivatePersonalCars();
+												    ON Auctions.VehicleID = Vehicles.ID
+												    INNER JOIN Users u 
+												    ON Auctions.SellerID = u.Id
+												    INNER JOIN Users b
+												    ON Auctions.HighestBidderID = b.Id"
+			    , conn);
 	    
+		    using SqlDataReader reader = cmd.ExecuteReader();
 
-	    List<Auction> auctions = new();
-	    List<Vehicle> vehicles = new();
-	    List<User> users = new ();
-	    if (reader.HasRows)
-	    {
-		    
-		    while (reader.Read())
+		    // GetAllPrivatePersonalCars();
+
+		    List<Auction> auctions = new();
+		    List<Vehicle> vehicles = new();
+		    List<User> users = new();
+
+		    // vehicles.Add(new PrivatePersonalCar("Test", 10, "AD1234", 1123, 1241
+		    // , true, 14, 14, FuelTypeEnum.Benzin, 4, ));
+		    // users.Add(new User("TestName", 1234, 3M));
+
+		    if (reader.HasRows)
 		    {
-			    auctions.Add(new Auction(
-				    vehicles[Int32.Parse(reader["VehicleID"].ToString())],
-				    users[Int32.Parse(reader["SellerID"].ToString())],
-				    decimal.Parse(reader["MinimumBid"].ToString())));
-			    return reader["VehicleID"].ToString();
-		    }
+			    while (reader.Read())
+			    {
+				    var vehicleId = (int)reader["vehicleId"];
+				    var sellerId = (int)reader["SellerId"];
+				    var buyerId = (int)reader["vehicleId"];
+				    Vehicle v = VehicleAdapter.VehicleFromReader(reader);
+				    
+				    var seller = UserAdapter.GetAllUsers(conn).First(u => u.ID == sellerId);
+				    var buyr = UserAdapter.GetAllUsers(conn).First(u => u.ID == sellerId);
+				    var price = (decimal)reader["MinimumPrice"];
+
+
+				    auctions.Add(new Auction(vhcle, seller, price));
+				    return vehicleId.ToString();
+			    }
 			    // auctions.Add(new Auction(
 			    //          				    vehicles[rd.ToString().GetInt32(1)], users[reader.GetInt32(2)], reader.GetDecimal(5)));
 
-		    //
-		    // return auctions.ToString();
-	    }
+			    //
+			    // return auctions.ToString();
+		    }
 
-	    return "No auctions found.";
-    }
+		    return "No auctions found.";
+	    }
+    
 }
