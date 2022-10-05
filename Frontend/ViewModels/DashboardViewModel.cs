@@ -7,10 +7,7 @@ using SkiaSharp;
 
 namespace Frontend.ViewModels; 
 
-public class DashboardViewModel : ReactiveObject, IRoutableViewModel{
-    public IScreen HostScreen { get; }
-    public string? UrlPathSegment { get; } = "Dashboard";
-    
+public class DashboardViewModel : ReactiveObject{
     static Database _db = Database.Instance;
     static string _str = _db.GetCar();
     

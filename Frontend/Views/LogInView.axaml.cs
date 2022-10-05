@@ -11,11 +11,11 @@ using ReactiveUI;
 
 namespace Frontend.Views;
 
-public partial class LogIn : ReactiveUserControl<LogInViewModel>
+public partial class LogInView : ReactiveUserControl<LogInViewModel>
 {
     static Database _db = Database.Instance;
 
-    public LogIn()
+    public LogInView()
     {
         InitializeComponent();
         DataContext = new LogInViewModel();

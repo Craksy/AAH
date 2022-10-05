@@ -12,12 +12,13 @@ using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using Frontend.ViewModels;
 using ReactiveUI;
+using TabItem = Frontend.ViewModels.TabItem;
 
 namespace Frontend.Views;
 
 public partial class MainWindow : ReactiveWindow<MainWindowViewModel> {
-    public AvaloniaProperty<TabItemViewModel> SelectedTabProperty { get; }
-        = AvaloniaProperty.Register<MainWindow, TabItemViewModel>(nameof(SelectedTab),
+    public AvaloniaProperty<TabItem> SelectedTabProperty { get; }
+        = AvaloniaProperty.Register<MainWindow, TabItem>(nameof(SelectedTab),
             defaultBindingMode: BindingMode.TwoWay);
 
     private bool _isDrawerOpen;
@@ -31,8 +32,8 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel> {
         set => SetAndRaise(IsDrawerOpenProperty, ref _isDrawerOpen, value);
     }
 
-    public TabItemViewModel SelectedTab {
-        get => (TabItemViewModel) GetValue(SelectedTabProperty)!;
+    public TabItem SelectedTab {
+        get => (TabItem) GetValue(SelectedTabProperty)!;
         set => SetValue(SelectedTabProperty, value);
     }
 
