@@ -8,6 +8,7 @@ namespace AutoAuctionProjekt.Classes.Data.Adapters;
 public class VehicleAdapter  {
 
     public static IEnumerable<Bus> GetAllBuses(SqlConnection connection) => Database.GetAll(connection, GetBussesQuery, BusFromReader);
+    public static IEnumerable<Vehicle> GetAllVehicles(SqlConnection connection) => Database.GetAll(connection, GetBussesQuery, VehicleFromReader);
     public static IEnumerable<Truck> GetAllTrucks(SqlConnection connection) => Database.GetAll(connection, GetTrucksQuery, TruckFromReader);
     public static IEnumerable<PrivatePersonalCar> GetAllPrivatePersonalCars(SqlConnection connection) => Database.GetAll(connection, PrivatePersonalCarsQuery, GetPrivatePersonalCarFromReader);
     public static IEnumerable<ProfessionalPersonalCar> GetAllProfessionalPersonalCars(SqlConnection connection) => Database.GetAll(connection, ProfessionalPersonalCarsQuery, GetProfessionalPersonalCarFromReader);
@@ -21,6 +22,7 @@ Vehicles.ID,
 Vehicles.Name,
 Vehicles.Kilometers,
 Vehicles.RegistrationNumber,
+Vehicles.NewPrice,
 Vehicles.Year,
 Vehicles.HasTowbar,
 Vehicles.EngineSize,
@@ -82,13 +84,19 @@ INNER JOIN ProfessionalPersonCar ON PersonalCar.ID = ProfessionalPersonCar.Perso
             Name = (string) reader["Name"],
             Km = (double) reader["Kilometers"],
             RegistrationNumber = (string)reader["RegistrationNumber"],
-            Year = (ushort) reader["Year"],
-            NewPrice = (decimal) reader["NewPrice"],
+            Year = (short) reader["Year"],
+            NewPrice = (int) reader["NewPrice"],
             HasTowbar = (bool) reader["HasTowbar"],
             EngineSize = (double) reader["EngineSize"],
             KmPerLiter = (double) reader["KmPerLiter"],
-            FuelType = (FuelTypeEnum) reader["FuelType"]
+            FuelType = Enum.Parse<FuelTypeEnum>((string)reader["FuelType"])
         };
+
+    public static Vehicle VehicleFromReader(SqlDataReader reader)
+    {
+        return new(
+            VehiclePropsFromReader(reader)){ID = Convert.ToUInt32(reader["ID"])};
+    }
 
     /// <summary>
     /// Construct a Bus from a reader object

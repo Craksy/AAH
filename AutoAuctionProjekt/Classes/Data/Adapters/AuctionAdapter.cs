@@ -1,66 +1,56 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace AutoAuctionProjekt.Classes.Data.Adapters; 
 
 public static class AuctionAdapter {
     
-    #region SQL Queries
-    // REVIEW: Do we want to just unconditionally fetch the related data? or should we multiple views/procs and do it on demand?
-    private const string GetAuctionQuery = @"
-SELECT 
-    Auctions.ID, 
-    Auctions.AuctionStart, 
-    Auctions.VehicleID, 
-    Auctions.SellerID, 
-    Auctions.HighestBidderID, 
-    Auctions.StandingBid, 
-    Auctions.MinimumBid,
-    Vehicles.ID, 
-    Vehicles.Name, 
-    Vehicles.Kilometers, 
-    Vehicles.RegistrationNumber, 
-    Vehicles.Year, 
-    Vehicles.NewPrice, 
-    Vehicles.HasTowbar, 
-    Vehicles.EngineSize, 
-    Vehicles.KmPerLiter, 
-    Vehicles.FuelType, 
-    Vehicles.EnergyClass
-    FROM Auctions
-    INNER JOIN Vehicles ON Vehicles.ID = Auctions.VehicleID
-    INNER JOIN Users SU ON SU.ID = Auctions.SellerID
-    INNER JOIN Users BU ON BU.ID = Auctions.HighestBidderID
-    ";
+    public static IEnumerable<Auction> GetAuctions(SqlConnection connection, int? auctionId = null, int? vehicleId = null, int? sellerId = null, int? buyerId = null) {
+        var records = new List<Auction>();
+        using (connection) {
+            connection.Open();
+            var command = new SqlCommand("GetAuctionItems", connection);
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@AuctionId", auctionId);
+            command.Parameters.AddWithValue("@VehicleId", vehicleId);
+            command.Parameters.AddWithValue("@SellerId", sellerId);
+            command.Parameters.AddWithValue("@BuyerId", buyerId);
+            using (command) {
+                Debug.WriteLine($"Running Query:\n{command.CommandText}");
+                using (var reader = command.ExecuteReader()) {
+                    while (reader.Read()) {
+                        records.Add(AuctionFromReader(reader));
+                    }
+                }
+            }
+        }
 
-    private const string GetCompletedAuctionQuery = @"
-SELECT 
-    Auctions.ID, 
-    Auctions.AuctionStart, 
-    Auctions.VehicleID, 
-    Auctions.SellerID, 
-    Auctions.HighestBidderID, 
-    Auctions.StandingBid, 
-    Auctions.MinimumBid,
-    CompletedAuctions.ID, 
-    CompletedAuctions.AuctionEnd, 
-    CompletedAuctions.BuyerID, 
-    CompletedAuctions.SoldAt
-    FROM Auctions
-    INNER JOIN CompletedAuctions ON Auctions.ID = CompletedAuctions.ID
-    INNER JOIN Vehicles ON Vehicles.ID = Auctions.VehicleID
-    INNER JOIN Users SU ON SU.ID = Auctions.SellerID
-    INNER JOIN Users BU ON BU.ID = CompletedAuctions.BuyerID
-    ";
-
-    #endregion
+        return records;
+    }
     
     public static Auction AuctionFromReader(SqlDataReader reader) {
-        // REVIEW: How do we actually instantiate a plain Vehicle? I'm not sure if we actually want it to be abstract?
-        // One option could be to join the vehicle table on every type of vehicle.
-        // since the Id is shared, it should only return one row.
-        
-        // TODO: Implement this
-        throw new NotImplementedException();
+        var seller = new User(
+            (string)reader["SellerUserName"], 
+            (string)reader["SellerZipCode"], 
+            (int)reader["SellerBalance"]
+        ){ID = (int)reader["SellerId"]};
+        var buyer = new User(
+            (string)reader["BuyerUserName"], 
+            (string)reader["BuyerZipCode"], 
+            (int)reader["BuyerBalance"]
+        ){ID = (int)reader["BuyerId"]};
+        var vehicle = VehicleAdapter.VehicleFromReader(reader);
+        return new Auction(
+            vehicle,
+            seller,
+            (decimal)reader["MinimumBid"]
+        ) {
+            StandingBid = (decimal)reader["StandingBid"],
+            Buyer = buyer,
+            ID = Convert.ToUInt32(reader["ID"]),
+            StartDate = (DateTime)reader["AuctionStart"],
+        };
     }
 }

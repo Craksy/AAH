@@ -13,6 +13,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using Frontend.ViewModels;
 using ReactiveUI;
+using TabItem = Frontend.ViewModels.TabItem;
 
 namespace Frontend.Views;
 
@@ -31,12 +32,12 @@ public partial class Sidebar : UserControl {
     }
 
 
-    public AvaloniaProperty<TabItemViewModel> SelectedTabProperty { get; }
-        = AvaloniaProperty.Register<MainWindow, TabItemViewModel>(nameof(SelectedTab),
+    public AvaloniaProperty<TabItem> SelectedTabProperty { get; }
+        = AvaloniaProperty.Register<MainWindow, TabItem>(nameof(SelectedTab),
             defaultBindingMode: BindingMode.TwoWay);
 
-    public TabItemViewModel? SelectedTab {
-        get => (TabItemViewModel) GetValue(SelectedTabProperty)!;
+    public TabItem? SelectedTab {
+        get => (TabItem) GetValue(SelectedTabProperty)!;
         set => SetValue(SelectedTabProperty, value);
     }
 
@@ -53,7 +54,7 @@ public partial class Sidebar : UserControl {
     }
 
     public Sidebar() {
-        TabItems = new AvaloniaList<TabItemViewModel>();
+        TabItems = new AvaloniaList<TabItem>();
         InitializeComponent();
     }
 
@@ -70,7 +71,7 @@ public partial class Sidebar : UserControl {
         Expanded = !Expanded;
         Debug.WriteLine("ExpanderClick");
         Debug.WriteLine("Number of items: ");
-        foreach (TabItemViewModel i in TabItems) {
+        foreach (TabItem i in TabItems) {
             Debug.WriteLine(i.Title);
             Debug.WriteLine(i.Icon);
         }

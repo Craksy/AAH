@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Linq;
+using AutoAuctionProjekt.Classes.Data.Adapters;
 using AutoAuctionProjekt.Classes.Vehicles;
 
 namespace AutoAuctionProjekt.Classes.Data;
@@ -18,41 +20,51 @@ public class Database
     /// </summary>
     public static Database Instance => _instance ??= new Database();
 
-
-    public string DBLogIn(string userName, string passWord)
+    private Database()
     {
-
-        const string connectionString = @"
+	    string connectionString = @"
             Server=docker.data.techcollege.dk,20003;
             Database=Auction_House;
             User Id=sa;
-            Password=H2PD081122_Gruppe3;";
-        conn = new SqlConnection(connectionString);
-
-	    try {
-			var connectionString = @"
-            Server=docker.data.techcollege.dk,20003;
-            Database=Auction_House;
-            User Id=" + userName + "; " +
-	                           "Password= " + passWord + ";";
+            Password=H2PD081122_Gruppe3;
+			MultipleActiveResultSets=True;";
 	    conn = new SqlConnection(connectionString);
-	    conn.Open();
-	    } catch (Exception e) {
-		    return $"Failed to connect to database: {e.Message}";
-	    }
-	    
-		return "Connected with " + userName;
     }
 
-    public string GetLoggedInUser(string userName)
-    {
-	    SqlCommand cmd = new(@"SELECT * FROM sys.server_principals
-	    						WHERE name = " + userName + ";"
-		    , conn);
-	    SqlDataReader reader = cmd.ExecuteReader();
+  //   public string DBLogIn(string userName, string passWord)
+  //   {
+  //
+  //       // const string connectionString = @"
+  //       //     Server=docker.data.techcollege.dk,20003;
+  //       //     Database=Auction_House;
+  //       //     User Id=sa;
+  //       //     Password=H2PD081122_Gruppe3;";
+  //       // conn = new SqlConnection(connectionString);
+  //
+	 //    try {
+		// 	var connectionString = @"
+  //           Server=docker.data.techcollege.dk,20003;
+  //           Database=Auction_House;
+  //           User Id=" + userName + "; " +
+	 //                           "Password= " + passWord + ";";
+	 //    conn = new SqlConnection(connectionString);
+	 //    conn.Open();
+	 //    } catch (Exception e) {
+		//     return $"Failed to connect to database: {e.Message}";
+	 //    }
+	 //    
+		// return "Connected with " + userName;
+  //   }
 
-	    return reader["name"].ToString();
-    }
+    // public string GetLoggedInUser(string userName)
+    // {
+	   //  SqlCommand cmd = new(@"SELECT * FROM sys.server_principals
+	   //  						WHERE name = " + userName + ";"
+		  //   , conn);
+	   //  SqlDataReader reader = cmd.ExecuteReader();
+    //
+	   //  return reader["name"].ToString();
+    // }
     
     
 	public void DBLogIn(string userName, string passWord)
@@ -67,6 +79,7 @@ public class Database
 	    conn.Open();
 	    } catch (Exception e) {
 		     Debug.WriteLine($"Failed to connect to database: {e.Message}");
+		     throw;
 	    }
     }    
 	
@@ -99,7 +112,6 @@ public class Database
         }
         return records;
     }
-
     
     // Vehicles
     public string GetVehicleByID(int ID)
@@ -300,7 +312,7 @@ public class Database
         {
 	        while (reader.Read())
 	        {
-		        HeavyVehicle.VehicleDimensionsStruct vd = new HeavyVehicle.VehicleDimensionsStruct(
+		        VehicleDimensionsStruct vd = new VehicleDimensionsStruct(
 			        Double.Parse(reader.GetValue(9).ToString()!),
 			        Double.Parse(reader.GetValue(10).ToString()!),
 			        Double.Parse(reader.GetValue(11).ToString()!)
@@ -329,35 +341,38 @@ public class Database
         return trucks;
     }
     
-    // Auctions
-    public string GetCurrentAuctions()
+    //Users
+    public string GetAllUsers()
     {
-	    SqlCommand cmd = new(@"SELECT Auctions.ID,
-       											Auctions.VehicleID,
-       											Vehicles.Name,
-												Vehicles.Year,
-												Auctions.StandingBid,
-												Auctions.MinimumBid
-												FROM Auctions
-												INNER JOIN Vehicles
-												    ON Auctions.VehicleID = Vehicles.ID"
+	    SqlCommand cmd = new(@"SELECT Users.Id,
+										       Users.UserName,
+										       Users.ZipCode,
+										       Users.Balance,
+										       PrivateUsers.Id,
+										       PrivateUsers.CprNumber,
+										       CorporateUsers.Id,
+										       CorporateUsers.CvrNumber,
+										       CorporateUsers.CreditScore
+										       FROM Users
+											LEFT JOIN PrivateUsers ON Users.Id = PrivateUsers.Id
+										    LEFT JOIN CorporateUsers ON Users.Id = CorporateUsers.Id"
 		    , conn);
 	    SqlDataReader reader = cmd.ExecuteReader();
-
-	    List<Auction> auctions = new();
-	    List<Vehicle> vehicles = new();
+	    
 	    List<User> users = new ();
 	    if (reader.HasRows)
 	    {
 		    while (reader.Read())
 		    {
-			    auctions.Add(new Auction(
-				    vehicles[1], users[1], reader.GetDecimal(5)));
+			    
 		    }
-
-		    return auctions[1].ToString();
 	    }
-
-	    return "No auctions found.";
+	    return "No users found.";
     }
+    
+    // Auctions
+    public List<Auction> GetCurrentAuctions() {
+	    return AuctionAdapter.GetAuctions(conn).ToList();
+    }
+    
 }

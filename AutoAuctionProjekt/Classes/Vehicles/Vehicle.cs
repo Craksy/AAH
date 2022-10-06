@@ -17,7 +17,7 @@ public struct VehicleProps {
     public FuelTypeEnum FuelType;
 }
 
-public abstract class Vehicle {
+public class Vehicle {
     // regex to match (in order): [start of input] [2x any letter] [5x any digit] [end of input]
     private static readonly Regex RegistrationNumberValidationPattern = new(@"^[a-zA-Z]{2}\d{5}$");
     
@@ -51,7 +51,7 @@ public abstract class Vehicle {
         EnergyClass = _energyClassEnum;
     }
 
-    protected Vehicle(VehicleProps props) 
+    public Vehicle(VehicleProps props) 
         : this(props.Name, props.Km, props.RegistrationNumber, props.Year, props.NewPrice, props.HasTowbar, props.EngineSize, props.KmPerLiter, props.FuelType) { }
     
     /// <summary>
@@ -251,8 +251,8 @@ public enum FuelTypeEnum
     Electric,
     Hydrogen,
 }
-    
-    
+
+
 /// <summary>
 /// Drivers licence types
 /// </summary>

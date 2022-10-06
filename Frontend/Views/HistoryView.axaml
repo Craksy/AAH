@@ -5,7 +5,7 @@
              xmlns:views="clr-namespace:Frontend.Views"
              xmlns:viewModels="clr-namespace:Frontend.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Frontend.Views.History">
+             x:Class="Frontend.Views.HistoryView">
     <Design.DataContext>
         <viewModels:HistoryViewModel />
     </Design.DataContext>
