@@ -95,7 +95,7 @@ INNER JOIN ProfessionalPersonCar ON PersonalCar.ID = ProfessionalPersonCar.Perso
     public static Vehicle VehicleFromReader(SqlDataReader reader)
     {
         return new(
-            VehiclePropsFromReader(reader));
+            VehiclePropsFromReader(reader)){ID = Convert.ToUInt32(reader["ID"])};
     }
 
     /// <summary>
