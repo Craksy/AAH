@@ -31,17 +31,17 @@
                  Text="{Binding ConfirmPassword}"></TextBox>
         <TextBox Padding="5"
                  Margin="0 10"
-                 Watermark="zip code"
+                 Watermark="ZipCode"
                  Name="CVRBox"
-                 Text="{Binding RegistrationNumber}"/>
+                 Text="{Binding ZipCode}"/>
         <TextBox Padding="5"
                  Margin="0 10"
-                 Watermark="{Binding RegistrationNumberName}"
+                 Watermark="CPRNumber"
                  Name="ZipCodeBox"
-                 Text="{Binding ZipCode}"/>
+                 Text="{Binding RegistrationNumberName}"/>
         
         <Button Name="SubmitButton" Margin="0 0 10 0" 
                 HorizontalAlignment="Right" Command="{Binding CreateUserCommand}">Sign Up</Button>
-        <TextBlock FontSize="22" Text="{Binding CreationResult}"></TextBlock>
+        <TextBlock FontSize="11" TextWrapping="Wrap" Text="{Binding CreationResult}"></TextBlock>
     </StackPanel>
 </UserControl>
