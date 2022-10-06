@@ -26,6 +26,7 @@ public class TabItem : ReactiveObject {
 public class MainWindowViewModel : ReactiveObject
 {
     public bool IsLoggedIn { get; set; }
+    
     public ObservableCollection<TabItem> Tabs { get; }
     
     private TabItem? _selectedTab;

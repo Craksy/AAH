@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using AutoAuctionProjekt.Classes;
 using AutoAuctionProjekt.Classes.Data;
 using AutoAuctionProjekt.Classes.Vehicles;
@@ -23,11 +24,13 @@ namespace AutoAuctionProjekt
             //                                + "\nEnergy class: " + privateCar2.EnergyClass 
             //                                + "\nYear: " + privateCar2.Year);
 
-            var auctions = db.GetCurrentAuctions();
-            foreach (var auction in auctions)
-            {
-                Console.WriteLine(auction);
-            }
+            Console.WriteLine(db.DBLogIn("adam", "adam"));
+            
+            // var auctions = db.GetCurrentAuctions();
+            // foreach (var auction in auctions)
+            // {
+            //     Console.WriteLine(auction);
+            // }
         }
     }
 }

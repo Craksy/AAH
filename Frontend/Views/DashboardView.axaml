@@ -37,28 +37,12 @@
             <Setter Property="Margin" Value="5,15"></Setter>
         </Style>
     </UserControl.Styles>
+    
     <Grid RowDefinitions="100, *, 300" ColumnDefinitions="* * * *">
-        <Border Grid.Column="0" Classes="Card">
+            <!-- YOUR AUCTIONS -->
+        <Border Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3" Classes="Card">
             <StackPanel>
-                <TextBlock Classes="Header" Text="Earnings"></TextBlock>
-                <TextBlock Classes="Body" Text="Lorem Ipsum"></TextBlock>
-            </StackPanel>
-        </Border>
-        <Border Grid.Column="1" Classes="Card">
-            <StackPanel>
-                <TextBlock Classes="Header" Text="Recent auctions won"></TextBlock>
-                <TextBlock Classes="Body" Text="Lorem Ipsum"></TextBlock>
-            </StackPanel>
-        </Border>
-        <Border Grid.Column="2" Classes="Card">
-            <StackPanel>
-                <TextBlock Classes="Header" Text="Recent auctions lost"></TextBlock>
-                <TextBlock Classes="Body" Text="Lorem Ipsum"></TextBlock>
-            </StackPanel>
-        </Border>
-        <Border Grid.Column="3" Classes="Card">
-            <StackPanel>
-                <TextBlock Classes="Header" Text="Some other shit"></TextBlock>
+                <TextBlock Classes="Header" Text="Your Auctions"></TextBlock>
                 <TextBlock Classes="Body" Text="Lorem Ipsum"></TextBlock>
             </StackPanel>
         </Border>
@@ -104,7 +88,7 @@
                 </DataGrid>
             </StackPanel>
         </Border>
-        <Border Grid.Row="1" Grid.Column="3" Grid.RowSpan="2" Classes="Card">
+        <Border Grid.Row="0" Grid.Column="3" Grid.RowSpan="3" Classes="Card">
             <StackPanel>
                 <TextBlock Classes="Header" Text="Some other shit"></TextBlock>
                 <TextBlock Classes="Body" Text="Lorem Ipsum"></TextBlock>

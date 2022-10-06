@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Net.NetworkInformation;
 
@@ -8,6 +9,27 @@ public class UserAdapter {
 
     public static IEnumerable<User> GetAllUsers(SqlConnection connection) =>
         Database.GetAll(connection, AllUsers, UserFromReader);
+    public static User GetUserById(SqlConnection connection, int Id)
+        {
+            using (connection)
+            {
+                connection.Open();
+                var cmd = new SqlCommand(UserById, connection);
+                cmd.Parameters.AddWithValue("@UserId", Id);
+                using (cmd)
+                {
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            reader.Read();
+                            return UserFromReader(reader);
+                        }
+                        throw new Exception("Couldn't find user " + Id);
+                    }
+                }
+            }
+        }
     public static IEnumerable<PrivateUser> GetPrivateUsers(SqlConnection connection) =>
         Database.GetAll(connection, PrivateUsersQuery, PrivateUserFromReader);
     
@@ -19,7 +41,8 @@ public class UserAdapter {
     public static string UsersCommon (string prefix = "Users") => $@"{prefix}.ID, {prefix}.UserName, {prefix}.ZipCode, {prefix}.Balance";
 
     public static string AllUsers = $@"SELECT {UsersCommon()} FROM Users";
-    public static string userbyid = $@"SELECT {UsersCommon()} FROM Users where ID = @UserId";
+    
+    public static string UserById = $@"SELECT {UsersCommon()} FROM Users where ID = @UserId";
     
     
     
@@ -31,16 +54,18 @@ FROM Users INNER JOIN PrivateUsers ON Users.ID = PrivateUsers.ID";
 SELECT {UsersCommon()}, CorporateUsers.CvrNumber, CorporateUsers.CreditScore
 FROM Users INNER JOIN CorporateUsers ON Users.ID = CorporateUsers.ID";
     #endregion
+    
+    
+    
+    // public static User UserFromReader(SqlDataReader reader) {
+    //     return UserFromReader(reader, "Users");
+    // }
 
     public static User UserFromReader(SqlDataReader reader) {
-        return UserFromReader(reader, "Users");
-    }
-
-    public static User UserFromReader(SqlDataReader reader, string prefix) {
         return new User(
-            (string) reader[$"{prefix}.UserName"],
-            (string) reader[$"{prefix}.ZipCode"],
-            (int) reader[$"{prefix}.Balance"]) { ID = (int) reader[$"{prefix}.ID"] };
+            (string) reader["UserName"],
+            (string) reader["ZipCode"],
+            (int) reader["Balance"]) { ID = (int) reader["ID"] };
     }
     
     public static PrivateUser PrivateUserFromReader(SqlDataReader reader) {

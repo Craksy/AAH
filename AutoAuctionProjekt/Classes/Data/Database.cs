@@ -31,70 +31,41 @@ public class Database
 	    conn = new SqlConnection(connectionString);
     }
 
-  //   public string DBLogIn(string userName, string passWord)
-  //   {
-  //
-  //       // const string connectionString = @"
-  //       //     Server=docker.data.techcollege.dk,20003;
-  //       //     Database=Auction_House;
-  //       //     User Id=sa;
-  //       //     Password=H2PD081122_Gruppe3;";
-  //       // conn = new SqlConnection(connectionString);
-  //
-	 //    try {
-		// 	var connectionString = @"
-  //           Server=docker.data.techcollege.dk,20003;
-  //           Database=Auction_House;
-  //           User Id=" + userName + "; " +
-	 //                           "Password= " + passWord + ";";
-	 //    conn = new SqlConnection(connectionString);
-	 //    conn.Open();
-	 //    } catch (Exception e) {
-		//     return $"Failed to connect to database: {e.Message}";
-	 //    }
-	 //    
-		// return "Connected with " + userName;
-  //   }
-
-    // public string GetLoggedInUser(string userName)
-    // {
-	   //  SqlCommand cmd = new(@"SELECT * FROM sys.server_principals
-	   //  						WHERE name = " + userName + ";"
-		  //   , conn);
-	   //  SqlDataReader reader = cmd.ExecuteReader();
-    //
-	   //  return reader["name"].ToString();
-    // }
-    
-    
-	public void DBLogIn(string userName, string passWord)
+    public string DBLogIn(string userName, string password)
     {
 	    try {
-			var connectionString = @"
+			var connectionString = $@"
             Server=docker.data.techcollege.dk,20003;
             Database=Auction_House;
-            User Id=" + userName + "; " +
-	                           "Password= " + passWord + ";";
+            User Id={userName};
+	        Password={password};";
 	    conn = new SqlConnection(connectionString);
+	    
 	    conn.Open();
+   
+	    Console.WriteLine(GetLoggedInUser(userName));
 	    } catch (Exception e) {
-		     Debug.WriteLine($"Failed to connect to database: {e.Message}");
-		     throw;
+		    return $"Failed to connect to database: {e.Message}";
 	    }
-    }    
-	
+	    return "Connected with " + userName;
+    }
 	public string GetLoggedInUser(string userName) {
-	    SqlCommand cmd = new(@"SELECT * FROM dbo.Users 
-	    						WHERE UserName = @userName"
+		SqlCommand cmd = new(@"SELECT * FROM sys.server_principals 
+	    						WHERE name = @userName"
 		    , conn);
 	    
 	    cmd.Parameters.AddWithValue("userName", userName);
 	    SqlDataReader reader = cmd.ExecuteReader();
 
-	    return reader["name"].ToString();
-    }
-	
-	    
+	    if (reader.HasRows)
+	    {
+		    while (reader.Read())
+		    {
+				return reader["name"].ToString();
+		    }
+	    }
+	    return "No user found.";
+	}
 	
     // Just a helper method to avoid code duplication. Doesn't really belong here though.
     // Perhaps Adapter should be in interface instead of passing a function as a parameter?
@@ -281,8 +252,6 @@ public class Database
 		{
 			Console.WriteLine("Couldn't find any busses.");
 		}
-
-
         return busses;
     }
     
@@ -369,10 +338,19 @@ public class Database
 	    }
 	    return "No users found.";
     }
+
+    public string GetUser(int id)
+    {
+	    return UserAdapter.GetUserById(conn, id).ToString();
+    }
     
     // Auctions
     public List<Auction> GetCurrentAuctions() {
 	    return AuctionAdapter.GetAuctions(conn).ToList();
+    }
+    
+    public List<Auction> GetYourAuctions(int id) {
+	    return AuctionAdapter.GetAuctions(conn, null, null, id, null).ToList();
     }
     
 }
