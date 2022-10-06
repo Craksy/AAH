@@ -17,8 +17,5 @@ public class DashboardViewModel : ReactiveObject {
     {
         CurrentAuctions = new AvaloniaList<Auction>();
         CurrentAuctions.AddRange(_db.GetCurrentAuctions());
-
-        YourAuctions = new AvaloniaList<Auction>();
-        // YourAuctions.AddRange(_db.GetYourAuctions());
     }
 }

@@ -38,8 +38,8 @@ public partial class LogInView : ReactiveUserControl<LogInViewModel>
         Debug.WriteLine("Attempting to log in...");
         try {
             _db.DBLogIn(ViewModel.userName, ViewModel.passWord);
-            ViewModel.LoginResult = "Wow, you're so great at logging in, that's so bare minimum of you " +
-                                ViewModel._loggedInTest;
+            ViewModel.LoginResult = "Wow, you're so great at logging in, that's so bare minimum of you@";
+            // ViewModel.CurrentUser = _db.GetLoggedInUser(ViewModel.userName);
             MainWin.IsLoggedIn = true;
             MainWin.RaisePropertyChanged(nameof(MainWin.IsLoggedIn));
         }

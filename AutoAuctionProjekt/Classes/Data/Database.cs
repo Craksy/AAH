@@ -33,10 +33,10 @@ public class Database
 	    conn = new SqlConnection(connectionString);
     }
     
-	public void DBLogIn(string userName, string passWord)
+	public void DBLogIn(string userName, string password)
     {
 	    try {
-			var connectionString = @"
+			var connectionString = $@"
             Server=docker.data.techcollege.dk,20003;
             Database=Auction_House;
             User Id={userName};
@@ -44,28 +44,36 @@ public class Database
 	    conn = new SqlConnection(connectionString);
 	    conn.Open();
    
-	    Console.WriteLine(GetLoggedInUser(userName));
+	    // Console.WriteLine(GetLoggedInUser(userName));
 	    } catch (Exception e) {
 		     Debug.WriteLine($"Failed to connect to database: {e.Message}");
 		     throw;
 	    }
     }    
 	
-	public string GetLoggedInUser(string userName) {
-		SqlCommand cmd = new(@"SELECT * FROM sys.server_principals 
-	    						WHERE name = @userName"
+	public User GetLoggedInUser(string userName) {
+		SqlCommand cmd = new(@"SELECT Users.Id,
+							    Users.UserName,
+							    Users.ZipCode,
+							    Users.Balance,
+							    sys.server_principals.name
+							    FROM Users
+							    LEFT JOIN sys.server_principals ON Users.UserName = sys.server_principals.name
+								WHERE UserName = @userName"
 		    , conn);
-	    cmd.Parameters.AddWithValue("userName", userName);
+	    cmd.Parameters.AddWithValue("@userName", userName);
 	    SqlDataReader reader = cmd.ExecuteReader();
 
 		if (reader.HasRows)
 		{
 			while (reader.Read())
 			{
-				return reader["name"].ToString();
+				return new User(reader["UserName"].ToString()!, 
+					reader["ZipCode"].ToString()!, 
+					decimal.Parse(reader["Balance"].ToString()!));
 			}
 		}
-		return "No user found.";
+		return null;
 	}
 
 
