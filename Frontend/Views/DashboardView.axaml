@@ -2,8 +2,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:Frontend.ViewModels"
+             xmlns:classes="clr-namespace:AutoAuctionProjekt.Classes;assembly=AutoAuctionProjekt"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Frontend.Views.DashboardView">
+    
+    
+    
     <UserControl.Resources>
         <ResourceDictionary>
             <RadialGradientBrush x:Key="CardGrad" Center="50%,50%" GradientOrigin="100%,0%" Radius="1.05">
@@ -65,7 +70,8 @@
                 <TextBlock Classes="Header" Text="Current Auctions"></TextBlock>
                 <DataGrid Classes="Body" AutoGenerateColumns="True" Items="{Binding CurrentAuctions}">
                 </DataGrid>
-                
+                <!-- <classes:Dash UserName="{Binding CurrentAuctions}" /> -->
+
                 <TextBlock Classes="Body" TextWrapping="Wrap" TextAlignment="Left" />
                 <TextBlock Text="{Binding Test}" />
                     <!-- <TextBlock.Text> -->

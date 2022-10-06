@@ -14,6 +14,16 @@
         TransparencyLevelHint="AcrylicBlur"
         ExtendClientAreaToDecorationsHint="True"
         Background="Transparent">
+    
+    <Window.ContentTemplate>
+        <DataTemplate>
+            <StackPanel>
+                <Grid ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto">
+                    <TextBlock Text="{Binding Username}" />
+                </Grid>
+            </StackPanel>
+        </DataTemplate>
+    </Window.ContentTemplate>
 
     <Design.DataContext>
         <vm:MainWindowViewModel />
