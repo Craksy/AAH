@@ -10,7 +10,7 @@ public class ProfileViewModel : ReactiveObject {
 
     public ProfileViewModel() {
         _db = Database.Instance;
-        Auctions = new AvaloniaList<Auction>();
-        Auctions.AddRange(_db.GetCurrentAuctions());
+        // Auctions = new AvaloniaList<Auction>();
+        // Auctions.AddRange(_db.GetCurrentAuctions());
     }
 }

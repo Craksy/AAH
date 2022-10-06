@@ -95,25 +95,28 @@ public class Database
 	    return reader["name"].ToString();
     }
 
-	public User? CreateUser(string Username, string Password, string ZipCode, string RegistrationNumber, UserType userType) {
+	public User CreateUser(string Username, string Password, string ZipCode, string RegistrationNumber, UserType userType) {
 		using (conn) {
 			conn.Open();
-			var cmd = new SqlCommand("CreateUser", conn);
+			var cmd = new SqlCommand("CreateAuctionUser", conn);
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.Parameters.AddWithValue("Username", Username);
 			cmd.Parameters.AddWithValue("Password", Password);
 			cmd.Parameters.AddWithValue("ZipCode", ZipCode);
 			cmd.Parameters.AddWithValue(userType == UserType.PrivateUser ? "CprNumber" : "CvrNumber", RegistrationNumber);
-			cmd.Parameters.Add("UserId", SqlDbType.Variant).Direction = ParameterDirection.Output;
-			using (cmd) {
-				cmd.ExecuteNonQuery();
-				if(cmd.Parameters["UserId"].Value is not null)
+			using (cmd)
+			{
+				using (var reader = cmd.ExecuteReader())
 				{
+					if (!reader.HasRows) throw new Exception("Failed to create user");
+					reader.Read();
+					return userType == UserType.PrivateUser 
+						? UserAdapter.PrivateUserFromReader(reader) 
+						: UserAdapter.CorporateUserFromReader(reader);
+
 				}
 			}
 		}
-
-		return null;
 	}
 	    
 	
