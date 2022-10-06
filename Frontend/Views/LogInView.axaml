@@ -3,8 +3,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:Frontend.ViewModels"
              x:Class="Frontend.Views.LogInView">
     
+    <Design.DataContext>
+        <vm:LogInViewModel/>
+    </Design.DataContext>
         <StackPanel Width="300">
         <TextBlock Text="Login"></TextBlock>
         <TextBox Margin="0 10" Padding="5"
@@ -23,16 +27,12 @@
                             Margin="0 0 10 0"
                             HorizontalAlignment="Stretch"
                             Click="LoginButton_OnClick">Login</Button>
-                    <Button Grid.Column="1" 
-                            Name="CreateButton" 
-                            Command="{Binding _test2}">Create new user</Button>
+                    <Button Grid.Column="1" Click="BypassLogin_Click">Fuck that shit just let me in </Button>
                 </Grid>
-                <Button Click="BypassLogin_Click">Fuck that shit just let me in </Button>
+            </StackPanel>
+            <TextBlock Classes="LoginResultText"
+                       Text="Result:"/>
+            <TextBlock Text="{Binding LoginResult}"
+                       TextWrapping="Wrap"/>
         </StackPanel>
-        <TextBlock Classes="LoginResultText"
-                   Text="Result:"/>
-        <TextBlock Text="{Binding LoginResult}"
-                   TextWrapping="Wrap"/>
-        
-    </StackPanel>
 </UserControl>

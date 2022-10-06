@@ -49,7 +49,7 @@ public partial class LogInView : ReactiveUserControl<LogInViewModel>
         }
         finally {
             Debug.WriteLine("Login attempt finished");
-            ViewModel.RaisePropertyChanged(nameof(ViewModel.LoginResult));
+            ViewModel?.RaisePropertyChanged(nameof(ViewModel.LoginResult));
         }
         
         // update viewmodel LoginResult
@@ -57,14 +57,6 @@ public partial class LogInView : ReactiveUserControl<LogInViewModel>
     }
 
     private void BypassLogin_Click(object? sender, RoutedEventArgs e) {
-
-        try {
-            _db.DBLogIn(ViewModel.userName, ViewModel.passWord);
-        }
-        catch {
-            // ignored
-        }
-
         ViewModel.LoginResult = "Wow, you're so great at logging in, that's so bare minimum of you " +
                                 ViewModel._loggedInTest;
         MainWin.IsLoggedIn = true;

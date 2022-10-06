@@ -9,5 +9,6 @@
     <Application.Styles>
         <FluentTheme Mode="Dark"/>
         <StyleInclude Source="avares://MaterialDesign.Avalonia.PackIcon/Assets/Generic.xaml"/> 
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Default.xaml"/>
     </Application.Styles>
 </Application>

@@ -19,6 +19,8 @@ public class Database
     /// Instance of the Database singleton
     /// </summary>
     public static Database Instance => _instance ??= new Database();
+    
+    private User? CurrentUser { get; set; }
 
     private Database()
     {
@@ -30,6 +32,7 @@ public class Database
 			MultipleActiveResultSets=True;";
 	    conn = new SqlConnection(connectionString);
     }
+    
 
   //   public string DBLogIn(string userName, string passWord)
   //   {
@@ -70,11 +73,10 @@ public class Database
 	public void DBLogIn(string userName, string passWord)
     {
 	    try {
-			var connectionString = @"
+			var connectionString = $@"
             Server=docker.data.techcollege.dk,20003;
             Database=Auction_House;
-            User Id=" + userName + "; " +
-	                           "Password= " + passWord + ";";
+            User Id={userName}; Password={passWord};";
 	    conn = new SqlConnection(connectionString);
 	    conn.Open();
 	    } catch (Exception e) {
@@ -87,13 +89,32 @@ public class Database
 	    SqlCommand cmd = new(@"SELECT * FROM dbo.Users 
 	    						WHERE UserName = @userName"
 		    , conn);
-	    
 	    cmd.Parameters.AddWithValue("userName", userName);
 	    SqlDataReader reader = cmd.ExecuteReader();
 
 	    return reader["name"].ToString();
     }
-	
+
+	public User? CreateUser(string Username, string Password, string ZipCode, string RegistrationNumber, UserType userType) {
+		using (conn) {
+			conn.Open();
+			var cmd = new SqlCommand("CreateUser", conn);
+			cmd.CommandType = CommandType.StoredProcedure;
+			cmd.Parameters.AddWithValue("Username", Username);
+			cmd.Parameters.AddWithValue("Password", Password);
+			cmd.Parameters.AddWithValue("ZipCode", ZipCode);
+			cmd.Parameters.AddWithValue(userType == UserType.PrivateUser ? "CprNumber" : "CvrNumber", RegistrationNumber);
+			cmd.Parameters.Add("UserId", SqlDbType.Variant).Direction = ParameterDirection.Output;
+			using (cmd) {
+				cmd.ExecuteNonQuery();
+				if(cmd.Parameters["UserId"].Value is not null)
+				{
+				}
+			}
+		}
+
+		return null;
+	}
 	    
 	
     // Just a helper method to avoid code duplication. Doesn't really belong here though.

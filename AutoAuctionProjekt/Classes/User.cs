@@ -5,6 +5,13 @@ using System.Security.Cryptography;
 
 namespace AutoAuctionProjekt.Classes
 {
+    
+public enum UserType
+{
+    PrivateUser,
+    CorporateUser
+}
+
 /*
  * Domæne model
 interface polymorfi via interface

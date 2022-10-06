@@ -15,7 +15,7 @@ GO;
 ------------------------------------------------
 -- Create a role for the auction users ---------
 ------------------------------------------------
-IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = N'AuctionUser')
+IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = 'AuctionUser')
     BEGIN
     CREATE ROLE AuctionUser;
     GRANT ALTER ON DATABASE::Auction_House TO AuctionUser;

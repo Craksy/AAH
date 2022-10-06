@@ -24,6 +24,7 @@ namespace AutoAuctionProjekt
             //                                + "\nYear: " + privateCar2.Year);
 
             var auctions = db.GetCurrentAuctions();
+            
             foreach (var auction in auctions)
             {
                 Console.WriteLine(auction);
