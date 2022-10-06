@@ -2,7 +2,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:Frontend.ViewModels"
+             xmlns:classes="clr-namespace:AutoAuctionProjekt.Classes;assembly=AutoAuctionProjekt"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vehicles="clr-namespace:AutoAuctionProjekt.Classes.Vehicles;assembly=AutoAuctionProjekt"
+             xmlns:model="clr-namespace:AutoAuctionProjekt.Classes;assembly=AutoAuctionProjekt"
              x:Class="Frontend.Views.DashboardView">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -28,12 +32,12 @@
         </Style>
         <Style Selector=".Card TextBlock.Body">
             <Setter Property="TextAlignment" Value="Left" />
-            <Setter Property="FontSize" Value="11"></Setter>
+            <Setter Property="FontSize" Value="13"></Setter>
             <Setter Property="Foreground" Value="#FAF0C0"></Setter>
-            <Setter Property="Margin" Value="25,15"></Setter>
+            <Setter Property="Margin" Value="5,15"></Setter>
         </Style>
     </UserControl.Styles>
-    <Grid RowDefinitions="100, *, 150" ColumnDefinitions="* * * *">
+    <Grid RowDefinitions="100, *, 300" ColumnDefinitions="* * * *">
         <Border Grid.Column="0" Classes="Card">
             <StackPanel>
                 <TextBlock Classes="Header" Text="Earnings"></TextBlock>
@@ -58,33 +62,46 @@
                 <TextBlock Classes="Body" Text="Lorem Ipsum"></TextBlock>
             </StackPanel>
         </Border>
-        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Classes="Card">
+        
+        <!-- CURRENT AUCTIONS -->
+        <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Classes="Card">
             <StackPanel>
                 <TextBlock Classes="Header" Text="Current Auctions"></TextBlock>
-                
-                <TextBlock Classes="Body" TextWrapping="Wrap" TextAlignment="Left" />
-                <TextBlock Text="{Binding Test}" />
-                    <!-- <TextBlock.Text> -->
-                    <!--     Et autem sit dignissimos maxime explicabo non eaque. Consequatur nam expedita repellendus tempora et voluptates. Dolor et doloribus amet. Velit fuga exercitationem doloremque iure perspiciatis magnam dolorum. Laboriosam fugiat inventore autem ipsa. Consequatur alias in odit voluptatum unde. -->
-                    <!-- </TextBlock.Text> -->
-                
-                <!-- <TextBlock Classes="Body" TextWrapping="Wrap" TextAlignment="Left"> -->
-                <!--     <TextBlock.Text> -->
-                <!--         Magni est doloremque aspernatur eum. Amet perferendis aperiam cupiditate similique. Ratione ut rerum molestias. Eos impedit enim rem ea. Numquam distinctio odit est repellendus recusandae. -->
-                <!--     </TextBlock.Text> -->
-                <!-- </TextBlock> -->
-            </StackPanel>
-        </Border>
-        <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Classes="Card">
-            <StackPanel>
-                <TextBlock Classes="Header" Text="Some other shit"></TextBlock>
-                <TextBlock Classes="Body" Text="Lorem Ipsum"></TextBlock>
-            </StackPanel>
-        </Border>
-        <Border Grid.Row="2" Grid.Column="0" Classes="Card">
-            <StackPanel>
-                <TextBlock Classes="Header" Text="Some other shit"></TextBlock>
-                <TextBlock Classes="Body" Text="Lorem Ipsum"></TextBlock>
+                <DataGrid AutoGenerateColumns="False" Items="{Binding CurrentAuctions}">
+                    <DataGrid.Columns>
+                        <!-- One fucking column -->                
+                        <DataGridTemplateColumn Width="125" Header="Vehicle">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate DataType="model:Auction">
+                                    <!--note that the DataContext is no longer the ViewModel. you bind to the current rows Auction Item -->                            
+                                    <TextBlock Classes="Body" TextWrapping="Wrap" Text="{Binding Vehicle.Name}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>                
+                        <!-- like wtf -->                
+                        <DataGridTemplateColumn Width="75" Header="User">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate DataType="model:Auction">
+                                    <StackPanel>
+                                        <!-- you can put whatever you want in here.-->                                
+                                        <TextBlock Classes="Body" TextWrapping="Wrap" Text="{Binding Seller.UserName}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>                
+                        <!-- For simple fields you can use a TextColumn instead: -->                
+                        <DataGridTemplateColumn Width="150" Header="Minimum Price">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate DataType="model:Auction">
+                                    <StackPanel>
+                                        <!-- you can put whatever you want in here.-->                                
+                                        <TextBlock Classes="Body" Text="{Binding MinimumPrice}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>  
+                    </DataGrid.Columns>
+                </DataGrid>
             </StackPanel>
         </Border>
         <Border Grid.Row="1" Grid.Column="3" Grid.RowSpan="2" Classes="Card">

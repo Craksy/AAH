@@ -1,26 +1,20 @@
-﻿using System.Net.Mime;
+﻿using AutoAuctionProjekt.Classes;
 using AutoAuctionProjekt.Classes.Data;
-using AutoAuctionProjekt.Classes.Vehicles;
-using Frontend.Views;
+using Avalonia.Collections;
 using ReactiveUI;
-using SkiaSharp;
 
 namespace Frontend.ViewModels; 
 
-public class DashboardViewModel : ReactiveObject{
+    // public record TestAuction(Vehicle vehicle, ISeller seller, decimal minimumPrice);
+public class DashboardViewModel : ReactiveObject {
+    public IScreen HostScreen { get; }
+    public string? UrlPathSegment { get; } = "Dashboard";
     static Database _db = Database.Instance;
-    static string _str = _db.GetCar();
-    
-    public string Test
-    {
-        get => _str;
-        set
-        {
-            _str = value;
-        }
-    }
+    public AvaloniaList<Auction> CurrentAuctions { get; set; }
 
     public DashboardViewModel()
     {
+        CurrentAuctions = new AvaloniaList<Auction>();
+        CurrentAuctions.AddRange(_db.GetCurrentAuctions());
     }
 }
