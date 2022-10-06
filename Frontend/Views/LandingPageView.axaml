@@ -1,0 +1,22 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="clr-namespace:Frontend.Views"
+             xmlns:vm="clr-namespace:Frontend.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Frontend.Views.LandingPageView">
+    <Design.DataContext>
+        <vm:LandingPageViewModel />
+    </Design.DataContext>
+    <StackPanel>
+    <Carousel SelectedIndex="{Binding CarouselIndex}">
+        <Carousel.PageTransition>
+            <PageSlide Duration="0:0:0.2"/>
+        </Carousel.PageTransition>
+        <vm:LogInViewModel/>
+        <vm:CreateUserViewModel/>
+    </Carousel>
+        <Button Command="{Binding NextCommand}" Content="{Binding NextButtonText}"/>
+    </StackPanel>
+</UserControl>

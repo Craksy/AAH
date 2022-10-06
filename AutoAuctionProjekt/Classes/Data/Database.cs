@@ -19,6 +19,8 @@ public class Database
     /// Instance of the Database singleton
     /// </summary>
     public static Database Instance => _instance ??= new Database();
+    
+    private User? CurrentUser { get; set; }
 
     private Database()
     {
@@ -30,43 +32,68 @@ public class Database
 			MultipleActiveResultSets=True;";
 	    conn = new SqlConnection(connectionString);
     }
-
-    public string DBLogIn(string userName, string password)
+    
+	public void DBLogIn(string userName, string passWord)
     {
 	    try {
-			var connectionString = $@"
+			var connectionString = @"
             Server=docker.data.techcollege.dk,20003;
             Database=Auction_House;
             User Id={userName};
 	        Password={password};";
 	    conn = new SqlConnection(connectionString);
-	    
 	    conn.Open();
    
 	    Console.WriteLine(GetLoggedInUser(userName));
 	    } catch (Exception e) {
-		    return $"Failed to connect to database: {e.Message}";
+		     Debug.WriteLine($"Failed to connect to database: {e.Message}");
+		     throw;
 	    }
-	    return "Connected with " + userName;
-    }
+    }    
+	
 	public string GetLoggedInUser(string userName) {
 		SqlCommand cmd = new(@"SELECT * FROM sys.server_principals 
 	    						WHERE name = @userName"
 		    , conn);
-	    
 	    cmd.Parameters.AddWithValue("userName", userName);
 	    SqlDataReader reader = cmd.ExecuteReader();
 
-	    if (reader.HasRows)
-	    {
-		    while (reader.Read())
-		    {
+		if (reader.HasRows)
+		{
+			while (reader.Read())
+			{
 				return reader["name"].ToString();
-		    }
-	    }
-	    return "No user found.";
+			}
+		}
+		return "No user found.";
 	}
-	
+
+
+	public User CreateUser(string Username, string Password, string ZipCode, string RegistrationNumber, UserType userType) {
+		using (conn) {
+			conn.Open();
+			var cmd = new SqlCommand("CreateAuctionUser", conn);
+			cmd.CommandType = CommandType.StoredProcedure;
+			cmd.Parameters.AddWithValue("Username", Username);
+			cmd.Parameters.AddWithValue("Password", Password);
+			cmd.Parameters.AddWithValue("ZipCode", ZipCode);
+			cmd.Parameters.AddWithValue(userType == UserType.PrivateUser ? "CprNumber" : "CvrNumber", RegistrationNumber);
+			using (cmd)
+			{
+				using (var reader = cmd.ExecuteReader())
+				{
+					if (!reader.HasRows) throw new Exception("Failed to create user");
+					reader.Read();
+					return userType == UserType.PrivateUser 
+						? UserAdapter.PrivateUserFromReader(reader) 
+						: UserAdapter.CorporateUserFromReader(reader);
+
+				}
+			}
+		}
+	}
+	    
+	    
     // Just a helper method to avoid code duplication. Doesn't really belong here though.
     // Perhaps Adapter should be in interface instead of passing a function as a parameter?
     public static IEnumerable<T> GetAll<T>(SqlConnection connection, string query, Func<SqlDataReader, T> readerMethod) {

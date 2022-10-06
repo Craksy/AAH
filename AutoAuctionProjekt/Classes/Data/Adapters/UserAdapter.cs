@@ -36,7 +36,6 @@ public class UserAdapter {
     public static IEnumerable<CorporateUser> GetCorporateUsers(SqlConnection connection) =>
         Database.GetAll(connection, PrivateUsersQuery, CorporateUserFromReader);
 
-    
     #region SQL Queries
     public static string UsersCommon (string prefix = "Users") => $@"{prefix}.ID, {prefix}.UserName, {prefix}.ZipCode, {prefix}.Balance";
 

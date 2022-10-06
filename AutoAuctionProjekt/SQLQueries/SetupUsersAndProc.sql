@@ -15,7 +15,7 @@ GO;
 ------------------------------------------------
 -- Create a role for the auction users ---------
 ------------------------------------------------
-IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = N'AuctionUser')
+IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = 'AuctionUser')
     BEGIN
     CREATE ROLE AuctionUser;
     GRANT ALTER ON DATABASE::Auction_House TO AuctionUser;
@@ -36,11 +36,11 @@ CREATE PROCEDURE CreateAuctionUser(
     @Password nvarchar(50),
     @ZipCode nvarchar(10),
     @CprNumber nvarchar(11) = NULL,
-    @CvrNumber nvarchar(11) = NULL,
-    @Id int OUTPUT)
+    @CvrNumber nvarchar(11) = NULL)
 AS
 BEGIN;
     DECLARE @Sql nvarchar(1000);
+    DECLARE @UserId int;
     -- Apparently, you can't use parameters in a CREATE USER statement
     -- so we have to build the statement dynamically.
     -- Ideally, we would sanitize the input parameters here, as this script would be vulnerable to SQL injection; 
@@ -54,14 +54,26 @@ BEGIN;
                 'EXEC sp_addrolemember ''AuctionUser'', ''' + @UserName + ''';';
     EXEC sp_executesql @Sql;
     INSERT INTO Users (UserName, ZipCode, Balance) VALUES (@UserName, @ZipCode, 0);
+    SET @UserId = SCOPE_IDENTITY();
     IF(@CprNumber IS NOT NULL)
         BEGIN
-            INSERT INTO PrivateUsers (Id, CprNumber) VALUES (SCOPE_IDENTITY(), @CprNumber);
+            INSERT INTO PrivateUsers (Id, CprNumber) VALUES (@UserId, @CprNumber);
+            SELECT Users.Id, Users.UserName, Users.ZipCode, Users.Balance, 
+                   PrivateUsers.CprNumber 
+            FROM Users 
+                JOIN PrivateUsers ON Users.Id = PrivateUsers.Id
+            WHERE Users.Id = @UserId;
         end
     ELSE IF(@CvrNumber IS NOT NULL)
         BEGIN
-            INSERT INTO CorporateUsers (Id, CvrNumber, CreditScore) VALUES (SCOPE_IDENTITY(), @CvrNumber, 0);
+            INSERT INTO CorporateUsers (Id, CvrNumber, CreditScore) VALUES (@UserId, @CvrNumber, 0);
+            SELECT Users.Id, Users.UserName, Users.ZipCode, Users.Balance,
+                   CorporateUsers.CvrNumber,
+                    CorporateUsers.CreditScore
+            FROM Users
+                     JOIN CorporateUsers ON Users.Id = CorporateUsers.Id
+            WHERE Users.Id = @UserId;
         end
         
-    SET @Id = SCOPE_IDENTITY();
+    RETURN;
 END;

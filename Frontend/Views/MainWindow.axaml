@@ -64,7 +64,7 @@
 
             <!-- Content Area -->
             <Border Classes="ContentArea" Name="ContentArea" Grid.Column="1" Grid.Row="1">
-                <ContentControl Content="{Binding SelectedTab.Page}" />
+                <ContentControl Content="{Binding CurrentPage}" />
             </Border>
         </Grid>
     </Border>
