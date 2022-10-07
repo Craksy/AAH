@@ -16,13 +16,17 @@ GO;
 -- Create a role for the auction users ---------
 ------------------------------------------------
 IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = 'AuctionUser')
-    BEGIN
+BEGIN
     CREATE ROLE AuctionUser;
     GRANT ALTER ON DATABASE::Auction_House TO AuctionUser;
     GRANT SELECT ON DATABASE::Auction_House TO AuctionUser;
     GRANT INSERT ON DATABASE::Auction_House TO AuctionUser;
     GRANT UPDATE ON DATABASE::Auction_House TO AuctionUser;
     GRANT DELETE ON DATABASE::Auction_House TO AuctionUser;
+    
+    GRANT EXECUTE ON OBJECT::GetAuctionItems TO AuctionUser;
+    GRANT EXECUTE ON OBJECT::CreateAuction TO AuctionUser;
+    GRANT EXECUTE ON OBJECT::UpdateAuction TO AuctionUser;
 END
 GO;
 
