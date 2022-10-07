@@ -15,11 +15,6 @@ public class LogInViewModel : ViewModelBase
     public string passWord { get; set; } = "";
     public string LoginResult { get; set; }
 
-    // public bool LoggedInTest
-    // {
-    //     get => _loggedInTest;
-    //     set => this.RaiseAndSetIfChanged(ref _loggedInTest, value);
-    // }
     public LogInViewModel() {
     }
 }

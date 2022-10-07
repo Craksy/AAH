@@ -7,8 +7,6 @@ namespace Frontend.ViewModels;
 
     // public record TestAuction(Vehicle vehicle, ISeller seller, decimal minimumPrice);
 public class DashboardViewModel : ReactiveObject {
-    public IScreen HostScreen { get; }
-    public string? UrlPathSegment { get; } = "Dashboard";
     static Database _db = Database.Instance;
     public AvaloniaList<Auction> CurrentAuctions { get; set; }
 

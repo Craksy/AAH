@@ -145,7 +145,7 @@ public class Vehicle {
     public EnergyClassEnum EnergyClass
     {
         get => _energyClassEnum;
-        private set => _energyClassEnum = GetEnergyClass();
+        private set => _energyClassEnum = value;
     }
         
     /// <summary>

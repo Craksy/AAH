@@ -1,13 +1,6 @@
-using System;
-using System.Diagnostics;
-using System.Reactive;
 using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Controls.Mixins;
-using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 using Avalonia.Input;
-using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using Frontend.ViewModels;

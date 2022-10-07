@@ -1,14 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Drawing;
-using System.Reactive;
-using Avalonia;
-using Avalonia.Controls.Primitives;
-using DynamicData.Binding;
-using Frontend.Views;
 using MaterialDesign.Avalonia.PackIcon;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using ReactiveUI;
 
 namespace Frontend.ViewModels;
