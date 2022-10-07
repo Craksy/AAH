@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using Avalonia;
-using Avalonia.Controls;
+﻿using AutoAuctionProjekt.Classes.Data;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using Frontend.ViewModels;
@@ -14,7 +12,12 @@ public partial class DashboardView : ReactiveUserControl<DashboardViewModel> {
     }
 
     private void InitializeComponent() {
-        this.WhenActivated(disposables => { });
+        this.WhenActivated(disposables => {
+            ViewModel.CurrentUser = Database.Instance.CurrentUser;
+            ViewModel.YourAuctions.Clear();
+            ViewModel.YourAuctions.AddRange(Database.Instance.GetYourAuctions());
+            ViewModel.RaisePropertyChanged();
+        });
         AvaloniaXamlLoader.Load(this);
     }
 }

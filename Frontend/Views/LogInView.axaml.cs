@@ -1,11 +1,5 @@
-using System;
-using System.Diagnostics;
 using AutoAuctionProjekt.Classes.Data;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Data;
 using Avalonia.Interactivity;
-using Avalonia.Logging;
 using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
@@ -16,8 +10,6 @@ namespace Frontend.Views;
 
 public partial class LogInView : ReactiveUserControl<LogInViewModel>
 {
-    static Database _db = Database.Instance;
-
     private MainWindowViewModel MainWin;
 
     public LogInView()
@@ -35,30 +27,17 @@ public partial class LogInView : ReactiveUserControl<LogInViewModel>
 
     private void LoginButton_OnClick(object? sender, RoutedEventArgs e)
     {
-        Debug.WriteLine("Attempting to log in...");
-        try {
-            _db.DBLogIn(ViewModel.userName, ViewModel.passWord);
+        if (Database.Instance.DBLogIn(ViewModel.userName, ViewModel.passWord)) {
             ViewModel.LoginResult = "Wow, you're so great at logging in, that's so bare minimum of you@";
-            // ViewModel.CurrentUser = _db.GetLoggedInUser(ViewModel.userName);
             MainWin.IsLoggedIn = true;
             MainWin.RaisePropertyChanged(nameof(MainWin.IsLoggedIn));
         }
-        catch (Exception err) {
-            Debug.WriteLine("Error: " + err.Message);
-            ViewModel.LoginResult = "Wow, well done not logging in " + err;
-        }
-        finally {
-            Debug.WriteLine("Login attempt finished");
-            ViewModel?.RaisePropertyChanged(nameof(ViewModel.LoginResult));
-        }
-        
-        // update viewmodel LoginResult
-        // model.CurrentUser!.UserName = model.userName;
+        else
+            ViewModel.LoginResult = "Wow, well done not logging in";
+        ViewModel?.RaisePropertyChanged(nameof(ViewModel.LoginResult));
     }
 
     private void BypassLogin_Click(object? sender, RoutedEventArgs e) {
-        ViewModel.LoginResult = "Wow, you're so great at logging in, that's so bare minimum of you " +
-                                ViewModel._loggedInTest;
         MainWin.IsLoggedIn = true;
         MainWin.RaisePropertyChanged(nameof(MainWin.IsLoggedIn));
     }

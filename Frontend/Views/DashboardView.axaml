@@ -2,12 +2,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="clr-namespace:Frontend.ViewModels"
-             xmlns:classes="clr-namespace:AutoAuctionProjekt.Classes;assembly=AutoAuctionProjekt"
+             xmlns:vm="clr-namespace:Frontend.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             xmlns:vehicles="clr-namespace:AutoAuctionProjekt.Classes.Vehicles;assembly=AutoAuctionProjekt"
              xmlns:model="clr-namespace:AutoAuctionProjekt.Classes;assembly=AutoAuctionProjekt"
              x:Class="Frontend.Views.DashboardView">
+    <Design.DataContext>
+        <vm:DashboardViewModel/>
+    </Design.DataContext>
     <UserControl.Resources>
         <ResourceDictionary>
             <RadialGradientBrush x:Key="CardGrad" Center="50%,50%" GradientOrigin="100%,0%" Radius="1.05">
@@ -88,10 +89,19 @@
                 </DataGrid>
             </StackPanel>
         </Border>
+            
+        <!-- YOUR BIDS -->
         <Border Grid.Row="0" Grid.Column="3" Grid.RowSpan="3" Classes="Card">
             <StackPanel>
-                <TextBlock Classes="Header" Text="Some other shit"></TextBlock>
-                <TextBlock Classes="Body" Text="Lorem Ipsum"></TextBlock>
+                <TextBlock Classes="Header" Text="{Binding CurrentUser.UserName}"/>
+                <StackPanel Orientation="Horizontal">
+                    <Label Target="{Binding ElementName=BalanceTxt}">Balance</Label>
+                    <TextBlock Name="BalanceTxt" Classes="Body" Text="{Binding CurrentUser.Balance}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Target="{Binding ElementName=AuctionCountTxt}">Balance</Label>
+                    <TextBlock Name="AuctionCountTxt" Classes="Body" Text="{Binding YourAuctions.Count}"/>
+                </StackPanel>
             </StackPanel>
         </Border>
     </Grid>

@@ -42,6 +42,7 @@
                                Text="{Binding SelectedTab.Title}"
                                HorizontalAlignment="Left">
                     </TextBlock>
+                    <TextBlock Text="{Binding CurrentUser.UserName}"/>
                 </StackPanel>
             </Border>
 

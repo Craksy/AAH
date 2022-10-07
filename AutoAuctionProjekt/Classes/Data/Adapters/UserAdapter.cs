@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Net.NetworkInformation;
 
 namespace AutoAuctionProjekt.Classes.Data.Adapters; 
 

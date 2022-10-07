@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Reactive;
+﻿using System.Reactive;
 using ReactiveUI;
 
 namespace Frontend.ViewModels; 

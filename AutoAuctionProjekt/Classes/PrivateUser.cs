@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AutoAuctionProjekt.Classes
+﻿namespace AutoAuctionProjekt.Classes
 {
     public class PrivateUser : User
     {

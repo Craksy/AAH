@@ -1,4 +1,3 @@
-using System;
 using Xunit;
 using AutoAuctionProjekt.Classes;
 using AutoAuctionProjekt.Classes.Vehicles;

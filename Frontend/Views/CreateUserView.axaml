@@ -32,13 +32,13 @@
         <TextBox Padding="5"
                  Margin="0 10"
                  Watermark="ZipCode"
-                 Name="CVRBox"
+                 Name="ZipCodeBox"
                  Text="{Binding ZipCode}"/>
         <TextBox Padding="5"
                  Margin="0 10"
-                 Watermark="CPRNumber"
-                 Name="ZipCodeBox"
-                 Text="{Binding RegistrationNumberName}"/>
+                 Watermark="{Binding RegistrationNumberName}"
+                 Name="CVRBox"
+                 Text="{Binding RegistrationNumber}"/>
         
         <Button Name="SubmitButton" Margin="0 0 10 0" 
                 HorizontalAlignment="Right" Command="{Binding CreateUserCommand}">Sign Up</Button>

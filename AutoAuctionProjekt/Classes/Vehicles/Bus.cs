@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AutoAuctionProjekt.Classes.Vehicles
+﻿namespace AutoAuctionProjekt.Classes.Vehicles
 {
     public class Bus : HeavyVehicle
     {

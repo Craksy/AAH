@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Reactive;
 using AutoAuctionProjekt.Classes;
 using AutoAuctionProjekt.Classes.Data;
-using Avalonia;
 using Avalonia.Collections;
 using ReactiveUI;
 
@@ -65,7 +64,6 @@ public class CreateUserViewModel : ReactiveObject {
                 ZipCode = "";
                 RegistrationNumber = "";
                 CreationResult = "User created successfully";
-                
             }catch (Exception e)
             {
                 Debug.WriteLine("Error creating user: " + e.Message);

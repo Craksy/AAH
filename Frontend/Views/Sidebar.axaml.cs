@@ -1,18 +1,11 @@
 ﻿using System.Collections;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls;
-using Avalonia.Controls.Mixins;
-using Avalonia.Controls.Presenters;
-using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using Avalonia.ReactiveUI;
-using Frontend.ViewModels;
-using ReactiveUI;
 using TabItem = Frontend.ViewModels.TabItem;
 
 namespace Frontend.Views;

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AutoAuctionProjekt.Classes.Vehicles
+﻿namespace AutoAuctionProjekt.Classes.Vehicles
 {
     public class Truck : HeavyVehicle
     {

@@ -1,9 +1,4 @@
-using System.ComponentModel;
 using AutoAuctionProjekt.Classes;
-using Avalonia.Collections;
-using Frontend.Views;
-using MaterialDesign.Avalonia.PackIcon;
-using ReactiveUI;
 
 namespace Frontend.ViewModels;
 

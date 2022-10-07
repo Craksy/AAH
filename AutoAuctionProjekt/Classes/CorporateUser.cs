@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AutoAuctionProjekt.Classes
+﻿namespace AutoAuctionProjekt.Classes
 {
     
     /// <summary>
